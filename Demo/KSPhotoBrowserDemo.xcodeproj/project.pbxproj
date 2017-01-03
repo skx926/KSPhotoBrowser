@@ -1,0 +1,326 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		27B963971E1BACE600F32BAE /* KSDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27B963941E1BACE600F32BAE /* KSDemoViewController.m */; };
+		27B963981E1BACE600F32BAE /* KSPreviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27B963961E1BACE600F32BAE /* KSPreviewViewController.m */; };
+		27F977221E1B933C00AFB315 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 27F977211E1B933C00AFB315 /* main.m */; };
+		27F977251E1B933C00AFB315 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 27F977241E1B933C00AFB315 /* AppDelegate.m */; };
+		27F9772B1E1B933C00AFB315 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 27F977291E1B933C00AFB315 /* Main.storyboard */; };
+		27F9772D1E1B933C00AFB315 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 27F9772C1E1B933C00AFB315 /* Assets.xcassets */; };
+		27F977301E1B933C00AFB315 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 27F9772E1E1B933C00AFB315 /* LaunchScreen.storyboard */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		27B963931E1BACE600F32BAE /* KSDemoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSDemoViewController.h; sourceTree = "<group>"; };
+		27B963941E1BACE600F32BAE /* KSDemoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSDemoViewController.m; sourceTree = "<group>"; };
+		27B963951E1BACE600F32BAE /* KSPreviewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSPreviewViewController.h; sourceTree = "<group>"; };
+		27B963961E1BACE600F32BAE /* KSPreviewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSPreviewViewController.m; sourceTree = "<group>"; };
+		27F9771D1E1B933C00AFB315 /* KSPhotoBrowserDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KSPhotoBrowserDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		27F977211E1B933C00AFB315 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		27F977231E1B933C00AFB315 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		27F977241E1B933C00AFB315 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		27F9772A1E1B933C00AFB315 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		27F9772C1E1B933C00AFB315 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		27F9772F1E1B933C00AFB315 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		27F977311E1B933C00AFB315 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		27F9771A1E1B933C00AFB315 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		27F977141E1B933C00AFB315 = {
+			isa = PBXGroup;
+			children = (
+				27F9771F1E1B933C00AFB315 /* KSPhotoBrowserDemo */,
+				27F9771E1E1B933C00AFB315 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		27F9771E1E1B933C00AFB315 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				27F9771D1E1B933C00AFB315 /* KSPhotoBrowserDemo.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		27F9771F1E1B933C00AFB315 /* KSPhotoBrowserDemo */ = {
+			isa = PBXGroup;
+			children = (
+				27F977231E1B933C00AFB315 /* AppDelegate.h */,
+				27F977241E1B933C00AFB315 /* AppDelegate.m */,
+				27B963931E1BACE600F32BAE /* KSDemoViewController.h */,
+				27B963941E1BACE600F32BAE /* KSDemoViewController.m */,
+				27B963951E1BACE600F32BAE /* KSPreviewViewController.h */,
+				27B963961E1BACE600F32BAE /* KSPreviewViewController.m */,
+				27F977291E1B933C00AFB315 /* Main.storyboard */,
+				27F9772C1E1B933C00AFB315 /* Assets.xcassets */,
+				27F9772E1E1B933C00AFB315 /* LaunchScreen.storyboard */,
+				27F977311E1B933C00AFB315 /* Info.plist */,
+				27F977201E1B933C00AFB315 /* Supporting Files */,
+			);
+			path = KSPhotoBrowserDemo;
+			sourceTree = "<group>";
+		};
+		27F977201E1B933C00AFB315 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				27F977211E1B933C00AFB315 /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		27F9771C1E1B933C00AFB315 /* KSPhotoBrowserDemo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 27F977341E1B933C00AFB315 /* Build configuration list for PBXNativeTarget "KSPhotoBrowserDemo" */;
+			buildPhases = (
+				27F977191E1B933C00AFB315 /* Sources */,
+				27F9771A1E1B933C00AFB315 /* Frameworks */,
+				27F9771B1E1B933C00AFB315 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = KSPhotoBrowserDemo;
+			productName = KSPhotoBrowserDemo;
+			productReference = 27F9771D1E1B933C00AFB315 /* KSPhotoBrowserDemo.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		27F977151E1B933C00AFB315 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0820;
+				ORGANIZATIONNAME = "Kyle Sun";
+				TargetAttributes = {
+					27F9771C1E1B933C00AFB315 = {
+						CreatedOnToolsVersion = 8.2;
+						DevelopmentTeam = N2EGGRKXKW;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 27F977181E1B933C00AFB315 /* Build configuration list for PBXProject "KSPhotoBrowserDemo" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 27F977141E1B933C00AFB315;
+			productRefGroup = 27F9771E1E1B933C00AFB315 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				27F9771C1E1B933C00AFB315 /* KSPhotoBrowserDemo */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		27F9771B1E1B933C00AFB315 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				27F977301E1B933C00AFB315 /* LaunchScreen.storyboard in Resources */,
+				27F9772D1E1B933C00AFB315 /* Assets.xcassets in Resources */,
+				27F9772B1E1B933C00AFB315 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		27F977191E1B933C00AFB315 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				27B963971E1BACE600F32BAE /* KSDemoViewController.m in Sources */,
+				27F977251E1B933C00AFB315 /* AppDelegate.m in Sources */,
+				27F977221E1B933C00AFB315 /* main.m in Sources */,
+				27B963981E1BACE600F32BAE /* KSPreviewViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		27F977291E1B933C00AFB315 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				27F9772A1E1B933C00AFB315 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		27F9772E1E1B933C00AFB315 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				27F9772F1E1B933C00AFB315 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		27F977321E1B933C00AFB315 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		27F977331E1B933C00AFB315 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		27F977351E1B933C00AFB315 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = N2EGGRKXKW;
+				INFOPLIST_FILE = KSPhotoBrowserDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.skx926.KSPhotoBrowserDemo;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		27F977361E1B933C00AFB315 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = N2EGGRKXKW;
+				INFOPLIST_FILE = KSPhotoBrowserDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.skx926.KSPhotoBrowserDemo;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		27F977181E1B933C00AFB315 /* Build configuration list for PBXProject "KSPhotoBrowserDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				27F977321E1B933C00AFB315 /* Debug */,
+				27F977331E1B933C00AFB315 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		27F977341E1B933C00AFB315 /* Build configuration list for PBXNativeTarget "KSPhotoBrowserDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				27F977351E1B933C00AFB315 /* Debug */,
+				27F977361E1B933C00AFB315 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 27F977151E1B933C00AFB315 /* Project object */;
+}
