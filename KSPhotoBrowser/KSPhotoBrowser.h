@@ -9,7 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "KSPhoto.h"
 #import "KSPhotoView.h"
-#import "YYWebImage.h"
 
 typedef NS_ENUM(NSUInteger, KSPhotoBrowserInteractiveDismissalStyle) {
     KSPhotoBrowserInteractiveDismissalStyleRotation,

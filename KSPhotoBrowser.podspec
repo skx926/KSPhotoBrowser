@@ -55,7 +55,7 @@ Pod::Spec.new do |s|
   s.author             = { "Kyle Sun" => "skx926@gmail.com" }
   # Or just: s.author    = "Kyle Sun"
   # s.authors            = { "Kyle Sun" => "skx926@gmail.com" }
-  s.social_media_url   = "http://twitter.com/skx926"
+  s.social_media_url   = "https://twitter.com/skx926"
 
   # ――― Platform Specifics ――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
   #
@@ -93,7 +93,7 @@ Pod::Spec.new do |s|
   s.source_files  = "KSPhotoBrowser", "KSPhotoBrowser/**/*.{h,m}"
   # s.exclude_files = "Classes/Exclude"
 
-  # s.public_header_files = "Classes/**/*.h"
+  # s.public_header_files = "KSPhotoBrowser/**/*.h"
 
 
   # ――― Resources ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
