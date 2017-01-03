@@ -2,7 +2,7 @@
 platform :ios, '8.0'
 
 def all_pods
-    pod 'KSPhotoBrowser', '0.0.1'
+    pod 'KSPhotoBrowser', ‘0.0.2’
 end
 
 target "KSPhotoBrowserDemo" do
