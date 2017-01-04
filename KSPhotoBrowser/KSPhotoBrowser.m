@@ -126,7 +126,13 @@ static const NSTimeInterval kSpringAnimationDuration = 0.5;
     }
     
     CGRect endRect = photoView.imageView.frame;
-    CGRect sourceRect = [item.sourceView.superview convertRect:item.sourceView.frame toView:photoView];
+    CGRect sourceRect;
+    float systemVersion = [[[UIDevice currentDevice] systemVersion] floatValue];
+    if (systemVersion >= 8.0 && systemVersion < 9.0) {
+        sourceRect = [item.sourceView.superview convertRect:item.sourceView.frame toCoordinateSpace:photoView];
+    } else {
+        sourceRect = [item.sourceView.superview convertRect:item.sourceView.frame toView:photoView];
+    }
     photoView.imageView.frame = sourceRect;
     
     if (_backgroundStyle == KSPhotoBrowserBackgroundStyleBlur) {
@@ -570,7 +576,13 @@ static const NSTimeInterval kSpringAnimationDuration = 0.5;
     [UIApplication sharedApplication].statusBarHidden = NO;
     photoView.progressLayer.hidden = YES;
     item.sourceView.alpha = 0;
-    CGRect sourceRect = [item.sourceView.superview convertRect:item.sourceView.frame toView:photoView];
+    CGRect sourceRect;
+    float systemVersion = [[[UIDevice currentDevice] systemVersion] floatValue];
+    if (systemVersion >= 8.0 && systemVersion < 9.0) {
+        sourceRect = [item.sourceView.superview convertRect:item.sourceView.frame toCoordinateSpace:photoView];
+    } else {
+        sourceRect = [item.sourceView.superview convertRect:item.sourceView.frame toView:photoView];
+    }
     if (_bounces) {
         [UIView animateWithDuration:kSpringAnimationDuration delay:0 usingSpringWithDamping:0.6 initialSpringVelocity:0 options:kNilOptions animations:^{
             photoView.imageView.frame = sourceRect;
