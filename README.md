@@ -62,6 +62,7 @@ Installation
 3. Run `pod install` or `pod update`.
 4. Import `KSPhotoBrowser.h`.
 
+
 ### Manually
 1. Download all the files of KSPhotoBrowser and add source files to your project.
 2. Manually install [YYWebImage](https://github.com/ibireme/YYWebImage) to your project.
