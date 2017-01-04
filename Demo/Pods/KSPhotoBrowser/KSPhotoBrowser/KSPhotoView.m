@@ -1,13 +1,13 @@
 //
 //  KSPhotoView.m
-//  KSPhotoBrowser
+//  AVPlayerDemo
 //
-//  Created by Kyle Sun on 12/25/16.
-//  Copyright © 2016 Kyle Sun. All rights reserved.
+//  Created by Kyle Sun on 12/25/15.
+//  Copyright © 2015 skx926. All rights reserved.
 //
 
 #import "KSPhotoView.h"
-#import "KSPhotoItem.h"
+#import "KSPhoto.h"
 #import <YYWebImage/YYWebImage.h>
 #import "KSProgressLayer.h"
 
@@ -18,7 +18,7 @@ const CGFloat kKSPhotoViewMaxScale = 3;
 
 @property (nonatomic, strong, readwrite) YYAnimatedImageView *imageView;
 @property (nonatomic, strong, readwrite) KSProgressLayer *progressLayer;
-@property (nonatomic, strong, readwrite) KSPhotoItem *item;
+@property (nonatomic, strong, readwrite) KSPhoto *item;
 
 @end
 
@@ -49,7 +49,7 @@ const CGFloat kKSPhotoViewMaxScale = 3;
     return self;
 }
 
-- (void)setItem:(KSPhotoItem *)item determinate:(BOOL)determinate {
+- (void)setItem:(KSPhoto *)item determinate:(BOOL)determinate {
     _item = item;
     [_imageView yy_cancelCurrentImageRequest];
     if (item) {

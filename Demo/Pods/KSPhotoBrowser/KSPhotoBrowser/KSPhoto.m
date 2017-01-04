@@ -1,14 +1,14 @@
 //
-//  KSPhotoItem.m
-//  KSPhotoBrowser
+//  KSPhoto.m
+//  AVPlayerDemo
 //
-//  Created by Kyle Sun on 12/25/16.
-//  Copyright © 2016 Kyle Sun. All rights reserved.
+//  Created by Kyle Sun on 12/25/15.
+//  Copyright © 2015 skx926. All rights reserved.
 //
 
-#import "KSPhotoItem.h"
+#import "KSPhoto.h"
 
-@interface KSPhotoItem ()
+@interface KSPhoto ()
 
 @property (nonatomic, strong, readwrite) UIView *sourceView;
 @property (nonatomic, strong, readwrite) UIImage *thumbImage;
@@ -17,7 +17,7 @@
 
 @end
 
-@implementation KSPhotoItem
+@implementation KSPhoto
 
 - (instancetype)initWithSourceView:(UIView *)view
                         thumbImage:(UIImage *)image
@@ -50,23 +50,23 @@
     return self;
 }
 
-+ (instancetype)itemWithSourceView:(UIView *)view
++ (instancetype)photoWithSourceView:(UIView *)view
                          thumbImage:(UIImage *)image
                            imageUrl:(NSURL *)url {
-    return [[KSPhotoItem alloc] initWithSourceView:view
+    return [[KSPhoto alloc] initWithSourceView:view
                                     thumbImage:image
                                       imageUrl:url];
 }
 
-+ (instancetype)itemWithSourceView:(UIImageView *)view
++ (instancetype)photoWithSourceView:(UIImageView *)view
                            imageUrl:(NSURL *)url {
-    return [[KSPhotoItem alloc] initWithSourceView:view
+    return [[KSPhoto alloc] initWithSourceView:view
                                       imageUrl:url];
 }
 
-+ (instancetype)itemWithSourceView:(UIImageView *)view
++ (instancetype)photoWithSourceView:(UIImageView *)view
                               image:(UIImage *)image {
-    return [[KSPhotoItem alloc] initWithSourceView:view
+    return [[KSPhoto alloc] initWithSourceView:view
                                          image:image];
 }
 

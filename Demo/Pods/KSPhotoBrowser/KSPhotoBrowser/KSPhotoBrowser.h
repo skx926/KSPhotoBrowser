@@ -1,13 +1,14 @@
 //
 //  KSPhotoBrowser.h
-//  KSPhotoBrowser
+//  AVPlayerDemo
 //
-//  Created by Kyle Sun on 12/25/16.
-//  Copyright © 2016 Kyle Sun. All rights reserved.
+//  Created by Kyle Sun on 12/25/15.
+//  Copyright © 2015 skx926. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
-#import "KSPhotoItem.h"
+#import "KSPhoto.h"
+#import "KSPhotoView.h"
 
 typedef NS_ENUM(NSUInteger, KSPhotoBrowserInteractiveDismissalStyle) {
     KSPhotoBrowserInteractiveDismissalStyleRotation,
@@ -17,7 +18,7 @@ typedef NS_ENUM(NSUInteger, KSPhotoBrowserInteractiveDismissalStyle) {
 };
 
 typedef NS_ENUM(NSUInteger, KSPhotoBrowserBackgroundStyle) {
-    KSPhotoBrowserBackgroundStyleBlurPhoto,
+    KSPhotoBrowserBackgroundStyleBlurImage,
     KSPhotoBrowserBackgroundStyleBlur,
     KSPhotoBrowserBackgroundStyleBlack
 };
@@ -40,8 +41,8 @@ typedef NS_ENUM(NSUInteger, KSPhotoBrowserImageLoadingStyle) {
 @property (nonatomic, assign) KSPhotoBrowserImageLoadingStyle loadingStyle;
 @property (nonatomic, assign) BOOL bounces;
 
-+ (instancetype)browserWithPhotoItems:(NSArray<KSPhotoItem *> *)photoItems selectedIndex:(NSUInteger)selectedIndex;
-- (instancetype)initWithPhotoItems:(NSArray<KSPhotoItem *> *)photoItems selectedIndex:(NSUInteger)selectedIndex;
++ (instancetype)browserWithPhotoItems:(NSArray<KSPhoto *> *)photoItems selectedIndex:(NSUInteger)selectedIndex;
+- (instancetype)initWithPhotoItems:(NSArray<KSPhoto *> *)photoItems selectedIndex:(NSUInteger)selectedIndex;
 - (void)showFromViewController:(UIViewController *)vc;
 
 @end
