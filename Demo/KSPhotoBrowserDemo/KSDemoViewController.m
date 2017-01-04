@@ -8,6 +8,7 @@
 
 #import "KSDemoViewController.h"
 #import "KSPreviewViewController.h"
+#import "YYWebImage.h"
 
 @interface KSDemoViewController ()
 
@@ -41,6 +42,16 @@
     preview.pageindicatorStyle = _pageSegementedControl.selectedSegmentIndex;
     preview.loadingStyle = _loadingSegementedControl.selectedSegmentIndex;
     preview.bounces = _bouncesSwitch.on;
+}
+
+// MARK: - TableViewDelegate
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.section == 6) {
+        [tableView deselectRowAtIndexPath:indexPath animated:YES];
+        [[YYWebImageManager sharedManager].cache.memoryCache removeAllObjects];
+        [[YYWebImageManager sharedManager].cache.diskCache removeAllObjects];
+    }
 }
 
 @end

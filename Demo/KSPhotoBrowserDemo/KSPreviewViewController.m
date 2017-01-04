@@ -14,7 +14,7 @@
 @interface KSPreviewViewController ()
 
 @property (nonatomic, strong) NSArray *urls;
-@property (strong, nonatomic) IBOutletCollection(UIImageView) NSArray *imageViews;
+@property (nonatomic, strong) NSMutableArray *imageViews;
 
 @end
 
@@ -31,15 +31,31 @@
               @"http://ww2.sinaimg.cn/thumbnail/712a2410gw1fb7m1ef04vj20zg0qoad1.jpg",
               @"http://ww1.sinaimg.cn/thumbnail/9e3738f9gw1fb7pd37ux6j20c61jrn4t.jpg",
               @"http://ww3.sinaimg.cn/thumbnail/94dfe97bgw1fag0btw49ej20j60lvgpf.jpg"];
-    for (int i = 0; i < _imageViews.count; i++) {
-        UIImageView *imageView = _imageViews[i];
+    
+    CGFloat top = 64;
+    CGFloat gap = 5;
+    NSInteger count = 4;
+    CGFloat width = (self.view.frame.size.width - gap * (count + 1)) / count;
+    CGFloat height = width;
+    _imageViews = @[].mutableCopy;
+    for (int i = 0; i < _urls.count; i++) {
+        CGFloat x = gap + (width + gap) * (i % count);
+        CGFloat y = top + gap + (height + gap) * (i / count);
+        CGRect rect = CGRectMake( x, y, width, height);
+        UIImageView *imageView = [[UIImageView alloc] initWithFrame:rect];
+        imageView.userInteractionEnabled = YES;
         imageView.contentMode = UIViewContentModeScaleAspectFill;
-        [imageView yy_setImageWithURL:[NSURL URLWithString:_urls[i]] options:kNilOptions];
+        imageView.yy_imageURL = [NSURL URLWithString:_urls[i]];
+        imageView.clipsToBounds = YES;
+        imageView.tag = i;
+        imageView.backgroundColor = [UIColor colorWithWhite:0.95 alpha:1];
+        [self.view addSubview:imageView];
+        
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(imageViewTapped:)];
         tap.numberOfTapsRequired = 1;
         tap.numberOfTouchesRequired = 1;
         [imageView addGestureRecognizer:tap];
-        imageView.userInteractionEnabled = YES;
+        [_imageViews addObject:imageView];
     }
 }
 
@@ -48,20 +64,12 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (IBAction)clearCache:(id)sender {
-    [[YYWebImageManager sharedManager].cache.memoryCache removeAllObjects];
-    [[YYWebImageManager sharedManager].cache.diskCache removeAllObjects];
-}
-
 - (void)imageViewTapped:(UITapGestureRecognizer *)tap {
     NSMutableArray *items = @[].mutableCopy;
     for (int i = 0; i < _imageViews.count; i++) {
-        KSPhoto *item = [[KSPhoto alloc] init];
         NSString *url = [_urls[i] stringByReplacingOccurrencesOfString:@"thumbnail" withString:@"large"];
-        item.imageUrl = [NSURL URLWithString:url];
         UIImageView *imageView = _imageViews[i];
-        item.sourceView = _imageViews[i];
-        item.thumbImage = imageView.image;
+        KSPhoto *item = [KSPhoto photoWithSourceView:imageView imageUrl:[NSURL URLWithString:url]];
         [items addObject:item];
     }
     KSPhotoBrowser *browser = [KSPhotoBrowser browserWithPhotoItems:items selectedIndex:tap.view.tag];

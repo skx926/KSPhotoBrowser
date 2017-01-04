@@ -1,0 +1,1 @@
+../../../YYWebImage/YYWebImage/Categories/_YYWebImageSetter.h
