@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import "KSPhoto.h"
-#import "KSPhotoView.h"
 
 typedef NS_ENUM(NSUInteger, KSPhotoBrowserInteractiveDismissalStyle) {
     KSPhotoBrowserInteractiveDismissalStyleRotation,
@@ -18,7 +17,7 @@ typedef NS_ENUM(NSUInteger, KSPhotoBrowserInteractiveDismissalStyle) {
 };
 
 typedef NS_ENUM(NSUInteger, KSPhotoBrowserBackgroundStyle) {
-    KSPhotoBrowserBackgroundStyleBlurImage,
+    KSPhotoBrowserBackgroundStyleBlurPhoto,
     KSPhotoBrowserBackgroundStyleBlur,
     KSPhotoBrowserBackgroundStyleBlack
 };
