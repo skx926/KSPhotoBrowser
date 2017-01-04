@@ -7,8 +7,9 @@ KSPhotoBrowser
 
 ### A beautiful photo browser with interactive dismissal animation.
 
-![Rotation~](https://raw.github.com/skx926/KSPhotoBrowser/master/Demo/Rotation.gif)
+![Rotation~](https://raw.github.com/skx926/KSPhotoBrowser/master/Demo/Rotation.gif)<br>
 ![Scale~](https://raw.github.com/skx926/KSPhotoBrowser/master/Demo/Scale.gif)
+
 
 Features
 ==============
@@ -19,6 +20,7 @@ Features
 - Support bounce animation.
 - Optimized for image which has a very large height.
 - Can display one or more images by providing either image urls or UIImage objects.
+
 
 Usage
 ==============
@@ -34,6 +36,7 @@ Installation
 2. Add `pod 'YYWebImage'` to your Podfile.
 3. Run `pod install` or `pod update`.
 4. Import `KSPhotoBrowser.h`.
+
 
 ### Manually
 1. Download all the files of KSPhotoBrowser and add source files to your project.
