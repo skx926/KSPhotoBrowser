@@ -7,25 +7,52 @@ KSPhotoBrowser
 
 ### A beautiful photo browser with interactive dismissal animation.
 
-![Rotation~](https://raw.github.com/skx926/KSPhotoBrowser/master/Demo/Rotation.gif)
+![Rotation~](https://raw.github.com/skx926/KSPhotoBrowser/master/Demo/Rotation.gif)<br>
+![Blur~](https://raw.github.com/skx926/KSPhotoBrowser/master/Demo/Blur.gif)<br>
 ![Scale~](https://raw.github.com/skx926/KSPhotoBrowser/master/Demo/Scale.gif)
+
 
 Features
 ==============
 - 4 different interactive dismissal animations(Rotation, Scale, Slide).
 - 3 different background styles(Blur Photo, Blur, Black).
-- 2 different loading styles(Determinate, Indetermiante).
+- 2 different loading styles(Determinate, Indeterminate).
 - 2 different pager styles(Dot, Text).
 - Support bounce animation.
 - Optimized for image which has a very large height.
 - Can display one or more images by providing either image urls or UIImage objects.
 
+
 Usage
 ==============
 ### Display images from urls
+```objc
+NSArray *urls = @[@"http://ww4.sinaimg.cn/bmiddle/a15bd3a5jw1f12r9ku6wjj20u00mhn22.jpg",
+                  @"http://ww2.sinaimg.cn/bmiddle/a15bd3a5jw1f01hkxyjhej20u00jzacj.jpg"];
+NSMutableArray *items = @[].mutableCopy;
+for (int i = 0; i < urls.count; i++) {
+    // Get the large image url
+    NSString *url = [urls[i] stringByReplacingOccurrencesOfString:@"bmiddle" withString:@"large"];
+    UIImageView *imageView = _imageViews[i];
+    KSPhotoItem *item = [KSPhotoItem itemWithSourceView:imageView imageUrl:[NSURL URLWithString:url]];
+    [items addObject:item];
+}
+KSPhotoBrowser *browser = [KSPhotoBrowser browserWithPhotoItems:items selectedIndex:0];
+[browser showFromViewController:self];
+```
 
 ### Display images from UIImage objects
-
+```objc
+NSArray *names = @[@"a.jpg", @"b.jpg"];
+NSMutableArray *items = @[].mutableCopy;
+for (int i = 0; i < names.count; i++) {
+    UIImageView *imageView = _imageViews[i];
+    KSPhotoItem *item = [KSPhotoItem itemWithSourceView:imageView image:[UIImage imageNamed:names[i]]];
+    [items addObject:item];
+}
+KSPhotoBrowser *browser = [KSPhotoBrowser browserWithPhotoItems:items selectedIndex:0];
+[browser showFromViewController:self];
+```
 
 Installation
 ==============

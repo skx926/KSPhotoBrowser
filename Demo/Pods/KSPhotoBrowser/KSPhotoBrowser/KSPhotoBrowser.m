@@ -1,12 +1,13 @@
 //
 //  KSPhotoBrowser.m
-//  AVPlayerDemo
+//  KSPhotoBrowser
 //
-//  Created by Kyle Sun on 12/25/15.
-//  Copyright © 2015 skx926. All rights reserved.
+//  Created by Kyle Sun on 12/25/16.
+//  Copyright © 2016 Kyle Sun. All rights reserved.
 //
 
 #import "KSPhotoBrowser.h"
+#import "KSPhotoView.h"
 #import <YYWebImage/YYWebImage.h>
 
 static const NSTimeInterval kAnimationDuration = 0.3;
@@ -32,7 +33,7 @@ static const NSTimeInterval kSpringAnimationDuration = 0.5;
 
 // MAKR: - Initializer
 
-+ (instancetype)browserWithPhotoItems:(NSArray<KSPhoto *> *)photoItems selectedIndex:(NSUInteger)selectedIndex {
++ (instancetype)browserWithPhotoItems:(NSArray<KSPhotoItem *> *)photoItems selectedIndex:(NSUInteger)selectedIndex {
     KSPhotoBrowser *browser = [[KSPhotoBrowser alloc] initWithPhotoItems:photoItems selectedIndex:selectedIndex];
     return browser;
 }
@@ -42,7 +43,7 @@ static const NSTimeInterval kSpringAnimationDuration = 0.5;
     return nil;
 }
 
-- (instancetype)initWithPhotoItems:(NSArray<KSPhoto *> *)photoItems selectedIndex:(NSUInteger)selectedIndex {
+- (instancetype)initWithPhotoItems:(NSArray<KSPhotoItem *> *)photoItems selectedIndex:(NSUInteger)selectedIndex {
     self = [super init];
     if (self) {
         _photoItems = [NSMutableArray arrayWithArray:photoItems];
@@ -50,8 +51,8 @@ static const NSTimeInterval kSpringAnimationDuration = 0.5;
         
         self.dismissalStyle = KSPhotoBrowserInteractiveDismissalStyleRotation;
         self.pageindicatorStyle = KSPhotoBrowserPageIndicatorStyleDot;
-        self.backgroundStyle = KSPhotoBrowserBackgroundStyleBlurImage;
-        self.loadingStyle = KSPhotoBrowserImageLoadingStyleDeterminate;
+        self.backgroundStyle = KSPhotoBrowserBackgroundStyleBlurPhoto;
+        self.loadingStyle = KSPhotoBrowserImageLoadingStyleIndeterminate;
         
         self.modalPresentationStyle = UIModalPresentationCustom;
         self.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
@@ -112,9 +113,8 @@ static const NSTimeInterval kSpringAnimationDuration = 0.5;
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
     
-    KSPhoto *item = [_photoItems objectAtIndex:_currentPage];
+    KSPhotoItem *item = [_photoItems objectAtIndex:_currentPage];
     KSPhotoView *photoView = [self photoViewForPage:_currentPage];
     YYWebImageManager *manager = [YYWebImageManager sharedManager];
     NSString *key = [manager cacheKeyForURL:item.imageUrl];
@@ -126,12 +126,18 @@ static const NSTimeInterval kSpringAnimationDuration = 0.5;
     }
     
     CGRect endRect = photoView.imageView.frame;
-    CGRect sourceRect = [item.sourceView.superview convertRect:item.sourceView.frame toView:photoView];
+    CGRect sourceRect;
+    float systemVersion = [[[UIDevice currentDevice] systemVersion] floatValue];
+    if (systemVersion >= 8.0 && systemVersion < 9.0) {
+        sourceRect = [item.sourceView.superview convertRect:item.sourceView.frame toCoordinateSpace:photoView];
+    } else {
+        sourceRect = [item.sourceView.superview convertRect:item.sourceView.frame toView:photoView];
+    }
     photoView.imageView.frame = sourceRect;
     
     if (_backgroundStyle == KSPhotoBrowserBackgroundStyleBlur) {
         [self blurBackgroundWithImage:[self screenshot] animated:NO];
-    } else if (_backgroundStyle == KSPhotoBrowserBackgroundStyleBlurImage) {
+    } else if (_backgroundStyle == KSPhotoBrowserBackgroundStyleBlurPhoto) {
         [self blurBackgroundWithImage:item.thumbImage animated:NO];
     }
     if (_bounces) {
@@ -142,6 +148,7 @@ static const NSTimeInterval kSpringAnimationDuration = 0.5;
         } completion:^(BOOL finished) {
             [self configPhotoView:photoView withItem:item];
             _presented = YES;
+            [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
         }];
     } else {
         [UIView animateWithDuration:kAnimationDuration animations:^{
@@ -151,6 +158,7 @@ static const NSTimeInterval kSpringAnimationDuration = 0.5;
         } completion:^(BOOL finished) {
             [self configPhotoView:photoView withItem:item];
             _presented = YES;
+            [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
         }];
     }
 }
@@ -222,14 +230,14 @@ static const NSTimeInterval kSpringAnimationDuration = 0.5;
             [_visibleItemViews addObject:photoView];
         }
         if (photoView.item == nil && _presented) {
-            KSPhoto *item = [_photoItems objectAtIndex:i];
+            KSPhotoItem *item = [_photoItems objectAtIndex:i];
             [self configPhotoView:photoView withItem:item];
         }
     }
     
     if (page != _currentPage && _presented) {
-        KSPhoto *item = [_photoItems objectAtIndex:page];
-        if (_backgroundStyle == KSPhotoBrowserBackgroundStyleBlurImage) {
+        KSPhotoItem *item = [_photoItems objectAtIndex:page];
+        if (_backgroundStyle == KSPhotoBrowserBackgroundStyleBlurPhoto) {
             [self blurBackgroundWithImage:item.thumbImage animated:YES];
         }
         _currentPage = page;
@@ -245,7 +253,7 @@ static const NSTimeInterval kSpringAnimationDuration = 0.5;
     for (KSPhotoView *photoView in _visibleItemViews) {
         [photoView cancelCurrentImageLoad];
     }
-    KSPhoto *item = [_photoItems objectAtIndex:_currentPage];
+    KSPhotoItem *item = [_photoItems objectAtIndex:_currentPage];
     if (animated) {
         [UIView animateWithDuration:kAnimationDuration animations:^{
             item.sourceView.alpha = 1;
@@ -266,8 +274,7 @@ static const NSTimeInterval kSpringAnimationDuration = 0.5;
             _startLocation = location;
             [self handlePanBegin];
             break;
-        case UIGestureRecognizerStateChanged:
-        case UIGestureRecognizerStateCancelled: {
+        case UIGestureRecognizerStateChanged: {
             CGFloat angle = 0;
             if (_startLocation.x < self.view.frame.size.width/2) {
                 angle = -(M_PI / 2) * (point.y / self.view.frame.size.height);
@@ -284,7 +291,8 @@ static const NSTimeInterval kSpringAnimationDuration = 0.5;
             _backgroundView.alpha = percent;
         }
             break;
-        case UIGestureRecognizerStateEnded: {
+        case UIGestureRecognizerStateEnded:
+        case UIGestureRecognizerStateCancelled: {
             if (fabs(point.y) > 200 || fabs(velocity.y) > 500) {
                 [self showRotationCompletionAnimationFromPoint:point];
             } else {
@@ -308,8 +316,7 @@ static const NSTimeInterval kSpringAnimationDuration = 0.5;
             _startLocation = location;
             [self handlePanBegin];
             break;
-        case UIGestureRecognizerStateChanged:
-        case UIGestureRecognizerStateCancelled: {
+        case UIGestureRecognizerStateChanged: {
             double percent = 1 - fabs(point.y)/(self.view.frame.size.height/2);
             percent = MAX(percent, 0);
             double s = MAX(percent, 0.5);
@@ -320,7 +327,8 @@ static const NSTimeInterval kSpringAnimationDuration = 0.5;
             _backgroundView.alpha = percent;
         }
             break;
-        case UIGestureRecognizerStateEnded: {
+        case UIGestureRecognizerStateEnded:
+        case UIGestureRecognizerStateCancelled: {
             if (fabs(point.y) > 100 || fabs(velocity.y) > 500) {
                 [self showDismissalAnimation];
             } else {
@@ -344,15 +352,15 @@ static const NSTimeInterval kSpringAnimationDuration = 0.5;
             _startLocation = location;
             [self handlePanBegin];
             break;
-        case UIGestureRecognizerStateChanged:
-        case UIGestureRecognizerStateCancelled: {
+        case UIGestureRecognizerStateChanged: {
             photoView.imageView.transform = CGAffineTransformMakeTranslation(0, point.y);
             double percent = 1 - fabs(point.y)/(self.view.frame.size.height/2);
             self.view.backgroundColor = [UIColor colorWithWhite:0 alpha:percent];
             _backgroundView.alpha = percent;
         }
             break;
-        case UIGestureRecognizerStateEnded: {
+        case UIGestureRecognizerStateEnded:
+        case UIGestureRecognizerStateCancelled: {
             if (fabs(point.y) > 200 || fabs(velocity.y) > 500) {
                 [self showSlideCompletionAnimationFromPoint:point];
             } else {
@@ -395,7 +403,7 @@ static const NSTimeInterval kSpringAnimationDuration = 0.5;
     });
 }
 
-- (void)configPhotoView:(KSPhotoView *)photoView withItem:(KSPhoto *)item {
+- (void)configPhotoView:(KSPhotoView *)photoView withItem:(KSPhotoItem *)item {
     [photoView setItem:item determinate:(_loadingStyle == KSPhotoBrowserImageLoadingStyleDeterminate)];
 }
 
@@ -405,7 +413,8 @@ static const NSTimeInterval kSpringAnimationDuration = 0.5;
 
 - (void)handlePanBegin {
     KSPhotoView *photoView = [self photoViewForPage:_currentPage];
-    KSPhoto *item = [_photoItems objectAtIndex:_currentPage];
+    [photoView cancelCurrentImageLoad];
+    KSPhotoItem *item = [_photoItems objectAtIndex:_currentPage];
     [UIApplication sharedApplication].statusBarHidden = NO;
     photoView.progressLayer.hidden = YES;
     item.sourceView.alpha = 0;
@@ -436,7 +445,7 @@ static const NSTimeInterval kSpringAnimationDuration = 0.5;
 
 - (void)didDoubleTap:(UITapGestureRecognizer *)tap {
     KSPhotoView *photoView = [self photoViewForPage:_currentPage];
-    KSPhoto *item = [_photoItems objectAtIndex:_currentPage];
+    KSPhotoItem *item = [_photoItems objectAtIndex:_currentPage];
     if (!item.finished) {
         return;
     }
@@ -488,9 +497,8 @@ static const NSTimeInterval kSpringAnimationDuration = 0.5;
 // MARK: - Animation
 
 - (void)showCancellationAnimation {
-    [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
     KSPhotoView *photoView = [self photoViewForPage:_currentPage];
-    KSPhoto *item = [_photoItems objectAtIndex:_currentPage];
+    KSPhotoItem *item = [_photoItems objectAtIndex:_currentPage];
     item.sourceView.alpha = 1;
     if (!item.finished) {
         photoView.progressLayer.hidden = NO;
@@ -500,12 +508,18 @@ static const NSTimeInterval kSpringAnimationDuration = 0.5;
             photoView.imageView.transform = CGAffineTransformIdentity;
             self.view.backgroundColor = [UIColor blackColor];
             _backgroundView.alpha = 1;
-        } completion:nil];
+        } completion:^(BOOL finished) {
+            [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
+            [self configPhotoView:photoView withItem:item];
+        }];
     } else {
         [UIView animateWithDuration:kAnimationDuration animations:^{
             photoView.imageView.transform = CGAffineTransformIdentity;
             self.view.backgroundColor = [UIColor blackColor];
             _backgroundView.alpha = 1;
+        } completion:^(BOOL finished) {
+            [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
+            [self configPhotoView:photoView withItem:item];
         }];
     }
 }
@@ -556,12 +570,19 @@ static const NSTimeInterval kSpringAnimationDuration = 0.5;
 }
 
 - (void)showDismissalAnimation {
-    KSPhoto *item = [_photoItems objectAtIndex:_currentPage];
+    KSPhotoItem *item = [_photoItems objectAtIndex:_currentPage];
     KSPhotoView *photoView = [self photoViewForPage:_currentPage];
+    [photoView cancelCurrentImageLoad];
     [UIApplication sharedApplication].statusBarHidden = NO;
     photoView.progressLayer.hidden = YES;
     item.sourceView.alpha = 0;
-    CGRect sourceRect = [item.sourceView.superview convertRect:item.sourceView.frame toView:photoView];
+    CGRect sourceRect;
+    float systemVersion = [[[UIDevice currentDevice] systemVersion] floatValue];
+    if (systemVersion >= 8.0 && systemVersion < 9.0) {
+        sourceRect = [item.sourceView.superview convertRect:item.sourceView.frame toCoordinateSpace:photoView];
+    } else {
+        sourceRect = [item.sourceView.superview convertRect:item.sourceView.frame toView:photoView];
+    }
     if (_bounces) {
         [UIView animateWithDuration:kSpringAnimationDuration delay:0 usingSpringWithDamping:0.6 initialSpringVelocity:0 options:kNilOptions animations:^{
             photoView.imageView.frame = sourceRect;

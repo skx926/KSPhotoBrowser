@@ -56,8 +56,6 @@
         [imageView addGestureRecognizer:tap];
         [_imageViews addObject:imageView];
     }
-    
-    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -79,6 +77,19 @@
     browser.loadingStyle = _loadingStyle;
     browser.pageindicatorStyle = _pageindicatorStyle;
     browser.bounces = _bounces;
+    [browser showFromViewController:self];
+}
+
+- (void)aaa {
+    NSArray *names = @[@"a.jpg",
+                        @"b.jpg"];
+    NSMutableArray *items = @[].mutableCopy;
+    for (int i = 0; i < names.count; i++) {
+        UIImageView *imageView = _imageViews[i];
+        KSPhotoItem *item = [KSPhotoItem itemWithSourceView:imageView image:[UIImage imageNamed:names[i]]];
+        [items addObject:item];
+    }
+    KSPhotoBrowser *browser = [KSPhotoBrowser browserWithPhotoItems:items selectedIndex:0];
     [browser showFromViewController:self];
 }
 

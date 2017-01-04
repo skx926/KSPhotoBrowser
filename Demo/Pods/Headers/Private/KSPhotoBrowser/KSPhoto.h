@@ -1,1 +1,0 @@
-../../../KSPhotoBrowser/KSPhotoBrowser/KSPhoto.h
