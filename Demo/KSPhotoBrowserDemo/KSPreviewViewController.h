@@ -1,9 +1,9 @@
 //
 //  ViewController.h
-//  AVPlayerDemo
+//  KSPhotoBrowser
 //
-//  Created by Kyle Sun on 12/25/15.
-//  Copyright © 2015 skx926. All rights reserved.
+//  Created by Kyle Sun on 12/25/16.
+//  Copyright © 2016 Kyle Sun. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>

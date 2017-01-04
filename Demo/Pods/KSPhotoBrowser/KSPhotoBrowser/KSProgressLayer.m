@@ -1,9 +1,9 @@
 //
 //  KSProgressLayer.m
-//  AVPlayerDemo
+//  KSPhotoBrowser
 //
 //  Created by Kyle Sun on 30/12/2016.
-//  Copyright © 2016 skx926. All rights reserved.
+//  Copyright © 2016 Kyle Sun. All rights reserved.
 //
 
 #import "KSProgressLayer.h"

@@ -1,9 +1,9 @@
 //
 //  KSPhotoBrowser.m
-//  AVPlayerDemo
+//  KSPhotoBrowser
 //
-//  Created by Kyle Sun on 12/25/15.
-//  Copyright © 2015 skx926. All rights reserved.
+//  Created by Kyle Sun on 12/25/16.
+//  Copyright © 2016 Kyle Sun. All rights reserved.
 //
 
 #import "KSPhotoBrowser.h"
@@ -33,7 +33,7 @@ static const NSTimeInterval kSpringAnimationDuration = 0.5;
 
 // MAKR: - Initializer
 
-+ (instancetype)browserWithPhotoItems:(NSArray<KSPhoto *> *)photoItems selectedIndex:(NSUInteger)selectedIndex {
++ (instancetype)browserWithPhotoItems:(NSArray<KSPhotoItem *> *)photoItems selectedIndex:(NSUInteger)selectedIndex {
     KSPhotoBrowser *browser = [[KSPhotoBrowser alloc] initWithPhotoItems:photoItems selectedIndex:selectedIndex];
     return browser;
 }
@@ -43,7 +43,7 @@ static const NSTimeInterval kSpringAnimationDuration = 0.5;
     return nil;
 }
 
-- (instancetype)initWithPhotoItems:(NSArray<KSPhoto *> *)photoItems selectedIndex:(NSUInteger)selectedIndex {
+- (instancetype)initWithPhotoItems:(NSArray<KSPhotoItem *> *)photoItems selectedIndex:(NSUInteger)selectedIndex {
     self = [super init];
     if (self) {
         _photoItems = [NSMutableArray arrayWithArray:photoItems];
@@ -114,7 +114,7 @@ static const NSTimeInterval kSpringAnimationDuration = 0.5;
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    KSPhoto *item = [_photoItems objectAtIndex:_currentPage];
+    KSPhotoItem *item = [_photoItems objectAtIndex:_currentPage];
     KSPhotoView *photoView = [self photoViewForPage:_currentPage];
     YYWebImageManager *manager = [YYWebImageManager sharedManager];
     NSString *key = [manager cacheKeyForURL:item.imageUrl];
@@ -230,13 +230,13 @@ static const NSTimeInterval kSpringAnimationDuration = 0.5;
             [_visibleItemViews addObject:photoView];
         }
         if (photoView.item == nil && _presented) {
-            KSPhoto *item = [_photoItems objectAtIndex:i];
+            KSPhotoItem *item = [_photoItems objectAtIndex:i];
             [self configPhotoView:photoView withItem:item];
         }
     }
     
     if (page != _currentPage && _presented) {
-        KSPhoto *item = [_photoItems objectAtIndex:page];
+        KSPhotoItem *item = [_photoItems objectAtIndex:page];
         if (_backgroundStyle == KSPhotoBrowserBackgroundStyleBlurPhoto) {
             [self blurBackgroundWithImage:item.thumbImage animated:YES];
         }
@@ -253,7 +253,7 @@ static const NSTimeInterval kSpringAnimationDuration = 0.5;
     for (KSPhotoView *photoView in _visibleItemViews) {
         [photoView cancelCurrentImageLoad];
     }
-    KSPhoto *item = [_photoItems objectAtIndex:_currentPage];
+    KSPhotoItem *item = [_photoItems objectAtIndex:_currentPage];
     if (animated) {
         [UIView animateWithDuration:kAnimationDuration animations:^{
             item.sourceView.alpha = 1;
@@ -403,7 +403,7 @@ static const NSTimeInterval kSpringAnimationDuration = 0.5;
     });
 }
 
-- (void)configPhotoView:(KSPhotoView *)photoView withItem:(KSPhoto *)item {
+- (void)configPhotoView:(KSPhotoView *)photoView withItem:(KSPhotoItem *)item {
     [photoView setItem:item determinate:(_loadingStyle == KSPhotoBrowserImageLoadingStyleDeterminate)];
 }
 
@@ -414,7 +414,7 @@ static const NSTimeInterval kSpringAnimationDuration = 0.5;
 - (void)handlePanBegin {
     KSPhotoView *photoView = [self photoViewForPage:_currentPage];
     [photoView cancelCurrentImageLoad];
-    KSPhoto *item = [_photoItems objectAtIndex:_currentPage];
+    KSPhotoItem *item = [_photoItems objectAtIndex:_currentPage];
     [UIApplication sharedApplication].statusBarHidden = NO;
     photoView.progressLayer.hidden = YES;
     item.sourceView.alpha = 0;
@@ -445,7 +445,7 @@ static const NSTimeInterval kSpringAnimationDuration = 0.5;
 
 - (void)didDoubleTap:(UITapGestureRecognizer *)tap {
     KSPhotoView *photoView = [self photoViewForPage:_currentPage];
-    KSPhoto *item = [_photoItems objectAtIndex:_currentPage];
+    KSPhotoItem *item = [_photoItems objectAtIndex:_currentPage];
     if (!item.finished) {
         return;
     }
@@ -498,7 +498,7 @@ static const NSTimeInterval kSpringAnimationDuration = 0.5;
 
 - (void)showCancellationAnimation {
     KSPhotoView *photoView = [self photoViewForPage:_currentPage];
-    KSPhoto *item = [_photoItems objectAtIndex:_currentPage];
+    KSPhotoItem *item = [_photoItems objectAtIndex:_currentPage];
     item.sourceView.alpha = 1;
     if (!item.finished) {
         photoView.progressLayer.hidden = NO;
@@ -570,7 +570,7 @@ static const NSTimeInterval kSpringAnimationDuration = 0.5;
 }
 
 - (void)showDismissalAnimation {
-    KSPhoto *item = [_photoItems objectAtIndex:_currentPage];
+    KSPhotoItem *item = [_photoItems objectAtIndex:_currentPage];
     KSPhotoView *photoView = [self photoViewForPage:_currentPage];
     [photoView cancelCurrentImageLoad];
     [UIApplication sharedApplication].statusBarHidden = NO;
