@@ -22,6 +22,10 @@ Features
 - Optimized for image which has a very large height.
 - Can display one or more images by providing either image urls or UIImage objects.
 
+### Follow-up
+- Support Landscape orientation browse.
+- Support video browse.
+
 
 Usage
 ==============
@@ -58,7 +62,7 @@ Installation
 ==============
 ### Cocoapods
 1. Update cocoapods to the latest version.
-2. Add `pod 'YYWebImage'` to your Podfile.
+2. Add `pod 'KSPhotoBrowser'` to your Podfile.
 3. Run `pod install` or `pod update`.
 4. Import `KSPhotoBrowser.h`.
 
