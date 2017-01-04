@@ -85,4 +85,4 @@ KSPhotoBrowser is provided under the MIT license. See LICENSE file for details.
 
 中文介绍
 ==============
-[查看中文介绍](http://skx926.com/2017/01/04/KSPhotoBrowser/)
+[查看中文介绍](http://skx926.com/2017/01/04/ksphotobrowser/)
