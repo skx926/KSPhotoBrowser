@@ -9,7 +9,7 @@
 #import "KSPreviewViewController.h"
 #import "YYWebImage.h"
 
-@interface KSPreviewViewController ()
+@interface KSPreviewViewController ()<KSPhotoBrowserDelegate>
 
 @property (nonatomic, strong) NSArray *urls;
 @property (nonatomic, strong) NSMutableArray *imageViews;
@@ -72,12 +72,19 @@
         [items addObject:item];
     }
     KSPhotoBrowser *browser = [KSPhotoBrowser browserWithPhotoItems:items selectedIndex:tap.view.tag];
+    browser.delegate = self;
     browser.dismissalStyle = _dismissalStyle;
     browser.backgroundStyle = _backgroundStyle;
     browser.loadingStyle = _loadingStyle;
     browser.pageindicatorStyle = _pageindicatorStyle;
     browser.bounces = _bounces;
     [browser showFromViewController:self];
+}
+
+// MARK: - KSPhotoBrowserDelegate
+
+- (void)ks_photoBrowser:(KSPhotoBrowser *)browser didSelectItem:(KSPhotoItem *)item atIndex:(NSUInteger)index {
+    NSLog(@"selected index: %ld", index);
 }
 
 @end
