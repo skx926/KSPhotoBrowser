@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "KSPhotoItem.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 typedef NS_ENUM(NSUInteger, KSPhotoBrowserInteractiveDismissalStyle) {
     KSPhotoBrowserInteractiveDismissalStyleRotation,
     KSPhotoBrowserInteractiveDismissalStyleScale,
@@ -53,3 +55,5 @@ typedef NS_ENUM(NSUInteger, KSPhotoBrowserImageLoadingStyle) {
 - (void)ks_photoBrowser:(KSPhotoBrowser *)browser didSelectItem:(KSPhotoItem *)item atIndex:(NSUInteger)index;
 
 @end
+
+NS_ASSUME_NONNULL_END

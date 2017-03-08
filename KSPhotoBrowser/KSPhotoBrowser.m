@@ -8,7 +8,12 @@
 
 #import "KSPhotoBrowser.h"
 #import "KSPhotoView.h"
+
+#if __has_include(<YYWebImage/YYWebImage.h>)
 #import <YYWebImage/YYWebImage.h>
+#else
+#import "YYWebImage.h"
+#endif
 
 static const NSTimeInterval kAnimationDuration = 0.3;
 static const NSTimeInterval kSpringAnimationDuration = 0.5;

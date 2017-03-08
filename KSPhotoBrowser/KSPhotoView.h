@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "KSProgressLayer.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 extern const CGFloat kKSPhotoViewPadding;
 
 @class KSPhotoItem, YYAnimatedImageView;
@@ -24,3 +26,5 @@ extern const CGFloat kKSPhotoViewPadding;
 - (void)cancelCurrentImageLoad;
 
 @end
+
+NS_ASSUME_NONNULL_END
