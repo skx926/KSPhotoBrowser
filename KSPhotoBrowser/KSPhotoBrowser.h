@@ -32,6 +32,7 @@ typedef NS_ENUM(NSUInteger, KSPhotoBrowserImageLoadingStyle) {
     KSPhotoBrowserImageLoadingStyleDeterminate
 };
 
+@protocol KSPhotoBrowserDelegate;
 @interface KSPhotoBrowser : UIViewController
 
 @property (nonatomic, assign) KSPhotoBrowserInteractiveDismissalStyle dismissalStyle;
@@ -39,9 +40,16 @@ typedef NS_ENUM(NSUInteger, KSPhotoBrowserImageLoadingStyle) {
 @property (nonatomic, assign) KSPhotoBrowserPageIndicatorStyle pageindicatorStyle;
 @property (nonatomic, assign) KSPhotoBrowserImageLoadingStyle loadingStyle;
 @property (nonatomic, assign) BOOL bounces;
+@property (nonatomic, weak) id<KSPhotoBrowserDelegate> delegate;
 
 + (instancetype)browserWithPhotoItems:(NSArray<KSPhotoItem *> *)photoItems selectedIndex:(NSUInteger)selectedIndex;
 - (instancetype)initWithPhotoItems:(NSArray<KSPhotoItem *> *)photoItems selectedIndex:(NSUInteger)selectedIndex;
 - (void)showFromViewController:(UIViewController *)vc;
+
+@end
+
+@protocol KSPhotoBrowserDelegate <NSObject>
+
+- (void)ks_photoBrowser:(KSPhotoBrowser *)browser didSelectItem:(KSPhotoItem *)item atIndex:(NSUInteger)index;
 
 @end

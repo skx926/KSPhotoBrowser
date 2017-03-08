@@ -246,6 +246,9 @@ static const NSTimeInterval kSpringAnimationDuration = 0.5;
         } else {
             [self configPageLabelWithPage:_currentPage];
         }
+        if (_delegate && [_delegate respondsToSelector:@selector(ks_photoBrowser:didSelectItem:atIndex:)]) {
+            [_delegate ks_photoBrowser:self didSelectItem:item atIndex:page];
+        }
     }
 }
 
