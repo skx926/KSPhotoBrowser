@@ -473,6 +473,11 @@ static const NSTimeInterval kSpringAnimationDuration = 0.5;
         return;
     }
     UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:@[image] applicationActivities:nil];
+    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad) {
+        activityViewController.popoverPresentationController.sourceView = longPress.view;
+        CGPoint point = [longPress locationInView:longPress.view];
+        activityViewController.popoverPresentationController.sourceRect = CGRectMake(point.x, point.y, 1, 1);
+    }
     [self presentViewController:activityViewController animated:YES completion:nil];
 }
 
