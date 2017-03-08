@@ -51,16 +51,16 @@ static const NSTimeInterval kSpringAnimationDuration = 0.5;
 - (instancetype)initWithPhotoItems:(NSArray<KSPhotoItem *> *)photoItems selectedIndex:(NSUInteger)selectedIndex {
     self = [super init];
     if (self) {
+        self.modalPresentationStyle = UIModalPresentationCustom;
+        self.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
+        
         _photoItems = [NSMutableArray arrayWithArray:photoItems];
         _currentPage = selectedIndex;
         
-        self.dismissalStyle = KSPhotoBrowserInteractiveDismissalStyleRotation;
-        self.pageindicatorStyle = KSPhotoBrowserPageIndicatorStyleDot;
-        self.backgroundStyle = KSPhotoBrowserBackgroundStyleBlurPhoto;
-        self.loadingStyle = KSPhotoBrowserImageLoadingStyleIndeterminate;
-        
-        self.modalPresentationStyle = UIModalPresentationCustom;
-        self.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
+        _dismissalStyle = KSPhotoBrowserInteractiveDismissalStyleRotation;
+        _pageindicatorStyle = KSPhotoBrowserPageIndicatorStyleDot;
+        _backgroundStyle = KSPhotoBrowserBackgroundStyleBlurPhoto;
+        _loadingStyle = KSPhotoBrowserImageLoadingStyleIndeterminate;
         
         _reusableItemViews = [[NSMutableSet alloc] init];
         _visibleItemViews = [[NSMutableArray alloc] init];
