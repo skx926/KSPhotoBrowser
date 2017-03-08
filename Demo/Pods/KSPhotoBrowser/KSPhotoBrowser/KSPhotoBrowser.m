@@ -235,7 +235,7 @@ static const NSTimeInterval kSpringAnimationDuration = 0.5;
         }
     }
     
-    if (page != _currentPage && _presented) {
+    if (page != _currentPage && _presented && (page >= 0 && page < _photoItems.count)) {
         KSPhotoItem *item = [_photoItems objectAtIndex:page];
         if (_backgroundStyle == KSPhotoBrowserBackgroundStyleBlurPhoto) {
             [self blurBackgroundWithImage:item.thumbImage animated:YES];
