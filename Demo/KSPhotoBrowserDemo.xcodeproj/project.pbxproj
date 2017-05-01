@@ -14,7 +14,21 @@
 		27F9772B1E1B933C00AFB315 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 27F977291E1B933C00AFB315 /* Main.storyboard */; };
 		27F9772D1E1B933C00AFB315 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 27F9772C1E1B933C00AFB315 /* Assets.xcassets */; };
 		27F977301E1B933C00AFB315 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 27F9772E1E1B933C00AFB315 /* LaunchScreen.storyboard */; };
-		FAB41C5837DD7A4E84802452 /* libPods-KSPhotoBrowserDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AF46EA73A6FBB6A5373E405C /* libPods-KSPhotoBrowserDemo.a */; };
+		4DF3A413939562BF8A40603C /* libPods-KSPhotoBrowserDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 600B0C255336BD7C62D18A2E /* libPods-KSPhotoBrowserDemo.a */; };
+		F7F281321EB45F8E000C5561 /* KSPhotoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F7F281311EB45F8E000C5561 /* KSPhotoCell.m */; };
+		F7F281851EB6E39B000C5561 /* KSPhotoBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = F7F2817E1EB6E39B000C5561 /* KSPhotoBrowser.m */; };
+		F7F281861EB6E39B000C5561 /* KSPhotoItem.m in Sources */ = {isa = PBXBuildFile; fileRef = F7F281801EB6E39B000C5561 /* KSPhotoItem.m */; };
+		F7F281871EB6E39B000C5561 /* KSPhotoView.m in Sources */ = {isa = PBXBuildFile; fileRef = F7F281821EB6E39B000C5561 /* KSPhotoView.m */; };
+		F7F281881EB6E39B000C5561 /* KSProgressLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = F7F281841EB6E39B000C5561 /* KSProgressLayer.m */; };
+		F7F2818A1EB6E3F5000C5561 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7F281891EB6E3F5000C5561 /* UIKit.framework */; };
+		F7F2818C1EB6E3FE000C5561 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7F2818B1EB6E3FE000C5561 /* CoreFoundation.framework */; };
+		F7F2818E1EB6E405000C5561 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7F2818D1EB6E405000C5561 /* QuartzCore.framework */; };
+		F7F281901EB6E40B000C5561 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7F2818F1EB6E40B000C5561 /* AssetsLibrary.framework */; };
+		F7F281921EB6E412000C5561 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7F281911EB6E412000C5561 /* ImageIO.framework */; };
+		F7F281941EB6E418000C5561 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7F281931EB6E418000C5561 /* Accelerate.framework */; };
+		F7F281961EB6E41F000C5561 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7F281951EB6E41F000C5561 /* MobileCoreServices.framework */; };
+		F7F281981EB6E429000C5561 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = F7F281971EB6E429000C5561 /* libsqlite3.tbd */; };
+		F7F2819A1EB6E42F000C5561 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = F7F281991EB6E42F000C5561 /* libz.tbd */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,9 +44,28 @@
 		27F9772C1E1B933C00AFB315 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		27F9772F1E1B933C00AFB315 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		27F977311E1B933C00AFB315 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		AF46EA73A6FBB6A5373E405C /* libPods-KSPhotoBrowserDemo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-KSPhotoBrowserDemo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		E459FDDBF909D0AECE7B8F69 /* Pods-KSPhotoBrowserDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KSPhotoBrowserDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-KSPhotoBrowserDemo/Pods-KSPhotoBrowserDemo.release.xcconfig"; sourceTree = "<group>"; };
-		EE817EE178A018BAB2DA774B /* Pods-KSPhotoBrowserDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KSPhotoBrowserDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-KSPhotoBrowserDemo/Pods-KSPhotoBrowserDemo.debug.xcconfig"; sourceTree = "<group>"; };
+		600B0C255336BD7C62D18A2E /* libPods-KSPhotoBrowserDemo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-KSPhotoBrowserDemo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		7DB0997989D2CDB9B974C2FA /* Pods-KSPhotoBrowserDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KSPhotoBrowserDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-KSPhotoBrowserDemo/Pods-KSPhotoBrowserDemo.release.xcconfig"; sourceTree = "<group>"; };
+		87AB18B986ED633B11439023 /* Pods-KSPhotoBrowserDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KSPhotoBrowserDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-KSPhotoBrowserDemo/Pods-KSPhotoBrowserDemo.debug.xcconfig"; sourceTree = "<group>"; };
+		F7F281301EB45F8E000C5561 /* KSPhotoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSPhotoCell.h; sourceTree = "<group>"; };
+		F7F281311EB45F8E000C5561 /* KSPhotoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSPhotoCell.m; sourceTree = "<group>"; };
+		F7F2817D1EB6E39B000C5561 /* KSPhotoBrowser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSPhotoBrowser.h; sourceTree = "<group>"; };
+		F7F2817E1EB6E39B000C5561 /* KSPhotoBrowser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSPhotoBrowser.m; sourceTree = "<group>"; };
+		F7F2817F1EB6E39B000C5561 /* KSPhotoItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSPhotoItem.h; sourceTree = "<group>"; };
+		F7F281801EB6E39B000C5561 /* KSPhotoItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSPhotoItem.m; sourceTree = "<group>"; };
+		F7F281811EB6E39B000C5561 /* KSPhotoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSPhotoView.h; sourceTree = "<group>"; };
+		F7F281821EB6E39B000C5561 /* KSPhotoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSPhotoView.m; sourceTree = "<group>"; };
+		F7F281831EB6E39B000C5561 /* KSProgressLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSProgressLayer.h; sourceTree = "<group>"; };
+		F7F281841EB6E39B000C5561 /* KSProgressLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSProgressLayer.m; sourceTree = "<group>"; };
+		F7F281891EB6E3F5000C5561 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		F7F2818B1EB6E3FE000C5561 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
+		F7F2818D1EB6E405000C5561 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		F7F2818F1EB6E40B000C5561 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
+		F7F281911EB6E412000C5561 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
+		F7F281931EB6E418000C5561 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
+		F7F281951EB6E41F000C5561 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		F7F281971EB6E429000C5561 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
+		F7F281991EB6E42F000C5561 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -40,7 +73,16 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FAB41C5837DD7A4E84802452 /* libPods-KSPhotoBrowserDemo.a in Frameworks */,
+				F7F2819A1EB6E42F000C5561 /* libz.tbd in Frameworks */,
+				F7F281981EB6E429000C5561 /* libsqlite3.tbd in Frameworks */,
+				F7F281961EB6E41F000C5561 /* MobileCoreServices.framework in Frameworks */,
+				F7F281941EB6E418000C5561 /* Accelerate.framework in Frameworks */,
+				F7F281921EB6E412000C5561 /* ImageIO.framework in Frameworks */,
+				F7F281901EB6E40B000C5561 /* AssetsLibrary.framework in Frameworks */,
+				F7F2818E1EB6E405000C5561 /* QuartzCore.framework in Frameworks */,
+				F7F2818C1EB6E3FE000C5561 /* CoreFoundation.framework in Frameworks */,
+				F7F2818A1EB6E3F5000C5561 /* UIKit.framework in Frameworks */,
+				4DF3A413939562BF8A40603C /* libPods-KSPhotoBrowserDemo.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -52,8 +94,8 @@
 			children = (
 				27F9771F1E1B933C00AFB315 /* KSPhotoBrowserDemo */,
 				27F9771E1E1B933C00AFB315 /* Products */,
-				2B3F6D440996B3F13BC34C99 /* Pods */,
 				4B64BE3206B6C2C961E856D4 /* Frameworks */,
+				E2546C07CAAEFD3DEF3BF855 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -68,12 +110,15 @@
 		27F9771F1E1B933C00AFB315 /* KSPhotoBrowserDemo */ = {
 			isa = PBXGroup;
 			children = (
+				F7F2817C1EB6E39B000C5561 /* KSPhotoBrowser */,
 				27F977231E1B933C00AFB315 /* AppDelegate.h */,
 				27F977241E1B933C00AFB315 /* AppDelegate.m */,
 				27B963931E1BACE600F32BAE /* KSDemoViewController.h */,
 				27B963941E1BACE600F32BAE /* KSDemoViewController.m */,
 				27B963951E1BACE600F32BAE /* KSPreviewViewController.h */,
 				27B963961E1BACE600F32BAE /* KSPreviewViewController.m */,
+				F7F281301EB45F8E000C5561 /* KSPhotoCell.h */,
+				F7F281311EB45F8E000C5561 /* KSPhotoCell.m */,
 				27F977291E1B933C00AFB315 /* Main.storyboard */,
 				27F9772C1E1B933C00AFB315 /* Assets.xcassets */,
 				27F9772E1E1B933C00AFB315 /* LaunchScreen.storyboard */,
@@ -91,21 +136,46 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		2B3F6D440996B3F13BC34C99 /* Pods */ = {
+		4B64BE3206B6C2C961E856D4 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				EE817EE178A018BAB2DA774B /* Pods-KSPhotoBrowserDemo.debug.xcconfig */,
-				E459FDDBF909D0AECE7B8F69 /* Pods-KSPhotoBrowserDemo.release.xcconfig */,
+				F7F281991EB6E42F000C5561 /* libz.tbd */,
+				F7F281971EB6E429000C5561 /* libsqlite3.tbd */,
+				F7F281951EB6E41F000C5561 /* MobileCoreServices.framework */,
+				F7F281931EB6E418000C5561 /* Accelerate.framework */,
+				F7F281911EB6E412000C5561 /* ImageIO.framework */,
+				F7F2818F1EB6E40B000C5561 /* AssetsLibrary.framework */,
+				F7F2818D1EB6E405000C5561 /* QuartzCore.framework */,
+				F7F2818B1EB6E3FE000C5561 /* CoreFoundation.framework */,
+				F7F281891EB6E3F5000C5561 /* UIKit.framework */,
+				600B0C255336BD7C62D18A2E /* libPods-KSPhotoBrowserDemo.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		E2546C07CAAEFD3DEF3BF855 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				87AB18B986ED633B11439023 /* Pods-KSPhotoBrowserDemo.debug.xcconfig */,
+				7DB0997989D2CDB9B974C2FA /* Pods-KSPhotoBrowserDemo.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
 		};
-		4B64BE3206B6C2C961E856D4 /* Frameworks */ = {
+		F7F2817C1EB6E39B000C5561 /* KSPhotoBrowser */ = {
 			isa = PBXGroup;
 			children = (
-				AF46EA73A6FBB6A5373E405C /* libPods-KSPhotoBrowserDemo.a */,
+				F7F2817D1EB6E39B000C5561 /* KSPhotoBrowser.h */,
+				F7F2817E1EB6E39B000C5561 /* KSPhotoBrowser.m */,
+				F7F2817F1EB6E39B000C5561 /* KSPhotoItem.h */,
+				F7F281801EB6E39B000C5561 /* KSPhotoItem.m */,
+				F7F281811EB6E39B000C5561 /* KSPhotoView.h */,
+				F7F281821EB6E39B000C5561 /* KSPhotoView.m */,
+				F7F281831EB6E39B000C5561 /* KSProgressLayer.h */,
+				F7F281841EB6E39B000C5561 /* KSProgressLayer.m */,
 			);
-			name = Frameworks;
+			name = KSPhotoBrowser;
+			path = ../../KSPhotoBrowser;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -115,12 +185,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 27F977341E1B933C00AFB315 /* Build configuration list for PBXNativeTarget "KSPhotoBrowserDemo" */;
 			buildPhases = (
-				C7F382FE6A22ABBC6666C366 /* [CP] Check Pods Manifest.lock */,
+				45C69FD0896EBE3C7FCA7ED3 /* [CP] Check Pods Manifest.lock */,
 				27F977191E1B933C00AFB315 /* Sources */,
 				27F9771A1E1B933C00AFB315 /* Frameworks */,
 				27F9771B1E1B933C00AFB315 /* Resources */,
-				EC9E07F2BADA2ABCA51E1E59 /* [CP] Embed Pods Frameworks */,
-				7B91B8E1B4AC3916964E94F2 /* [CP] Copy Pods Resources */,
+				57FBBFEEF4327D2D214887D8 /* [CP] Embed Pods Frameworks */,
+				5AA27CAC904FED60AE43B552 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -179,22 +249,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		7B91B8E1B4AC3916964E94F2 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-KSPhotoBrowserDemo/Pods-KSPhotoBrowserDemo-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		C7F382FE6A22ABBC6666C366 /* [CP] Check Pods Manifest.lock */ = {
+		45C69FD0896EBE3C7FCA7ED3 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -209,7 +264,7 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		EC9E07F2BADA2ABCA51E1E59 /* [CP] Embed Pods Frameworks */ = {
+		57FBBFEEF4327D2D214887D8 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -224,6 +279,21 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-KSPhotoBrowserDemo/Pods-KSPhotoBrowserDemo-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		5AA27CAC904FED60AE43B552 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-KSPhotoBrowserDemo/Pods-KSPhotoBrowserDemo-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -231,10 +301,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F7F281871EB6E39B000C5561 /* KSPhotoView.m in Sources */,
 				27B963971E1BACE600F32BAE /* KSDemoViewController.m in Sources */,
 				27F977251E1B933C00AFB315 /* AppDelegate.m in Sources */,
 				27F977221E1B933C00AFB315 /* main.m in Sources */,
 				27B963981E1BACE600F32BAE /* KSPreviewViewController.m in Sources */,
+				F7F281861EB6E39B000C5561 /* KSPhotoItem.m in Sources */,
+				F7F281321EB45F8E000C5561 /* KSPhotoCell.m in Sources */,
+				F7F281881EB6E39B000C5561 /* KSProgressLayer.m in Sources */,
+				F7F281851EB6E39B000C5561 /* KSPhotoBrowser.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -350,7 +425,7 @@
 		};
 		27F977351E1B933C00AFB315 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = EE817EE178A018BAB2DA774B /* Pods-KSPhotoBrowserDemo.debug.xcconfig */;
+			baseConfigurationReference = 87AB18B986ED633B11439023 /* Pods-KSPhotoBrowserDemo.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = Z72G49SGPQ;
@@ -365,7 +440,7 @@
 		};
 		27F977361E1B933C00AFB315 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E459FDDBF909D0AECE7B8F69 /* Pods-KSPhotoBrowserDemo.release.xcconfig */;
+			baseConfigurationReference = 7DB0997989D2CDB9B974C2FA /* Pods-KSPhotoBrowserDemo.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = Z72G49SGPQ;

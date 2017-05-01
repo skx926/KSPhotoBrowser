@@ -8,11 +8,12 @@
 
 #import "KSPreviewViewController.h"
 #import "YYWebImage.h"
+#import "KSPhotoCell.h"
 
-@interface KSPreviewViewController ()<KSPhotoBrowserDelegate>
+@interface KSPreviewViewController ()<KSPhotoBrowserDelegate, UICollectionViewDelegate, UICollectionViewDataSource>
 
-@property (nonatomic, strong) NSArray *urls;
-@property (nonatomic, strong) NSMutableArray *imageViews;
+@property (nonatomic, strong) NSMutableArray *urls;
+@property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 
 @end
 
@@ -21,40 +22,18 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
-    _urls = @[@"http://ww4.sinaimg.cn/bmiddle/a15bd3a5jw1f12r9ku6wjj20u00mhn22.jpg",
-              @"http://ww2.sinaimg.cn/bmiddle/a15bd3a5jw1f01hkxyjhej20u00jzacj.jpg",
-              @"http://ww4.sinaimg.cn/bmiddle/a15bd3a5jw1f01hhs2omoj20u00jzwh9.jpg",
-              @"http://ww2.sinaimg.cn/bmiddle/a15bd3a5jw1ey1oyiyut7j20u00mi0vb.jpg",
-              @"http://ww2.sinaimg.cn/bmiddle/a15bd3a5jw1exkkw984e3j20u00miacm.jpg",
-              @"http://ww4.sinaimg.cn/bmiddle/a15bd3a5jw1ezvdc5dt1pj20ku0kujt7.jpg",
-              @"http://ww3.sinaimg.cn/bmiddle/a15bd3a5jw1ew68tajal7j20u011iacr.jpg",
-              @"http://ww2.sinaimg.cn/bmiddle/a15bd3a5jw1eupveeuzajj20hs0hs75d.jpg",
-              @"http://ww2.sinaimg.cn/bmiddle/d8937438gw1fb69b0hf5fj20hu13fjxj.jpg"];
-    
-    CGFloat top = 64;
-    CGFloat gap = 5;
-    NSInteger count = 3;
-    CGFloat width = (self.view.frame.size.width - gap * (count + 1)) / count;
-    CGFloat height = width;
-    _imageViews = @[].mutableCopy;
-    for (int i = 0; i < _urls.count; i++) {
-        CGFloat x = gap + (width + gap) * (i % count);
-        CGFloat y = top + gap + (height + gap) * (i / count);
-        CGRect rect = CGRectMake( x, y, width, height);
-        UIImageView *imageView = [[UIImageView alloc] initWithFrame:rect];
-        imageView.userInteractionEnabled = YES;
-        imageView.contentMode = UIViewContentModeScaleAspectFill;
-        imageView.yy_imageURL = [NSURL URLWithString:_urls[i]];
-        imageView.clipsToBounds = YES;
-        imageView.tag = i;
-        imageView.backgroundColor = [UIColor colorWithWhite:0.95 alpha:1];
-        [self.view addSubview:imageView];
-        
-        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(imageViewTapped:)];
-        tap.numberOfTapsRequired = 1;
-        tap.numberOfTouchesRequired = 1;
-        [imageView addGestureRecognizer:tap];
-        [_imageViews addObject:imageView];
+    NSArray *urls = @[@"http://ww4.sinaimg.cn/bmiddle/a15bd3a5jw1f12r9ku6wjj20u00mhn22.jpg",
+                      @"http://ww2.sinaimg.cn/bmiddle/a15bd3a5jw1f01hkxyjhej20u00jzacj.jpg",
+                      @"http://ww4.sinaimg.cn/bmiddle/a15bd3a5jw1f01hhs2omoj20u00jzwh9.jpg",
+                      @"http://ww2.sinaimg.cn/bmiddle/a15bd3a5jw1ey1oyiyut7j20u00mi0vb.jpg",
+                      @"http://ww2.sinaimg.cn/bmiddle/a15bd3a5jw1exkkw984e3j20u00miacm.jpg",
+                      @"http://ww4.sinaimg.cn/bmiddle/a15bd3a5jw1ezvdc5dt1pj20ku0kujt7.jpg",
+                      @"http://ww3.sinaimg.cn/bmiddle/a15bd3a5jw1ew68tajal7j20u011iacr.jpg",
+                      @"http://ww2.sinaimg.cn/bmiddle/a15bd3a5jw1eupveeuzajj20hs0hs75d.jpg",
+                      @"http://ww2.sinaimg.cn/bmiddle/d8937438gw1fb69b0hf5fj20hu13fjxj.jpg"];
+    _urls = @[].mutableCopy;
+    for (int i = 0; i < 10; i++) {
+        [_urls addObjectsFromArray:urls];
     }
 }
 
@@ -63,15 +42,35 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)imageViewTapped:(UITapGestureRecognizer *)tap {
+// MARK: - KSPhotoBrowserDelegate
+
+- (void)ks_photoBrowser:(KSPhotoBrowser *)browser didSelectItem:(KSPhotoItem *)item atIndex:(NSUInteger)index {
+    NSLog(@"selected index: %ld", index);
+}
+
+// MARK: - CollectionViewDataSource
+
+-(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+    return _urls.count;
+}
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    KSPhotoCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"PhotoCell" forIndexPath:indexPath];
+    cell.imageView.yy_imageURL = [NSURL URLWithString:_urls[indexPath.row]];
+    return cell;
+}
+
+// MARK: - CollectionViewDelegate
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     NSMutableArray *items = @[].mutableCopy;
-    for (int i = 0; i < _imageViews.count; i++) {
+    for (int i = 0; i < _urls.count; i++) {
+        KSPhotoCell *cell = (KSPhotoCell *)[collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0]];
         NSString *url = [_urls[i] stringByReplacingOccurrencesOfString:@"bmiddle" withString:@"large"];
-        UIImageView *imageView = _imageViews[i];
-        KSPhotoItem *item = [KSPhotoItem itemWithSourceView:imageView imageUrl:[NSURL URLWithString:url]];
+        KSPhotoItem *item = [KSPhotoItem itemWithSourceView:cell.imageView imageUrl:[NSURL URLWithString:url]];
         [items addObject:item];
     }
-    KSPhotoBrowser *browser = [KSPhotoBrowser browserWithPhotoItems:items selectedIndex:tap.view.tag];
+    KSPhotoBrowser *browser = [KSPhotoBrowser browserWithPhotoItems:items selectedIndex:indexPath.row];
     browser.delegate = self;
     browser.dismissalStyle = _dismissalStyle;
     browser.backgroundStyle = _backgroundStyle;
@@ -79,12 +78,6 @@
     browser.pageindicatorStyle = _pageindicatorStyle;
     browser.bounces = _bounces;
     [browser showFromViewController:self];
-}
-
-// MARK: - KSPhotoBrowserDelegate
-
-- (void)ks_photoBrowser:(KSPhotoBrowser *)browser didSelectItem:(KSPhotoItem *)item atIndex:(NSUInteger)index {
-    NSLog(@"selected index: %ld", index);
 }
 
 @end

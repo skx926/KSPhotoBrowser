@@ -1,8 +1,8 @@
 GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
-HEADER_SEARCH_PATHS = $(inherited) "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/KSPhotoBrowser" "${PODS_ROOT}/Headers/Public/YYCache" "${PODS_ROOT}/Headers/Public/YYImage" "${PODS_ROOT}/Headers/Public/YYWebImage"
-LIBRARY_SEARCH_PATHS = $(inherited) "$PODS_CONFIGURATION_BUILD_DIR/KSPhotoBrowser" "$PODS_CONFIGURATION_BUILD_DIR/YYCache" "$PODS_CONFIGURATION_BUILD_DIR/YYImage" "$PODS_CONFIGURATION_BUILD_DIR/YYWebImage"
-OTHER_CFLAGS = $(inherited) -isystem "${PODS_ROOT}/Headers/Public" -isystem "${PODS_ROOT}/Headers/Public/KSPhotoBrowser" -isystem "${PODS_ROOT}/Headers/Public/YYCache" -isystem "${PODS_ROOT}/Headers/Public/YYImage" -isystem "${PODS_ROOT}/Headers/Public/YYWebImage"
-OTHER_LDFLAGS = $(inherited) -ObjC -l"KSPhotoBrowser" -l"YYCache" -l"YYImage" -l"YYWebImage" -l"sqlite3" -l"z" -framework "Accelerate" -framework "AssetsLibrary" -framework "CoreFoundation" -framework "ImageIO" -framework "MobileCoreServices" -framework "QuartzCore" -framework "UIKit"
+HEADER_SEARCH_PATHS = $(inherited) "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/YYCache" "${PODS_ROOT}/Headers/Public/YYImage" "${PODS_ROOT}/Headers/Public/YYWebImage"
+LIBRARY_SEARCH_PATHS = $(inherited) "$PODS_CONFIGURATION_BUILD_DIR/YYCache" "$PODS_CONFIGURATION_BUILD_DIR/YYImage" "$PODS_CONFIGURATION_BUILD_DIR/YYWebImage"
+OTHER_CFLAGS = $(inherited) -isystem "${PODS_ROOT}/Headers/Public" -isystem "${PODS_ROOT}/Headers/Public/YYCache" -isystem "${PODS_ROOT}/Headers/Public/YYImage" -isystem "${PODS_ROOT}/Headers/Public/YYWebImage"
+OTHER_LDFLAGS = $(inherited) -ObjC -l"YYCache" -l"YYImage" -l"YYWebImage" -l"sqlite3" -l"z" -framework "Accelerate" -framework "AssetsLibrary" -framework "CoreFoundation" -framework "ImageIO" -framework "MobileCoreServices" -framework "QuartzCore" -framework "UIKit"
 PODS_BUILD_DIR = $BUILD_DIR
 PODS_CONFIGURATION_BUILD_DIR = $PODS_BUILD_DIR/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)
 PODS_ROOT = ${SRCROOT}/Pods
