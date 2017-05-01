@@ -587,6 +587,16 @@ static const NSTimeInterval kSpringAnimationDuration = 0.5;
     KSPhotoView *photoView = [self photoViewForPage:_currentPage];
     [photoView cancelCurrentImageLoad];
     [UIApplication sharedApplication].statusBarHidden = NO;
+    
+    if (item.sourceView == nil) {
+        [UIView animateWithDuration:kAnimationDuration animations:^{
+            self.view.alpha = 0;
+        } completion:^(BOOL finished) {
+            [self dismissAnimated:NO];
+        }];
+        return;
+    }
+    
     photoView.progressLayer.hidden = YES;
     item.sourceView.alpha = 0;
     CGRect sourceRect;

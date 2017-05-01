@@ -1,15 +1,15 @@
 KSPhotoBrowser
 ==============
 [![License MIT](https://img.shields.io/badge/license-MIT-green.svg?style=flat)](https://raw.githubusercontent.com/skx926/KSPhotoBrowser/master/LICENSE)&nbsp;
-[![CocoaPods](http://img.shields.io/cocoapods/v/KSPhotoBrowser.svg?style=flat)](http://cocoapods.org/?q= KSPhotoBrowser)&nbsp;
-[![CocoaPods](http://img.shields.io/cocoapods/p/KSPhotoBrowser.svg?style=flat)](http://cocoapods.org/?q= KSPhotoBrowser)&nbsp;
+[![CocoaPods](http://img.shields.io/cocoapods/v/KSPhotoBrowser.svg?style=flat)](http://cocoapods.org/?q=KSPhotoBrowser)&nbsp;
+[![CocoaPods](http://img.shields.io/cocoapods/p/KSPhotoBrowser.svg?style=flat)](http://cocoapods.org/?q=KSPhotoBrowser)&nbsp;
 [![Support](https://img.shields.io/badge/support-iOS%208.0%2B%20-blue.svg?style=flat)](https://www.apple.com/nl/ios/)&nbsp;
 
 ### A beautiful photo browser with interactive dismissal animation.
 
-![Rotation~](https://raw.github.com/skx926/KSPhotoBrowser/master/Demo/Rotation.gif)<br>
-![Blur~](https://raw.github.com/skx926/KSPhotoBrowser/master/Demo/Blur.gif)<br>
-![Scale~](https://raw.github.com/skx926/KSPhotoBrowser/master/Demo/Scale.gif)
+![Rotation~](https://raw.github.com/skx926/KSPhotoBrowser/master/Demo/Images/Rotation.gif)<br>
+![Blur~](https://raw.github.com/skx926/KSPhotoBrowser/master/Demo/Images/Blur.gif)<br>
+![Scale~](https://raw.github.com/skx926/KSPhotoBrowser/master/Demo/Images/Scale.gif)
 
 
 Features
