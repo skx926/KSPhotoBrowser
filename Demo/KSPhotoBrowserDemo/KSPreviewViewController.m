@@ -10,6 +10,7 @@
 #import "YYWebImage.h"
 #import "KSPhotoCell.h"
 #import "UIImageView+WebCache.h"
+#import "KSSDImageManager.h"
 
 @interface KSPreviewViewController ()<KSPhotoBrowserDelegate, UICollectionViewDelegate, UICollectionViewDataSource>
 
