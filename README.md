@@ -78,7 +78,7 @@ It use `YYWebImage` as default image downloader, you can also use your custom im
 
 To use a custom image downloader, you need to create a class and make it conforms to `KSImageManager` protocol and implement those methods inside that protocol.
 
-For convenience, I have already created `KSSDImageManager` to support `SDWebImage` as an example, you can also use it directly.
+For convenience, I have already created `KSSDImageManager` to support `SDWebImage 4.0` as an example, you can also use it directly.
 
 Finally, just use the code below to set your class to `KSPhotoBrowser` before you use the browser to show images.
 
