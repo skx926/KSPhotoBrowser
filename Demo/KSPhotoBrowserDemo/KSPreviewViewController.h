@@ -9,6 +9,11 @@
 #import <UIKit/UIKit.h>
 #import "KSPhotoBrowser.h"
 
+typedef NS_ENUM(NSInteger, KSImageManagerType) {
+    KSImageManagerTypeYYWebImage,
+    KSImageManagerTypeSDWebImage
+};
+
 @interface KSPreviewViewController : UIViewController
 
 @property (nonatomic, assign) KSPhotoBrowserInteractiveDismissalStyle dismissalStyle;
@@ -16,6 +21,7 @@
 @property (nonatomic, assign) KSPhotoBrowserPageIndicatorStyle pageindicatorStyle;
 @property (nonatomic, assign) KSPhotoBrowserImageLoadingStyle loadingStyle;
 @property (nonatomic, assign) BOOL bounces;
+@property (nonatomic, assign) KSImageManagerType imageManagerType;
 
 @end
 

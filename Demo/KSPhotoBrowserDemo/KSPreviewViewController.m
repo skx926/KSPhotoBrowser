@@ -9,6 +9,7 @@
 #import "KSPreviewViewController.h"
 #import "YYWebImage.h"
 #import "KSPhotoCell.h"
+#import "UIImageView+WebCache.h"
 
 @interface KSPreviewViewController ()<KSPhotoBrowserDelegate, UICollectionViewDelegate, UICollectionViewDataSource>
 
@@ -35,6 +36,11 @@
     for (int i = 0; i < 10; i++) {
         [_urls addObjectsFromArray:urls];
     }
+    if (_imageManagerType == KSImageManagerTypeSDWebImage) {
+        [KSPhotoBrowser setImageManagerClass:KSSDImageManager.class];
+    } else {
+        [KSPhotoBrowser setImageManagerClass:KSYYImageManager.class];
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -56,7 +62,11 @@
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     KSPhotoCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"PhotoCell" forIndexPath:indexPath];
-    cell.imageView.yy_imageURL = [NSURL URLWithString:_urls[indexPath.row]];
+    if (_imageManagerType == KSImageManagerTypeSDWebImage) {
+        [cell.imageView sd_setImageWithURL:[NSURL URLWithString:_urls[indexPath.row]]];
+    } else {
+        cell.imageView.yy_imageURL = [NSURL URLWithString:_urls[indexPath.row]];
+    }
     return cell;
 }
 

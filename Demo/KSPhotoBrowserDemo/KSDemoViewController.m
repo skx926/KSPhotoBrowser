@@ -9,6 +9,7 @@
 #import "KSDemoViewController.h"
 #import "KSPreviewViewController.h"
 #import "YYWebImage.h"
+#import "SDWebImageManager.h"
 
 @interface KSDemoViewController ()
 
@@ -17,6 +18,7 @@
 @property (weak, nonatomic) IBOutlet UISegmentedControl *pageSegementedControl;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *loadingSegementedControl;
 @property (weak, nonatomic) IBOutlet UISwitch *bouncesSwitch;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *managerSegmentedControl;
 
 @end
 
@@ -42,15 +44,21 @@
     preview.pageindicatorStyle = _pageSegementedControl.selectedSegmentIndex;
     preview.loadingStyle = _loadingSegementedControl.selectedSegmentIndex;
     preview.bounces = _bouncesSwitch.on;
+    preview.imageManagerType = _managerSegmentedControl.selectedSegmentIndex;
 }
 
 // MARK: - TableViewDelegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section == 6) {
+    if (indexPath.section == 7) {
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
-        [[YYWebImageManager sharedManager].cache.memoryCache removeAllObjects];
-        [[YYWebImageManager sharedManager].cache.diskCache removeAllObjects];
+        if (_managerSegmentedControl.selectedSegmentIndex == 0) {
+            [[YYWebImageManager sharedManager].cache.memoryCache removeAllObjects];
+            [[YYWebImageManager sharedManager].cache.diskCache removeAllObjects];
+        } else {
+            [[SDWebImageManager sharedManager].imageCache clearMemory];
+            [[SDWebImageManager sharedManager].imageCache clearDiskOnCompletion:nil];
+        }
     }
 }
 

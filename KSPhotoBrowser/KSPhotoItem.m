@@ -32,7 +32,8 @@
 }
 
 - (instancetype)initWithSourceView:(UIImageView *)view
-                          imageUrl:(NSURL *)url {
+                          imageUrl:(NSURL *)url
+{
     return [self initWithSourceView:view
                          thumbImage:view.image
                            imageUrl:url];
@@ -51,23 +52,26 @@
 }
 
 + (instancetype)itemWithSourceView:(UIView *)view
-                         thumbImage:(UIImage *)image
-                           imageUrl:(NSURL *)url {
+                        thumbImage:(UIImage *)image
+                          imageUrl:(NSURL *)url
+{
     return [[KSPhotoItem alloc] initWithSourceView:view
                                     thumbImage:image
                                       imageUrl:url];
 }
 
 + (instancetype)itemWithSourceView:(UIImageView *)view
-                           imageUrl:(NSURL *)url {
+                          imageUrl:(NSURL *)url
+{
     return [[KSPhotoItem alloc] initWithSourceView:view
-                                      imageUrl:url];
+                                          imageUrl:url];
 }
 
 + (instancetype)itemWithSourceView:(UIImageView *)view
-                              image:(UIImage *)image {
+                             image:(UIImage *)image
+{
     return [[KSPhotoItem alloc] initWithSourceView:view
-                                         image:image];
+                                             image:image];
 }
 
 @end

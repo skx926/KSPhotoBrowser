@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "KSPhotoItem.h"
+#import "KSYYImageManager.h"
+#import "KSSDImageManager.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -34,7 +36,7 @@ typedef NS_ENUM(NSUInteger, KSPhotoBrowserImageLoadingStyle) {
     KSPhotoBrowserImageLoadingStyleDeterminate
 };
 
-@protocol KSPhotoBrowserDelegate;
+@protocol KSPhotoBrowserDelegate, KSImageManager;
 @interface KSPhotoBrowser : UIViewController
 
 @property (nonatomic, assign) KSPhotoBrowserInteractiveDismissalStyle dismissalStyle;
@@ -47,6 +49,7 @@ typedef NS_ENUM(NSUInteger, KSPhotoBrowserImageLoadingStyle) {
 + (instancetype)browserWithPhotoItems:(NSArray<KSPhotoItem *> *)photoItems selectedIndex:(NSUInteger)selectedIndex;
 - (instancetype)initWithPhotoItems:(NSArray<KSPhotoItem *> *)photoItems selectedIndex:(NSUInteger)selectedIndex;
 - (void)showFromViewController:(UIViewController *)vc;
++ (void)setImageManagerClass:(Class<KSImageManager>)class;
 
 @end
 

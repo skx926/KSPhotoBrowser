@@ -17,6 +17,7 @@
 
 static const NSTimeInterval kAnimationDuration = 0.3;
 static const NSTimeInterval kSpringAnimationDuration = 0.5;
+static Class imageManagerClass = nil;
 
 @interface KSPhotoBrowser () <UIScrollViewDelegate, UIViewControllerTransitioningDelegate, CAAnimationDelegate> {
     CGPoint _startLocation;
@@ -31,6 +32,7 @@ static const NSTimeInterval kSpringAnimationDuration = 0.5;
 @property (nonatomic, strong) UIPageControl *pageControl;
 @property (nonatomic, strong) UILabel *pageLabel;
 @property (nonatomic, assign) BOOL presented;
+@property (nonatomic, strong) id<KSImageManager> imageManager;
 
 @end
 
@@ -64,6 +66,11 @@ static const NSTimeInterval kSpringAnimationDuration = 0.5;
         
         _reusableItemViews = [[NSMutableSet alloc] init];
         _visibleItemViews = [[NSMutableArray alloc] init];
+        
+        if (imageManagerClass == nil) {
+            imageManagerClass = KSYYImageManager.class;
+        }
+        _imageManager = [[imageManagerClass alloc] init];
     }
     return self;
 }
@@ -118,12 +125,11 @@ static const NSTimeInterval kSpringAnimationDuration = 0.5;
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    
+   
     KSPhotoItem *item = [_photoItems objectAtIndex:_currentPage];
     KSPhotoView *photoView = [self photoViewForPage:_currentPage];
-    YYWebImageManager *manager = [YYWebImageManager sharedManager];
-    NSString *key = [manager cacheKeyForURL:item.imageUrl];
-    if ([manager.cache getImageForKey:key withType:YYImageCacheTypeMemory]) {
+    
+    if ([_imageManager imageFromMemoryForURL:item.imageUrl]) {
         [self configPhotoView:photoView withItem:item];
     } else {
         photoView.imageView.image = item.thumbImage;
@@ -178,6 +184,10 @@ static const NSTimeInterval kSpringAnimationDuration = 0.5;
     [vc presentViewController:self animated:NO completion:nil];
 }
 
++ (void)setImageManagerClass:(Class<KSImageManager>)class {
+    imageManagerClass = class;
+}
+
 // MARK: - Private
 
 - (UIInterfaceOrientationMask)supportedInterfaceOrientations {
@@ -196,7 +206,7 @@ static const NSTimeInterval kSpringAnimationDuration = 0.5;
 - (KSPhotoView *)dequeueReusableItemView {
     KSPhotoView *photoView = [_reusableItemViews anyObject];
     if (photoView == nil) {
-        photoView = [[KSPhotoView alloc] initWithFrame:_scrollView.bounds];
+        photoView = [[KSPhotoView alloc] initWithFrame:_scrollView.bounds imageManager:_imageManager];
     } else {
         [_reusableItemViews removeObject:photoView];
     }
