@@ -21,6 +21,7 @@ Features
 - Support bounce animation.
 - Optimized for image which has a very large height.
 - Can display one or more images by providing either image urls or UIImage objects.
+- Custom image downloader library support.
 
 ### Follow-up
 - Support Landscape orientation browse.
@@ -72,6 +73,18 @@ Installation
 2. Manually install [YYWebImage](https://github.com/ibireme/YYWebImage) to your project.
 3. Import `KSPhotoBrowser.h`.
 
+### Custom Image Downloader
+It use `YYWebImage` as default image downloader, you can also use your custom image downloader like `SDWebImage`, `Kingfisher` and so on.
+
+To use a custom image downloader, you need to create a class and make it conforms to `KSImageManager` protocol and implement those methods inside that protocol.
+
+For convenience, I have already created `KSSDImageManager` to support `SDWebImage` as an example, you can also use it directly.
+
+Finally, just use the code below to set your class to `KSPhotoBrowser` before you use the browser to show images.
+
+```objc
+[KSPhotoBrowser setImageManagerClass:KSSDImageManager.class]
+```
 
 Requirements
 ==============
