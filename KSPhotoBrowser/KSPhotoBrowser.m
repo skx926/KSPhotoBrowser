@@ -98,10 +98,12 @@ static Class imageManagerClass = nil;
     [self.view addSubview:_scrollView];
     
     if (_pageindicatorStyle == KSPhotoBrowserPageIndicatorStyleDot) {
-        _pageControl = [[UIPageControl alloc] initWithFrame:CGRectMake(0, self.view.bounds.size.height-40, self.view.bounds.size.width, 20)];
-        _pageControl.numberOfPages = _photoItems.count;
-        _pageControl.currentPage = _currentPage;
-        [self.view addSubview:_pageControl];
+        if (_photoItems.count > 1) {
+            _pageControl = [[UIPageControl alloc] initWithFrame:CGRectMake(0, self.view.bounds.size.height-40, self.view.bounds.size.width, 20)];
+            _pageControl.numberOfPages = _photoItems.count;
+            _pageControl.currentPage = _currentPage;
+            [self.view addSubview:_pageControl];
+        }
     } else {
         _pageLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, self.view.bounds.size.height-40, self.view.bounds.size.width, 20)];
         _pageLabel.textColor = [UIColor whiteColor];
