@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		27AE692E1ED2B8FC00AFD107 /* KSYYImageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 27AE692D1ED2B8FC00AFD107 /* KSYYImageManager.m */; };
-		27AE69321ED2C22100AFD107 /* KSSDImageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 27AE69311ED2C22100AFD107 /* KSSDImageManager.m */; };
+		27AE69351ED2EE9300AFD107 /* KSSDImageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 27AE69331ED2EE9300AFD107 /* KSSDImageManager.m */; };
 		27B963971E1BACE600F32BAE /* KSDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27B963941E1BACE600F32BAE /* KSDemoViewController.m */; };
 		27B963981E1BACE600F32BAE /* KSPreviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27B963961E1BACE600F32BAE /* KSPreviewViewController.m */; };
 		27F977221E1B933C00AFB315 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 27F977211E1B933C00AFB315 /* main.m */; };
@@ -37,8 +37,8 @@
 		27AE692A1ED29B1F00AFD107 /* KSYYImageManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSYYImageManager.h; sourceTree = "<group>"; };
 		27AE692D1ED2B8FC00AFD107 /* KSYYImageManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSYYImageManager.m; sourceTree = "<group>"; };
 		27AE692F1ED2C19600AFD107 /* KSImageManagerProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSImageManagerProtocol.h; sourceTree = "<group>"; };
-		27AE69301ED2C22100AFD107 /* KSSDImageManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSSDImageManager.h; sourceTree = "<group>"; };
-		27AE69311ED2C22100AFD107 /* KSSDImageManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSSDImageManager.m; sourceTree = "<group>"; };
+		27AE69331ED2EE9300AFD107 /* KSSDImageManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSSDImageManager.m; sourceTree = "<group>"; };
+		27AE69341ED2EE9300AFD107 /* KSSDImageManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSSDImageManager.h; sourceTree = "<group>"; };
 		27B963931E1BACE600F32BAE /* KSDemoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSDemoViewController.h; sourceTree = "<group>"; };
 		27B963941E1BACE600F32BAE /* KSDemoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSDemoViewController.m; sourceTree = "<group>"; };
 		27B963951E1BACE600F32BAE /* KSPreviewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSPreviewViewController.h; sourceTree = "<group>"; };
@@ -118,6 +118,8 @@
 			isa = PBXGroup;
 			children = (
 				F7F2817C1EB6E39B000C5561 /* KSPhotoBrowser */,
+				27AE69341ED2EE9300AFD107 /* KSSDImageManager.h */,
+				27AE69331ED2EE9300AFD107 /* KSSDImageManager.m */,
 				27F977231E1B933C00AFB315 /* AppDelegate.h */,
 				27F977241E1B933C00AFB315 /* AppDelegate.m */,
 				27B963931E1BACE600F32BAE /* KSDemoViewController.h */,
@@ -183,8 +185,6 @@
 				27AE692F1ED2C19600AFD107 /* KSImageManagerProtocol.h */,
 				27AE692A1ED29B1F00AFD107 /* KSYYImageManager.h */,
 				27AE692D1ED2B8FC00AFD107 /* KSYYImageManager.m */,
-				27AE69301ED2C22100AFD107 /* KSSDImageManager.h */,
-				27AE69311ED2C22100AFD107 /* KSSDImageManager.m */,
 			);
 			name = KSPhotoBrowser;
 			path = ../../KSPhotoBrowser;
@@ -313,13 +313,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				27AE69351ED2EE9300AFD107 /* KSSDImageManager.m in Sources */,
 				F7F281871EB6E39B000C5561 /* KSPhotoView.m in Sources */,
 				27B963971E1BACE600F32BAE /* KSDemoViewController.m in Sources */,
 				27F977251E1B933C00AFB315 /* AppDelegate.m in Sources */,
 				27F977221E1B933C00AFB315 /* main.m in Sources */,
 				27B963981E1BACE600F32BAE /* KSPreviewViewController.m in Sources */,
 				F7F281861EB6E39B000C5561 /* KSPhotoItem.m in Sources */,
-				27AE69321ED2C22100AFD107 /* KSSDImageManager.m in Sources */,
 				27AE692E1ED2B8FC00AFD107 /* KSYYImageManager.m in Sources */,
 				F7F281321EB45F8E000C5561 /* KSPhotoCell.m in Sources */,
 				F7F281881EB6E39B000C5561 /* KSProgressLayer.m in Sources */,
