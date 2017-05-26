@@ -337,7 +337,7 @@ static Class imageManagerClass = nil;
             [self handlePanBegin];
             break;
         case UIGestureRecognizerStateChanged: {
-            double percent = 1 - fabs(point.y)/(self.view.frame.size.height/2);
+            double percent = 1 - fabs(point.y) / self.view.frame.size.height;
             percent = MAX(percent, 0);
             double s = MAX(percent, 0.5);
             CGAffineTransform translation = CGAffineTransformMakeTranslation(point.x/s, point.y/s);

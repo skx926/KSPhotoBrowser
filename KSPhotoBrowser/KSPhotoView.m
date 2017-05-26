@@ -14,7 +14,7 @@
 const CGFloat kKSPhotoViewPadding = 10;
 const CGFloat kKSPhotoViewMaxScale = 3;
 
-@interface KSPhotoView ()<UIScrollViewDelegate>
+@interface KSPhotoView ()<UIScrollViewDelegate, UIGestureRecognizerDelegate>
 
 @property (nonatomic, strong, readwrite) UIImageView *imageView;
 @property (nonatomic, strong, readwrite) KSProgressLayer *progressLayer;
@@ -128,6 +128,18 @@ const CGFloat kKSPhotoViewMaxScale = 3;
     [_progressLayer stopSpin];
 }
 
+- (BOOL)isScrollViewOnTopOrBottom {
+    CGPoint translation = [self.panGestureRecognizer translationInView:self];
+    if (translation.y > 0 && self.contentOffset.y <= 0) {
+        return YES;
+    }
+    CGFloat maxOffsetY = floor(self.contentSize.height - self.bounds.size.height);
+    if (translation.y < 0 && self.contentOffset.y >= maxOffsetY) {
+        return YES;
+    }
+    return NO;
+}
+
 #pragma mark - ScrollViewDelegate
 
 - (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView {
@@ -143,6 +155,30 @@ const CGFloat kKSPhotoViewMaxScale = 3;
     
     _imageView.center = CGPointMake(scrollView.contentSize.width * 0.5 + offsetX,
                                  scrollView.contentSize.height * 0.5 + offsetY);
+}
+
+#pragma mark - GestureRecognizerDelegate
+
+- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
+    if (gestureRecognizer == self.panGestureRecognizer) {
+        if (gestureRecognizer.state == UIGestureRecognizerStatePossible) {
+            if ([self isScrollViewOnTopOrBottom]) {
+                return NO;
+            }
+        }
+    }
+    return YES;
+}
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
+    if (gestureRecognizer == self.panGestureRecognizer) {
+        if (gestureRecognizer.state == UIGestureRecognizerStateBegan) {
+            if ([self isScrollViewOnTopOrBottom]) {
+                return YES;
+            }
+        }
+    }
+    return NO;
 }
 
 @end
