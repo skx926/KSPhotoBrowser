@@ -170,15 +170,5 @@ const CGFloat kKSPhotoViewMaxScale = 3;
     return YES;
 }
 
-- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
-    if (gestureRecognizer == self.panGestureRecognizer) {
-        if (gestureRecognizer.state == UIGestureRecognizerStateBegan) {
-            if ([self isScrollViewOnTopOrBottom]) {
-                return YES;
-            }
-        }
-    }
-    return NO;
-}
 
 @end
