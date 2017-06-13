@@ -428,7 +428,7 @@ static Class imageManagerClass = nil;
 }
 
 - (void)configPageLabelWithPage:(NSUInteger)page {
-    _pageLabel.text = [NSString stringWithFormat:@"%ld / %ld", page+1, _photoItems.count];
+    _pageLabel.text = [NSString stringWithFormat:@"%lu / %lu", page+1, _photoItems.count];
 }
 
 - (void)handlePanBegin {
