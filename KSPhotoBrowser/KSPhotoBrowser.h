@@ -48,7 +48,7 @@ typedef NS_ENUM(NSUInteger, KSPhotoBrowserImageLoadingStyle) {
 + (instancetype)browserWithPhotoItems:(NSArray<KSPhotoItem *> *)photoItems selectedIndex:(NSUInteger)selectedIndex;
 - (instancetype)initWithPhotoItems:(NSArray<KSPhotoItem *> *)photoItems selectedIndex:(NSUInteger)selectedIndex;
 - (void)showFromViewController:(UIViewController *)vc;
-+ (void)setImageManagerClass:(Class<KSImageManager>)class;
++ (void)setImageManagerClass:(Class<KSImageManager>)cls;
 
 @end
 

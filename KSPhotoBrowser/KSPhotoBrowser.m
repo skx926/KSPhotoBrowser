@@ -186,8 +186,8 @@ static Class imageManagerClass = nil;
     [vc presentViewController:self animated:NO completion:nil];
 }
 
-+ (void)setImageManagerClass:(Class<KSImageManager>)class {
-    imageManagerClass = class;
++ (void)setImageManagerClass:(Class<KSImageManager>)cls {
+    imageManagerClass = cls;
 }
 
 // MARK: - Private
