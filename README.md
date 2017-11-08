@@ -23,10 +23,6 @@ Features
 - Can display one or more images by providing either image urls or UIImage objects.
 - Custom image downloader library support.
 
-### Follow-up
-- Support Landscape orientation browse.
-- Support video browse.
-
 
 Usage
 ==============

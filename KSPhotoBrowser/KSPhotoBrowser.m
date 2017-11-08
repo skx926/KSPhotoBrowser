@@ -161,7 +161,7 @@ static Class imageManagerClass = nil;
         } completion:^(BOOL finished) {
             [self configPhotoView:photoView withItem:item];
             _presented = YES;
-            [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
+            [self setStatusBarHidden:YES];
         }];
     } else {
         [UIView animateWithDuration:kAnimationDuration animations:^{
@@ -171,7 +171,7 @@ static Class imageManagerClass = nil;
         } completion:^(BOOL finished) {
             [self configPhotoView:photoView withItem:item];
             _presented = YES;
-            [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
+            [self setStatusBarHidden:YES];
         }];
     }
 }
@@ -191,6 +191,15 @@ static Class imageManagerClass = nil;
 }
 
 // MARK: - Private
+
+- (void)setStatusBarHidden:(BOOL)hidden {
+    UIWindow *window = [UIApplication sharedApplication].keyWindow;
+    if (hidden) {
+        window.windowLevel = UIWindowLevelStatusBar + 1;
+    } else {
+        window.windowLevel = UIWindowLevelNormal;
+    }
+}
 
 - (UIInterfaceOrientationMask)supportedInterfaceOrientations {
     return UIInterfaceOrientationMaskPortrait;
@@ -435,7 +444,7 @@ static Class imageManagerClass = nil;
     KSPhotoView *photoView = [self photoViewForPage:_currentPage];
     [photoView cancelCurrentImageLoad];
     KSPhotoItem *item = [_photoItems objectAtIndex:_currentPage];
-    [UIApplication sharedApplication].statusBarHidden = NO;
+    [self setStatusBarHidden:NO];
     photoView.progressLayer.hidden = YES;
     item.sourceView.alpha = 0;
 }
@@ -534,7 +543,7 @@ static Class imageManagerClass = nil;
             self.view.backgroundColor = [UIColor blackColor];
             _backgroundView.alpha = 1;
         } completion:^(BOOL finished) {
-            [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
+            [self setStatusBarHidden:YES];
             [self configPhotoView:photoView withItem:item];
         }];
     } else {
@@ -543,7 +552,7 @@ static Class imageManagerClass = nil;
             self.view.backgroundColor = [UIColor blackColor];
             _backgroundView.alpha = 1;
         } completion:^(BOOL finished) {
-            [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
+            [self setStatusBarHidden:YES];
             [self configPhotoView:photoView withItem:item];
         }];
     }
@@ -598,7 +607,7 @@ static Class imageManagerClass = nil;
     KSPhotoItem *item = [_photoItems objectAtIndex:_currentPage];
     KSPhotoView *photoView = [self photoViewForPage:_currentPage];
     [photoView cancelCurrentImageLoad];
-    [UIApplication sharedApplication].statusBarHidden = NO;
+    [self setStatusBarHidden:NO];
     
     if (item.sourceView == nil) {
         [UIView animateWithDuration:kAnimationDuration animations:^{

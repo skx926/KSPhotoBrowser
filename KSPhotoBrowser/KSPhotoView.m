@@ -34,6 +34,9 @@ const CGFloat kKSPhotoViewMaxScale = 3;
         self.showsHorizontalScrollIndicator = YES;
         self.showsVerticalScrollIndicator = YES;
         self.delegate = self;
+        if (@available(iOS 11.0, *)) {
+            self.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+        }
         
         _imageView = [[UIImageView alloc] init];
         _imageView.backgroundColor = [UIColor darkGrayColor];
