@@ -8,32 +8,28 @@
 
 #import <UIKit/UIKit.h>
 
-NS_ASSUME_NONNULL_BEGIN
-
 @interface KSPhotoItem : NSObject
 
-@property (nonatomic, strong, readonly) UIView *sourceView;
-@property (nonatomic, strong, readonly) UIImage *thumbImage;
-@property (nonatomic, strong, readonly) UIImage *image;
-@property (nonatomic, strong, readonly) NSURL *imageUrl;
+@property (nonatomic, strong, readonly, nullable) UIView *sourceView;
+@property (nonatomic, strong, readonly, nullable) UIImage *thumbImage;
+@property (nonatomic, strong, readonly, nullable) UIImage *image;
+@property (nonatomic, strong, readonly, nullable) NSURL *imageUrl;
 @property (nonatomic, assign) BOOL finished;
 
-- (instancetype)initWithSourceView:(UIView *)view
-                        thumbImage:(UIImage *)image
-                          imageUrl:(NSURL *)url;
-- (instancetype)initWithSourceView:(UIImageView *)view
-                          imageUrl:(NSURL *)url;
-- (instancetype)initWithSourceView:(UIImageView *)view
-                             image:(UIImage *)image;
+- (nonnull instancetype)initWithSourceView:(nullable UIView *)view
+                                thumbImage:(nullable UIImage *)image
+                                  imageUrl:(nullable NSURL *)url;
+- (nonnull instancetype)initWithSourceView:(nullable UIImageView * )view
+                                  imageUrl:(nullable NSURL *)url;
+- (nonnull instancetype)initWithSourceView:(nullable UIImageView *)view
+                                     image:(nullable UIImage *)image;
 
-+ (instancetype)itemWithSourceView:(UIView *)view
-                         thumbImage:(UIImage *)image
-                           imageUrl:(NSURL *)url;
-+ (instancetype)itemWithSourceView:(UIImageView *)view
-                           imageUrl:(NSURL *)url;
-+ (instancetype)itemWithSourceView:(UIImageView *)view
-                              image:(UIImage *)image;
++ (nonnull instancetype)itemWithSourceView:(nullable UIView *)view
+                                thumbImage:(nullable UIImage *)image
+                                  imageUrl:(nullable NSURL *)url;
++ (nonnull instancetype)itemWithSourceView:(nullable UIImageView *)view
+                                  imageUrl:(nullable NSURL *)url;
++ (nonnull instancetype)itemWithSourceView:(nullable UIImageView *)view
+                                     image:(nullable UIImage *)image;
 
 @end
-
-NS_ASSUME_NONNULL_END
