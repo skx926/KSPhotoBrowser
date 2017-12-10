@@ -11,12 +11,18 @@
 #import "KSProgressLayer.h"
 #import "KSImageManagerProtocol.h"
 
+#if __has_include(<YYWebImage/YYWebImage.h>)
+#import <YYWebImage/YYWebImage.h>
+#else
+#import "YYWebImage.h"
+#endif
+
 const CGFloat kKSPhotoViewPadding = 10;
 const CGFloat kKSPhotoViewMaxScale = 3;
 
 @interface KSPhotoView ()<UIScrollViewDelegate, UIGestureRecognizerDelegate>
 
-@property (nonatomic, strong, readwrite) UIImageView *imageView;
+@property (nonatomic, strong, readwrite) YYAnimatedImageView *imageView;
 @property (nonatomic, strong, readwrite) KSProgressLayer *progressLayer;
 @property (nonatomic, strong, readwrite) KSPhotoItem *item;
 @property (nonatomic, strong) id<KSImageManager> imageManager;
@@ -38,7 +44,7 @@ const CGFloat kKSPhotoViewMaxScale = 3;
             self.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
         }
         
-        _imageView = [[UIImageView alloc] init];
+        _imageView = [[YYAnimatedImageView alloc] init];
         _imageView.backgroundColor = [UIColor darkGrayColor];
         _imageView.contentMode = UIViewContentModeScaleAspectFill;
         _imageView.clipsToBounds = YES;

@@ -14,11 +14,11 @@ NS_ASSUME_NONNULL_BEGIN
 extern const CGFloat kKSPhotoViewPadding;
 
 @protocol KSImageManager;
-@class KSPhotoItem;
+@class KSPhotoItem, YYAnimatedImageView;
 
 @interface KSPhotoView : UIScrollView
 
-@property (nonatomic, strong, readonly) UIImageView *imageView;
+@property (nonatomic, strong, readonly) YYAnimatedImageView *imageView;
 @property (nonatomic, strong, readonly) KSProgressLayer *progressLayer;
 @property (nonatomic, strong, readonly) KSPhotoItem *item;
 
