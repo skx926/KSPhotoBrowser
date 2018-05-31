@@ -28,8 +28,8 @@ Usage
 ==============
 ### Display images from urls
 ```objc
-NSArray *urls = @[@"http://ww4.sinaimg.cn/bmiddle/a15bd3a5jw1f12r9ku6wjj20u00mhn22.jpg",
-                  @"http://ww2.sinaimg.cn/bmiddle/a15bd3a5jw1f01hkxyjhej20u00jzacj.jpg"];
+NSArray *urls = @[@"https://ww4.sinaimg.cn/bmiddle/a15bd3a5jw1f12r9ku6wjj20u00mhn22.jpg",
+                  @"https://ww2.sinaimg.cn/bmiddle/a15bd3a5jw1f01hkxyjhej20u00jzacj.jpg"];
 NSMutableArray *items = @[].mutableCopy;
 for (int i = 0; i < urls.count; i++) {
     // Get the large image url
