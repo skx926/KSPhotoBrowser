@@ -12,10 +12,13 @@
 #import "UIImageView+WebCache.h"
 #import "KSSDImageManager.h"
 
+static NSString * const kAvatarUrl = @"https://tvax2.sinaimg.cn/crop.0.0.750.750.180/a15bd3a5ly8fqkp954lyyj20ku0kugn1.jpg";
+
 @interface KSPreviewViewController ()<KSPhotoBrowserDelegate, UICollectionViewDelegate, UICollectionViewDataSource>
 
 @property (nonatomic, strong) NSMutableArray *urls;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
+@property (weak, nonatomic) IBOutlet UIImageView *avatarImageView;
 
 @end
 
@@ -42,6 +45,18 @@
     } else {
         [KSPhotoBrowser setImageManagerClass:KSYYImageManager.class];
     }
+    
+    self.avatarImageView.layer.cornerRadius = 40;
+    self.avatarImageView.layer.masksToBounds = true;
+    self.avatarImageView.userInteractionEnabled = true;
+    if (_imageManagerType == KSImageManagerTypeSDWebImage) {
+        [self.avatarImageView sd_setImageWithURL:[NSURL URLWithString:kAvatarUrl]];
+    } else {
+        self.avatarImageView.yy_imageURL = [NSURL URLWithString:kAvatarUrl];
+    }
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(avatarTapped:)];
+    tap.numberOfTapsRequired = 1;
+    [self.avatarImageView addGestureRecognizer:tap];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -49,10 +64,31 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)avatarTapped:(UITapGestureRecognizer *)tap {
+    KSPhotoItem *item = [KSPhotoItem itemWithSourceView:self.avatarImageView imageUrl:[NSURL URLWithString:kAvatarUrl]];
+    [self showBrowserWithPhotoItems:@[item] selectedIndex:0];
+}
+
+- (void)showBrowserWithPhotoItems:(NSArray *)items selectedIndex:(NSUInteger)selectedIndex {
+    KSPhotoBrowser *browser = [KSPhotoBrowser browserWithPhotoItems:items selectedIndex:selectedIndex];
+    browser.delegate = self;
+    browser.dismissalStyle = _dismissalStyle;
+    browser.backgroundStyle = _backgroundStyle;
+    browser.loadingStyle = _loadingStyle;
+    browser.pageindicatorStyle = _pageindicatorStyle;
+    browser.bounces = _bounces;
+    [browser showFromViewController:self];
+}
+
 // MARK: - KSPhotoBrowserDelegate
 
 - (void)ks_photoBrowser:(KSPhotoBrowser *)browser didSelectItem:(KSPhotoItem *)item atIndex:(NSUInteger)index {
     NSLog(@"selected index: %ld", index);
+}
+
+- (void)ks_photoBrowser:(KSPhotoBrowser *)browser didLongPressItem:(KSPhotoItem *)item atIndex:(NSUInteger)index {
+    UIImage *image = [browser imageForItem:item];
+    NSLog(@"long pressed image:%@", image);
 }
 
 // MARK: - CollectionViewDataSource
@@ -68,6 +104,13 @@
     } else {
         cell.imageView.yy_imageURL = [NSURL URLWithString:_urls[indexPath.row]];
     }
+    if (indexPath.item % 3 == 0) {
+        cell.type = KSPhotoCellTypeRect;
+    } else if (indexPath.item % 3 == 1) {
+        cell.type = KSPhotoCellTypeRoundedRect;
+    } else {
+        cell.type = KSPhotoCellTypeCircular;
+    }
     return cell;
 }
 
@@ -81,14 +124,7 @@
         KSPhotoItem *item = [KSPhotoItem itemWithSourceView:cell.imageView imageUrl:[NSURL URLWithString:url]];
         [items addObject:item];
     }
-    KSPhotoBrowser *browser = [KSPhotoBrowser browserWithPhotoItems:items selectedIndex:indexPath.row];
-    browser.delegate = self;
-    browser.dismissalStyle = _dismissalStyle;
-    browser.backgroundStyle = _backgroundStyle;
-    browser.loadingStyle = _loadingStyle;
-    browser.pageindicatorStyle = _pageindicatorStyle;
-    browser.bounces = _bounces;
-    [browser showFromViewController:self];
+    [self showBrowserWithPhotoItems:items selectedIndex:indexPath.item];
 }
 
 @end

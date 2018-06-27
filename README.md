@@ -10,6 +10,8 @@ KSPhotoBrowser
 ![Rotation~](https://raw.github.com/skx926/KSPhotoBrowser/master/Demo/Rotation.gif)<br>
 ![Blur~](https://raw.github.com/skx926/KSPhotoBrowser/master/Demo/Blur.gif)<br>
 ![Scale~](https://raw.github.com/skx926/KSPhotoBrowser/master/Demo/Scale.gif)
+![Corner~](https://raw.github.com/skx926/KSPhotoBrowser/master/Demo/Corner.gif)
+![Index~](https://raw.github.com/skx926/KSPhotoBrowser/master/Demo/Index.png)
 
 
 Features
@@ -22,6 +24,7 @@ Features
 - Optimized for image which has a very large height.
 - Can display one or more images by providing either image urls or UIImage objects.
 - Custom image downloader library support.
+- Smooth animation with corner radius.
 
 
 Usage

@@ -46,4 +46,10 @@
     return [manager.cache getImageForKey:key withType:YYImageCacheTypeMemory];
 }
 
+- (UIImage *)imageForURL:(NSURL *)url {
+    YYWebImageManager *manager = [YYWebImageManager sharedManager];
+    NSString *key = [manager cacheKeyForURL:url];
+    return [manager.cache getImageForKey:key];
+}
+
 @end

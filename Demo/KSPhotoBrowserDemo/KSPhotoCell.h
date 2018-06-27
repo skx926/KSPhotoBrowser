@@ -8,8 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
+typedef NS_ENUM(NSUInteger, KSPhotoCellType) {
+    KSPhotoCellTypeRect,
+    KSPhotoCellTypeRoundedRect,
+    KSPhotoCellTypeCircular
+};
 @interface KSPhotoCell : UICollectionViewCell
 
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
+@property (nonatomic, assign) KSPhotoCellType type;
 
 @end

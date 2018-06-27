@@ -24,4 +24,6 @@ typedef void (^KSImageManagerCompletionBlock)(UIImage * _Nullable image, NSURL *
 
 - (UIImage *_Nullable)imageFromMemoryForURL:(nullable NSURL *)url;
 
+- (UIImage *_Nullable)imageForURL:(nullable NSURL *)url;
+
 @end

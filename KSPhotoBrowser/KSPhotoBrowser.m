@@ -15,8 +15,10 @@
 #import "YYWebImage.h"
 #endif
 
-static const NSTimeInterval kAnimationDuration = 0.3;
+static const NSTimeInterval kAnimationDuration = 1;
 static const NSTimeInterval kSpringAnimationDuration = 0.5;
+static const CGFloat kPageControlHeight = 20;
+static const CGFloat kPageControlBottomSpacing = 40;
 static Class imageManagerClass = nil;
 
 @interface KSPhotoBrowser () <UIScrollViewDelegate, UIViewControllerTransitioningDelegate, CAAnimationDelegate> {
@@ -99,13 +101,13 @@ static Class imageManagerClass = nil;
     
     if (_pageindicatorStyle == KSPhotoBrowserPageIndicatorStyleDot) {
         if (_photoItems.count > 1) {
-            _pageControl = [[UIPageControl alloc] initWithFrame:CGRectMake(0, self.view.bounds.size.height-40, self.view.bounds.size.width, 20)];
+            _pageControl = [[UIPageControl alloc] initWithFrame:CGRectMake(0, self.view.bounds.size.height - kPageControlBottomSpacing, self.view.bounds.size.width, kPageControlHeight)];
             _pageControl.numberOfPages = _photoItems.count;
             _pageControl.currentPage = _currentPage;
             [self.view addSubview:_pageControl];
         }
     } else {
-        _pageLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, self.view.bounds.size.height-40, self.view.bounds.size.width, 20)];
+        _pageLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, self.view.bounds.size.height - kPageControlBottomSpacing, self.view.bounds.size.width, kPageControlHeight)];
         _pageLabel.textColor = [UIColor whiteColor];
         _pageLabel.font = [UIFont systemFontOfSize:16];
         _pageLabel.textAlignment = NSTextAlignmentCenter;
@@ -129,6 +131,10 @@ static Class imageManagerClass = nil;
     [super viewWillAppear:animated];
    
     KSPhotoItem *item = [_photoItems objectAtIndex:_currentPage];
+    if (_delegate && [_delegate respondsToSelector:@selector(ks_photoBrowser:didSelectItem:atIndex:)]) {
+        [_delegate ks_photoBrowser:self didSelectItem:item atIndex:_currentPage];
+    }
+    
     KSPhotoView *photoView = [self photoViewForPage:_currentPage];
     
     if ([_imageManager imageFromMemoryForURL:item.imageUrl]) {
@@ -136,6 +142,12 @@ static Class imageManagerClass = nil;
     } else {
         photoView.imageView.image = item.thumbImage;
         [photoView resizeImageView];
+    }
+    
+    if (_backgroundStyle == KSPhotoBrowserBackgroundStyleBlur) {
+        [self blurBackgroundWithImage:[self screenshot] animated:NO];
+    } else if (_backgroundStyle == KSPhotoBrowserBackgroundStyleBlurPhoto) {
+        [self blurBackgroundWithImage:item.thumbImage animated:NO];
     }
     
     CGRect endRect = photoView.imageView.frame;
@@ -148,11 +160,6 @@ static Class imageManagerClass = nil;
     }
     photoView.imageView.frame = sourceRect;
     
-    if (_backgroundStyle == KSPhotoBrowserBackgroundStyleBlur) {
-        [self blurBackgroundWithImage:[self screenshot] animated:NO];
-    } else if (_backgroundStyle == KSPhotoBrowserBackgroundStyleBlurPhoto) {
-        [self blurBackgroundWithImage:item.thumbImage animated:NO];
-    }
     if (_bounces) {
         [UIView animateWithDuration:kSpringAnimationDuration delay:0 usingSpringWithDamping:0.6 initialSpringVelocity:0 options:kNilOptions animations:^{
             photoView.imageView.frame = endRect;
@@ -164,6 +171,22 @@ static Class imageManagerClass = nil;
             [self setStatusBarHidden:YES];
         }];
     } else {
+        CGRect startBounds = CGRectMake(0, 0, sourceRect.size.width, sourceRect.size.height);
+        CGRect endBounds = CGRectMake(0, 0, endRect.size.width, endRect.size.height);
+        UIBezierPath *startPath = [UIBezierPath bezierPathWithRoundedRect:startBounds cornerRadius:MAX(item.sourceView.layer.cornerRadius, 0.1)];
+        UIBezierPath *endPath = [UIBezierPath bezierPathWithRoundedRect:endBounds cornerRadius:0.1];
+        CAShapeLayer *maskLayer = [CAShapeLayer layer];
+        maskLayer.frame = endBounds;
+        photoView.imageView.layer.mask = maskLayer;
+        
+        CABasicAnimation *maskAnimation = [CABasicAnimation animationWithKeyPath:@"path"];
+        maskAnimation.duration = kAnimationDuration;
+        maskAnimation.fromValue = (__bridge id _Nullable)startPath.CGPath;
+        maskAnimation.toValue = (__bridge id _Nullable)endPath.CGPath;
+        maskAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+        [maskLayer addAnimation:maskAnimation forKey:nil];
+        maskLayer.path = endPath.CGPath;
+        
         [UIView animateWithDuration:kAnimationDuration animations:^{
             photoView.imageView.frame = endRect;
             self.view.backgroundColor = [UIColor blackColor];
@@ -188,6 +211,15 @@ static Class imageManagerClass = nil;
 
 + (void)setImageManagerClass:(Class<KSImageManager>)cls {
     imageManagerClass = cls;
+}
+
+- (UIImage *)imageForItem:(KSPhotoItem *)item {
+    return [_imageManager imageForURL:item.imageUrl];
+}
+
+- (UIImage *)imageAtIndex:(NSUInteger)index {
+    KSPhotoItem *item = [_photoItems objectAtIndex:index];
+    return [_imageManager imageForURL:item.imageUrl];
 }
 
 // MARK: - Private
@@ -498,6 +530,10 @@ static Class imageManagerClass = nil;
     if (!image) {
         return;
     }
+    if (_delegate && [_delegate respondsToSelector:@selector(ks_photoBrowser:didLongPressItem:atIndex:)]) {
+        [_delegate ks_photoBrowser:self didLongPressItem:_photoItems[_currentPage] atIndex:_currentPage];
+        return;
+    }
     UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:@[image] applicationActivities:nil];
     if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad) {
         activityViewController.popoverPresentationController.sourceView = longPress.view;
@@ -636,6 +672,23 @@ static Class imageManagerClass = nil;
             [self dismissAnimated:NO];
         }];
     } else {
+        CGRect startRect = photoView.imageView.frame;
+        CGRect endBounds = CGRectMake(0, 0, sourceRect.size.width, sourceRect.size.height);
+        CGRect startBounds = CGRectMake(0, 0, startRect.size.width, startRect.size.height);
+        UIBezierPath *startPath = [UIBezierPath bezierPathWithRoundedRect:startBounds cornerRadius:0.1];
+        UIBezierPath *endPath = [UIBezierPath bezierPathWithRoundedRect:endBounds cornerRadius:MAX(item.sourceView.layer.cornerRadius, 0.1)];
+        CAShapeLayer *maskLayer = [CAShapeLayer layer];
+        maskLayer.frame = endBounds;
+        photoView.imageView.layer.mask = maskLayer;
+        
+        CABasicAnimation *maskAnimation = [CABasicAnimation animationWithKeyPath:@"path"];
+        maskAnimation.duration = kAnimationDuration;
+        maskAnimation.fromValue = (__bridge id _Nullable)startPath.CGPath;
+        maskAnimation.toValue = (__bridge id _Nullable)endPath.CGPath;
+        maskAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+        [maskLayer addAnimation:maskAnimation forKey:nil];
+        maskLayer.path = endPath.CGPath;
+        
         [UIView animateWithDuration:kAnimationDuration animations:^{
             photoView.imageView.frame = sourceRect;
             self.view.backgroundColor = [UIColor clearColor];

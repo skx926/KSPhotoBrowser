@@ -49,4 +49,10 @@
     return [manager.imageCache imageFromMemoryCacheForKey:key];
 }
 
+- (UIImage *)imageForURL:(NSURL *)url {
+    SDWebImageManager *manager = [SDWebImageManager sharedManager];
+    NSString *key = [manager cacheKeyForURL:url];
+    return [manager.imageCache imageFromCacheForKey:key];
+}
+
 @end

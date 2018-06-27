@@ -50,7 +50,7 @@
 // MARK: - TableViewDelegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section == 7) {
+    if (indexPath.section == 6) {
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
         if (_managerSegmentedControl.selectedSegmentIndex == 0) {
             [[YYWebImageManager sharedManager].cache.memoryCache removeAllObjects];
