@@ -15,7 +15,7 @@
 #import "YYWebImage.h"
 #endif
 
-static const NSTimeInterval kAnimationDuration = 1;
+static const NSTimeInterval kAnimationDuration = 0.33;
 static const NSTimeInterval kSpringAnimationDuration = 0.5;
 static const CGFloat kPageControlHeight = 20;
 static const CGFloat kPageControlBottomSpacing = 40;
