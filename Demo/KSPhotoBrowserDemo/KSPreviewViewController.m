@@ -10,7 +10,7 @@
 #import "YYWebImage.h"
 #import "KSPhotoCell.h"
 #import "UIImageView+WebCache.h"
-#import "KSSDImageManager.h"
+#import "KSYYImageManager.h"
 
 static NSString * const kAvatarUrl = @"https://tvax2.sinaimg.cn/crop.0.0.750.750.180/a15bd3a5ly8fqkp954lyyj20ku0kugn1.jpg";
 

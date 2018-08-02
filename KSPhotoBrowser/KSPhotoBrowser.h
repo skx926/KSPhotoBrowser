@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "KSPhotoItem.h"
-#import "KSYYImageManager.h"
+#import "KSSDImageManager.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

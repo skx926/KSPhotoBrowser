@@ -9,7 +9,6 @@
 #import "KSPhotoBrowser.h"
 #import "KSPhotoView.h"
 #import "UIImage+KS.h"
-#import "KSSDImageManager.h"
 
 static const NSTimeInterval kAnimationDuration = 0.33;
 static const NSTimeInterval kSpringAnimationDuration = 0.5;
