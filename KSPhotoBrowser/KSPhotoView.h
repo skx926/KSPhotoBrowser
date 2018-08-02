@@ -18,7 +18,7 @@ extern const CGFloat kKSPhotoViewPadding;
 
 @interface KSPhotoView : UIScrollView
 
-@property (nonatomic, strong, readonly) YYAnimatedImageView *imageView;
+@property (nonatomic, strong, readonly) UIImageView *imageView;
 @property (nonatomic, strong, readonly) KSProgressLayer *progressLayer;
 @property (nonatomic, strong, readonly) KSPhotoItem *item;
 

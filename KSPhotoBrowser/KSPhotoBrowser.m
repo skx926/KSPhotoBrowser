@@ -8,12 +8,8 @@
 
 #import "KSPhotoBrowser.h"
 #import "KSPhotoView.h"
-
-#if __has_include(<YYWebImage/YYWebImage.h>)
-#import <YYWebImage/YYWebImage.h>
-#else
-#import "YYWebImage.h"
-#endif
+#import "UIImage+KS.h"
+#import "KSSDImageManager.h"
 
 static const NSTimeInterval kAnimationDuration = 0.33;
 static const NSTimeInterval kSpringAnimationDuration = 0.5;
@@ -70,7 +66,7 @@ static Class imageManagerClass = nil;
         _visibleItemViews = [[NSMutableArray alloc] init];
         
         if (imageManagerClass == nil) {
-            imageManagerClass = KSYYImageManager.class;
+            imageManagerClass = KSSDImageManager.class;
         }
         _imageManager = [[imageManagerClass alloc] init];
     }
@@ -446,7 +442,7 @@ static Class imageManagerClass = nil;
 
 - (void)blurBackgroundWithImage:(UIImage *)image animated:(BOOL)animated {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        UIImage *blurImage = [image yy_imageByBlurDark];
+        UIImage *blurImage = [image ks_imageByBlurDark];
         dispatch_async(dispatch_get_main_queue(), ^{
             if (animated) {
                 [UIView animateWithDuration:kAnimationDuration animations:^{
