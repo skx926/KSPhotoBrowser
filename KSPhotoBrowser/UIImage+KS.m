@@ -7,7 +7,6 @@
 //
 
 #import "UIImage+KS.h"
-#import "UIImage+YYWebImage.h"
 #import <ImageIO/ImageIO.h>
 #import <Accelerate/Accelerate.h>
 #import <objc/runtime.h>
