@@ -102,24 +102,27 @@ const CGFloat kKSPhotoViewMaxScale = 3;
 - (void)resizeImageView {
     if (_imageView.image) {
         CGSize imageSize = _imageView.image.size;
-        CGFloat width = _imageView.frame.size.width;
+        CGFloat width = self.frame.size.width - 2 * kKSPhotoViewPadding;
         CGFloat height = width * (imageSize.height / imageSize.width);
         CGRect rect = CGRectMake(0, 0, width, height);
-        _imageView.frame = rect;
         
-        // If image is very high, show top content.
-        if (height <= self.bounds.size.height) {
-            _imageView.center = CGPointMake(self.bounds.size.width/2, self.bounds.size.height/2);
-        } else {
-            _imageView.center = CGPointMake(self.bounds.size.width/2, height/2);
-        }
+        [UIView animateWithDuration:0.33 animations:^{
+            _imageView.frame = rect;
+            
+            // If image is very high, show top content.
+            if (height <= self.bounds.size.height) {
+                _imageView.center = CGPointMake(self.bounds.size.width/2, self.bounds.size.height/2);
+            } else {
+                _imageView.center = CGPointMake(self.bounds.size.width/2, height/2);
+            }
+        }];
         
         // If image is very wide, make sure user can zoom to fullscreen.
         if (width / height > 2) {
             self.maximumZoomScale = self.bounds.size.height / height;
         }
     } else {
-        CGFloat width = self.frame.size.width - 2 * kKSPhotoViewPadding;
+        CGFloat width = (self.frame.size.width - 2 * kKSPhotoViewPadding) / 2;
         _imageView.frame = CGRectMake(0, 0, width, width * 2.0 / 3);
         _imageView.center = CGPointMake(self.bounds.size.width/2, self.bounds.size.height/2);
     }

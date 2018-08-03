@@ -145,6 +145,20 @@ static Class imageManagerClass = nil;
         [self blurBackgroundWithImage:item.thumbImage animated:NO];
     }
     
+    if (item.sourceView == nil) {
+        photoView.alpha = 0;
+        [UIView animateWithDuration:kAnimationDuration animations:^{
+            self.view.backgroundColor = [UIColor blackColor];
+            _backgroundView.alpha = 1;
+            photoView.alpha = 1;
+        } completion:^(BOOL finished) {
+            [self configPhotoView:photoView withItem:item];
+            _presented = YES;
+            [self setStatusBarHidden:YES];
+        }];
+        return;
+    }
+    
     CGRect endRect = photoView.imageView.frame;
     CGRect sourceRect;
     float systemVersion = [[[UIDevice currentDevice] systemVersion] floatValue];
@@ -182,6 +196,7 @@ static Class imageManagerClass = nil;
         [maskLayer addAnimation:maskAnimation forKey:nil];
         maskLayer.path = endPath.CGPath;
         
+        
         [UIView animateWithDuration:kAnimationDuration animations:^{
             photoView.imageView.frame = endRect;
             self.view.backgroundColor = [UIColor blackColor];
@@ -190,6 +205,7 @@ static Class imageManagerClass = nil;
             [self configPhotoView:photoView withItem:item];
             _presented = YES;
             [self setStatusBarHidden:YES];
+            photoView.imageView.layer.mask = nil;
         }];
     }
 }
