@@ -18,6 +18,7 @@ static Class imageManagerClass = nil;
 
 @interface KSPhotoBrowser () <UIScrollViewDelegate, UIViewControllerTransitioningDelegate, CAAnimationDelegate> {
     CGPoint _startLocation;
+    CGRect _startFrame;
 }
 
 @property (nonatomic, strong) UIScrollView *scrollView;
@@ -366,7 +367,7 @@ static Class imageManagerClass = nil;
         case UIGestureRecognizerStateEnded:
         case UIGestureRecognizerStateCancelled: {
             if (fabs(point.y) > 200 || fabs(velocity.y) > 500) {
-                [self showRotationCompletionAnimationFromPoint:point];
+                [self showRotationCompletionAnimationFromPoint:point velocity:velocity];
             } else {
                 [self showCancellationAnimation];
             }
@@ -386,15 +387,24 @@ static Class imageManagerClass = nil;
     switch (pan.state) {
         case UIGestureRecognizerStateBegan:
             _startLocation = location;
+            _startFrame = photoView.imageView.frame;
             [self handlePanBegin];
             break;
         case UIGestureRecognizerStateChanged: {
             double percent = 1 - fabs(point.y) / self.view.frame.size.height;
-            percent = MAX(percent, 0);
-            double s = MAX(percent, 0.5);
-            CGAffineTransform translation = CGAffineTransformMakeTranslation(point.x/s, point.y/s);
-            CGAffineTransform scale = CGAffineTransformMakeScale(s, s);
-            photoView.imageView.transform = CGAffineTransformConcat(translation, scale);
+            double s = MAX(percent, 0.3);
+            
+            CGFloat width = _startFrame.size.width * s;
+            CGFloat height = _startFrame.size.height * s;
+            
+            CGFloat rateX = (_startLocation.x - _startFrame.origin.x) / _startFrame.size.width;
+            CGFloat x = location.x - width * rateX;
+            
+            CGFloat rateY = (_startLocation.y - _startFrame.origin.y) / _startFrame.size.height;
+            CGFloat y = location.y - height * rateY;
+            
+            photoView.imageView.frame = CGRectMake(x, y, width, height);
+            
             self.view.backgroundColor = [UIColor colorWithWhite:0 alpha:percent];
             _backgroundView.alpha = percent;
         }
@@ -434,7 +444,7 @@ static Class imageManagerClass = nil;
         case UIGestureRecognizerStateEnded:
         case UIGestureRecognizerStateCancelled: {
             if (fabs(point.y) > 200 || fabs(velocity.y) > 500) {
-                [self showSlideCompletionAnimationFromPoint:point];
+                [self showSlideCompletionAnimationFromPoint:point velocity:velocity];
             } else {
                 [self showCancellationAnimation];
             }
@@ -605,7 +615,7 @@ static Class imageManagerClass = nil;
     }
 }
 
-- (void)showRotationCompletionAnimationFromPoint:(CGPoint)point {
+- (void)showRotationCompletionAnimationFromPoint:(CGPoint)point velocity:(CGPoint)velocity {
     KSPhotoView *photoView = [self photoViewForPage:_currentPage];
     BOOL startFromLeft = _startLocation.x < self.view.frame.size.width / 2;
     BOOL throwToTop = point.y < 0;
@@ -625,6 +635,8 @@ static Class imageManagerClass = nil;
         angle0 = (M_PI / 2) * (point.y / self.view.frame.size.height);
     }
     
+    NSTimeInterval duration = MIN(500 / fabs(velocity.y), kAnimationDuration);
+    
     CABasicAnimation *rotationAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
     rotationAnimation.fromValue = @(angle0);
     rotationAnimation.toValue = @(angle);
@@ -632,7 +644,7 @@ static Class imageManagerClass = nil;
     translationAnimation.fromValue = @(point.y);
     translationAnimation.toValue = @(toTranslationY);
     CAAnimationGroup *throwAnimation = [CAAnimationGroup animation];
-    throwAnimation.duration = kAnimationDuration;
+    throwAnimation.duration = duration;
     throwAnimation.delegate = self;
     throwAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear];
     throwAnimation.animations = @[rotationAnimation, translationAnimation];
@@ -644,7 +656,7 @@ static Class imageManagerClass = nil;
     CGAffineTransform transform = CGAffineTransformConcat(rotation, translation);
     photoView.imageView.transform = transform;
     
-    [UIView animateWithDuration:kAnimationDuration animations:^{
+    [UIView animateWithDuration:duration animations:^{
         self.view.backgroundColor = [UIColor clearColor];
         _backgroundView.alpha = 0;
     } completion:nil];
@@ -710,7 +722,7 @@ static Class imageManagerClass = nil;
     }
 }
 
-- (void)showSlideCompletionAnimationFromPoint:(CGPoint)point {
+- (void)showSlideCompletionAnimationFromPoint:(CGPoint)point velocity:(CGPoint)velocity {
     KSPhotoView *photoView = [self photoViewForPage:_currentPage];
     BOOL throwToTop = point.y < 0;
     CGFloat toTranslationY = 0;
@@ -719,7 +731,8 @@ static Class imageManagerClass = nil;
     } else {
         toTranslationY = self.view.frame.size.height;
     }
-    [UIView animateWithDuration:kAnimationDuration animations:^{
+    NSTimeInterval duration = MIN(500 / fabs(velocity.y), kAnimationDuration);
+    [UIView animateWithDuration:duration animations:^{
         photoView.imageView.transform = CGAffineTransformMakeTranslation(0, toTranslationY);
         self.view.backgroundColor = [UIColor clearColor];
         _backgroundView.alpha = 0;
