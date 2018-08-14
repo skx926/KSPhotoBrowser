@@ -46,11 +46,16 @@ const CGFloat kKSPhotoViewMaxScale = 3;
         [self resizeImageView];
         
         _progressLayer = [[KSProgressLayer alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
-        _progressLayer.position = CGPointMake(frame.size.width/2, frame.size.height/2);
+        
         _progressLayer.hidden = YES;
         [self.layer addSublayer:_progressLayer];
     }
     return self;
+}
+
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    _progressLayer.position = CGPointMake(self.bounds.size.width/2, self.bounds.size.height/2);
 }
 
 - (void)setItem:(KSPhotoItem *)item determinate:(BOOL)determinate {

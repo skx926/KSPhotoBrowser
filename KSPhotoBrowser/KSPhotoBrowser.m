@@ -83,15 +83,12 @@ static Class ImageViewClass = nil;
     
     self.view.backgroundColor = [UIColor clearColor];
     
-    self.backgroundView = [[UIImageView alloc] initWithFrame:self.view.bounds];
+    self.backgroundView = [[UIImageView alloc] init];
     self.backgroundView.contentMode = UIViewContentModeScaleAspectFill;
     self.backgroundView.alpha = 0;
     [self.view addSubview:self.backgroundView];
     
-    CGRect rect = self.view.bounds;
-    rect.origin.x -= kKSPhotoViewPadding;
-    rect.size.width += 2 * kKSPhotoViewPadding;
-    _scrollView = [[UIScrollView alloc] initWithFrame:rect];
+    _scrollView = [[UIScrollView alloc] init];
     _scrollView.pagingEnabled = YES;
     _scrollView.showsHorizontalScrollIndicator = NO;
     _scrollView.delegate = self;
@@ -99,13 +96,13 @@ static Class ImageViewClass = nil;
     
     if (_pageindicatorStyle == KSPhotoBrowserPageIndicatorStyleDot) {
         if (_photoItems.count > 1) {
-            _pageControl = [[UIPageControl alloc] initWithFrame:CGRectMake(0, self.view.bounds.size.height - kPageControlBottomSpacing, self.view.bounds.size.width, kPageControlHeight)];
+            _pageControl = [[UIPageControl alloc] init];
             _pageControl.numberOfPages = _photoItems.count;
             _pageControl.currentPage = _currentPage;
             [self.view addSubview:_pageControl];
         }
     } else {
-        _pageLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, self.view.bounds.size.height - kPageControlBottomSpacing, self.view.bounds.size.width, kPageControlHeight)];
+        _pageLabel = [[UILabel alloc] init];
         _pageLabel.textColor = [UIColor whiteColor];
         _pageLabel.font = [UIFont systemFontOfSize:16];
         _pageLabel.textAlignment = NSTextAlignmentCenter;
@@ -113,16 +110,9 @@ static Class ImageViewClass = nil;
         [self.view addSubview:_pageLabel];
     }
     
-    CGSize contentSize = CGSizeMake(rect.size.width * _photoItems.count, rect.size.height);
-    _scrollView.contentSize = contentSize;
+    [self setupFrames];
     
     [self addGestureRecognizer];
-    
-    CGPoint contentOffset = CGPointMake(_scrollView.frame.size.width*_currentPage, 0);
-    [_scrollView setContentOffset:contentOffset animated:NO];
-    if (contentOffset.x == 0) {
-        [self scrollViewDidScroll:_scrollView];
-    }
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -208,6 +198,11 @@ static Class ImageViewClass = nil;
     }
 }
 
+- (void)viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews];
+    [self setupFrames];
+}
+
 - (void)dealloc {
     
 }
@@ -229,6 +224,35 @@ static Class ImageViewClass = nil;
 
 // MARK: - Private
 
+- (void)setupFrames {
+    CGRect rect = self.view.bounds;
+    _backgroundView.frame = rect;
+    
+    rect.origin.x -= kKSPhotoViewPadding;
+    rect.size.width += 2 * kKSPhotoViewPadding;
+    _scrollView.frame = rect;
+    
+    CGSize contentSize = CGSizeMake(rect.size.width * _photoItems.count, rect.size.height);
+    _scrollView.contentSize = contentSize;
+    
+    CGRect pageRect = CGRectMake(0, self.view.bounds.size.height - kPageControlBottomSpacing, self.view.bounds.size.width, kPageControlHeight);
+    _pageControl.frame = pageRect;
+    _pageLabel.frame = pageRect;
+    
+    for (KSPhotoView *photoView in _visibleItemViews) {
+        CGRect rect = _scrollView.bounds;
+        rect.origin.x = photoView.tag * _scrollView.bounds.size.width;
+        photoView.frame = rect;
+        [photoView resizeImageView];
+    }
+    
+    CGPoint contentOffset = CGPointMake(_scrollView.frame.size.width * _currentPage, 0);
+    [_scrollView setContentOffset:contentOffset animated:true];
+    if (contentOffset.x == 0) {
+        [self scrollViewDidScroll:_scrollView];
+    }
+}
+
 - (void)setStatusBarHidden:(BOOL)hidden {
     UIWindow *window = [UIApplication sharedApplication].keyWindow;
     if (hidden) {
@@ -239,7 +263,7 @@ static Class ImageViewClass = nil;
 }
 
 - (UIInterfaceOrientationMask)supportedInterfaceOrientations {
-    return UIInterfaceOrientationMaskPortrait;
+    return UIInterfaceOrientationMaskAllButUpsideDown;
 }
 
 - (KSPhotoView *)photoViewForPage:(NSUInteger)page {
@@ -625,15 +649,16 @@ static Class ImageViewClass = nil;
     BOOL startFromLeft = _startLocation.x < self.view.frame.size.width / 2;
     BOOL throwToTop = point.y < 0;
     CGFloat angle, toTranslationY;
+    CGFloat height = MAX(photoView.imageView.frame.size.height, photoView.frame.size.height);
+    
     if (throwToTop) {
         angle = startFromLeft ? (M_PI / 2) : -(M_PI / 2);
-        toTranslationY = -self.view.frame.size.height;
+        toTranslationY = -height;
     } else {
         angle = startFromLeft ? -(M_PI / 2) : (M_PI / 2);
-        toTranslationY = self.view.frame.size.height;
+        toTranslationY = height;
     }
     
-    CGFloat height = MAX(photoView.imageView.frame.size.height, photoView.frame.size.height);
     CGFloat angle0 = 0;
     if (_startLocation.x < self.view.frame.size.width/2) {
         angle0 = -(M_PI / 2) * (point.y / height);
