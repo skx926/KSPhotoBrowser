@@ -633,11 +633,12 @@ static Class ImageViewClass = nil;
         toTranslationY = self.view.frame.size.height;
     }
     
+    CGFloat height = MAX(photoView.imageView.frame.size.height, photoView.frame.size.height);
     CGFloat angle0 = 0;
     if (_startLocation.x < self.view.frame.size.width/2) {
-        angle0 = -(M_PI / 2) * (point.y / self.view.frame.size.height);
+        angle0 = -(M_PI / 2) * (point.y / height);
     } else {
-        angle0 = (M_PI / 2) * (point.y / self.view.frame.size.height);
+        angle0 = (M_PI / 2) * (point.y / height);
     }
     
     NSTimeInterval duration = MIN(500 / fabs(velocity.y), kAnimationDuration);
