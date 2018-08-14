@@ -27,6 +27,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    [UIApplication sharedApplication].keyWindow.tintColor = UIColor.blackColor;
 }
 
 - (void)didReceiveMemoryWarning {
