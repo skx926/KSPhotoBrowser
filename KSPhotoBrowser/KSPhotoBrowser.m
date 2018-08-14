@@ -342,10 +342,11 @@ static Class ImageViewClass = nil;
             break;
         case UIGestureRecognizerStateChanged: {
             CGFloat angle = 0;
+            CGFloat height = MAX(photoView.imageView.frame.size.height, photoView.frame.size.height);
             if (_startLocation.x < self.view.frame.size.width/2) {
-                angle = -(M_PI / 2) * (point.y / self.view.frame.size.height);
+                angle = -(M_PI / 2) * (point.y / height);
             } else {
-                angle = (M_PI / 2) * (point.y / self.view.frame.size.height);
+                angle = (M_PI / 2) * (point.y / height);
             }
             CGAffineTransform rotation = CGAffineTransformMakeRotation(angle);
             CGAffineTransform translation = CGAffineTransformMakeTranslation(0, point.y);
@@ -373,10 +374,11 @@ static Class ImageViewClass = nil;
 }
 
 - (void)performScaleWithPan:(UIPanGestureRecognizer *)pan {
-    CGPoint point = [pan translationInView:self.view];
-    CGPoint location = [pan locationInView:self.view];
-    CGPoint velocity = [pan velocityInView:self.view];
     KSPhotoView *photoView = [self photoViewForPage:_currentPage];
+    CGPoint point = [pan translationInView:self.view];
+    CGPoint location = [pan locationInView:photoView];
+    CGPoint velocity = [pan velocityInView:self.view];
+    
     switch (pan.state) {
         case UIGestureRecognizerStateBegan:
             _startLocation = location;
@@ -395,6 +397,8 @@ static Class ImageViewClass = nil;
             
             CGFloat rateY = (_startLocation.y - self.startFrame.origin.y) / self.startFrame.size.height;
             CGFloat y = location.y - height * rateY;
+            
+            NSLog(@"%f", rateY);
             
             photoView.imageView.frame = CGRectMake(x, y, width, height);
             
@@ -587,9 +591,13 @@ static Class ImageViewClass = nil;
     if (!item.finished) {
         photoView.progressLayer.hidden = NO;
     }
-    if (_bounces && _dismissalStyle == KSPhotoBrowserInteractiveDismissalStyleScale) {
+    if (_bounces) {
         [UIView animateWithDuration:kSpringAnimationDuration delay:0 usingSpringWithDamping:0.6 initialSpringVelocity:0 options:kNilOptions animations:^{
-            photoView.imageView.frame = self.startFrame;
+            if (self.dismissalStyle == KSPhotoBrowserInteractiveDismissalStyleScale) {
+                photoView.imageView.frame = self.startFrame;
+            } else {
+                photoView.transform = CGAffineTransformIdentity;
+            }
             self.view.backgroundColor = [UIColor blackColor];
             self.backgroundView.alpha = 1;
         } completion:^(BOOL finished) {
@@ -598,7 +606,11 @@ static Class ImageViewClass = nil;
         }];
     } else {
         [UIView animateWithDuration:kAnimationDuration animations:^{
-            photoView.imageView.frame = self.startFrame;
+            if (self.dismissalStyle == KSPhotoBrowserInteractiveDismissalStyleScale) {
+                photoView.imageView.frame = self.startFrame;
+            } else {
+                photoView.imageView.transform = CGAffineTransformIdentity;
+            }
             self.view.backgroundColor = [UIColor blackColor];
             self.backgroundView.alpha = 1;
         } completion:^(BOOL finished) {
