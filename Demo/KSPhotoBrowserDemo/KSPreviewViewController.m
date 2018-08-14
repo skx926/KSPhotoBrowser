@@ -29,23 +29,23 @@ static NSString * const kAvatarUrl = @"https://tvax2.sinaimg.cn/crop.0.0.750.750
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     NSArray *urls =  @[
-                       @"http://ww2.sinaimg.cn/bmiddle/642beb18gw1ep3629gfm0g206o050b2a.gif",
-                       @"http://ww4.sinaimg.cn/bmiddle/9e9cb0c9jw1ep7nlyu8waj20c80kptae.jpg",
-                       @"http://ww3.sinaimg.cn/bmiddle/8e88b0c1gw1e9lpr1xydcj20gy0o9q6s.jpg",
-                       @"http://ww2.sinaimg.cn/bmiddle/8e88b0c1gw1e9lpr2n1jjj20gy0o9tcc.jpg",
-                       @"http://ww4.sinaimg.cn/bmiddle/8e88b0c1gw1e9lpr4nndfj20gy0o9q6i.jpg",
-                       @"http://ww3.sinaimg.cn/bmiddle/8e88b0c1gw1e9lpr57tn9j20gy0obn0f.jpg",
-                       @"http://ww2.sinaimg.cn/bmiddle/677febf5gw1erma104rhyj20k03dz16y.jpg",
-                       @"http://ww4.sinaimg.cn/bmiddle/677febf5gw1erma1g5xd0j20k0esa7wj.jpg",
-                       @"http://ww4.sinaimg.cn/bmiddle/a15bd3a5jw1f12r9ku6wjj20u00mhn22.jpg",
-                       @"http://ww2.sinaimg.cn/bmiddle/a15bd3a5jw1f01hkxyjhej20u00jzacj.jpg",
-                       @"http://ww4.sinaimg.cn/bmiddle/a15bd3a5jw1f01hhs2omoj20u00jzwh9.jpg",
-                       @"http://ww2.sinaimg.cn/bmiddle/a15bd3a5jw1ey1oyiyut7j20u00mi0vb.jpg",
-                       @"http://ww2.sinaimg.cn/bmiddle/a15bd3a5jw1exkkw984e3j20u00miacm.jpg",
-                       @"http://ww4.sinaimg.cn/bmiddle/a15bd3a5jw1ezvdc5dt1pj20ku0kujt7.jpg",
-                       @"http://ww3.sinaimg.cn/bmiddle/a15bd3a5jw1ew68tajal7j20u011iacr.jpg",
-                       @"http://ww2.sinaimg.cn/bmiddle/a15bd3a5jw1eupveeuzajj20hs0hs75d.jpg",
-                       @"http://ww2.sinaimg.cn/bmiddle/d8937438gw1fb69b0hf5fj20hu13fjxj.jpg"
+                       @"http://ww2.sinaimg.cn/thumbnail/642beb18gw1ep3629gfm0g206o050b2a.gif",
+                       @"http://ww4.sinaimg.cn/thumbnail/9e9cb0c9jw1ep7nlyu8waj20c80kptae.jpg",
+                       @"http://ww3.sinaimg.cn/thumbnail/8e88b0c1gw1e9lpr1xydcj20gy0o9q6s.jpg",
+                       @"http://ww2.sinaimg.cn/thumbnail/8e88b0c1gw1e9lpr2n1jjj20gy0o9tcc.jpg",
+                       @"http://ww4.sinaimg.cn/thumbnail/8e88b0c1gw1e9lpr4nndfj20gy0o9q6i.jpg",
+                       @"http://ww3.sinaimg.cn/thumbnail/8e88b0c1gw1e9lpr57tn9j20gy0obn0f.jpg",
+                       @"http://ww2.sinaimg.cn/thumbnail/677febf5gw1erma104rhyj20k03dz16y.jpg",
+                       @"http://ww4.sinaimg.cn/thumbnail/677febf5gw1erma1g5xd0j20k0esa7wj.jpg",
+                       @"http://ww4.sinaimg.cn/thumbnail/a15bd3a5jw1f12r9ku6wjj20u00mhn22.jpg",
+                       @"http://ww2.sinaimg.cn/thumbnail/a15bd3a5jw1f01hkxyjhej20u00jzacj.jpg",
+                       @"http://ww4.sinaimg.cn/thumbnail/a15bd3a5jw1f01hhs2omoj20u00jzwh9.jpg",
+                       @"http://ww2.sinaimg.cn/thumbnail/a15bd3a5jw1ey1oyiyut7j20u00mi0vb.jpg",
+                       @"http://ww2.sinaimg.cn/thumbnail/a15bd3a5jw1exkkw984e3j20u00miacm.jpg",
+                       @"http://ww4.sinaimg.cn/thumbnail/a15bd3a5jw1ezvdc5dt1pj20ku0kujt7.jpg",
+                       @"http://ww3.sinaimg.cn/thumbnail/a15bd3a5jw1ew68tajal7j20u011iacr.jpg",
+                       @"http://ww2.sinaimg.cn/thumbnail/a15bd3a5jw1eupveeuzajj20hs0hs75d.jpg",
+                       @"http://ww2.sinaimg.cn/thumbnail/d8937438gw1fb69b0hf5fj20hu13fjxj.jpg",
                        ];
     _urls = @[].mutableCopy;
     for (int i = 0; i < 10; i++) {
@@ -118,7 +118,7 @@ static NSString * const kAvatarUrl = @"https://tvax2.sinaimg.cn/crop.0.0.750.750
     NSMutableArray *items = @[].mutableCopy;
     for (int i = 0; i < _urls.count; i++) {
         KSPhotoCell *cell = (KSPhotoCell *)[collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0]];
-        NSString *url = [_urls[i] stringByReplacingOccurrencesOfString:@"bmiddle" withString:@"large"];
+        NSString *url = [_urls[i] stringByReplacingOccurrencesOfString:@"thumbnail" withString:@"bmiddle"];
         KSPhotoItem *item = [KSPhotoItem itemWithSourceView:cell.imageView imageUrl:[NSURL URLWithString:url]];
         [items addObject:item];
     }
