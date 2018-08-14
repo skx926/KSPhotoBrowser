@@ -3,7 +3,8 @@ platform :ios, '8.0'
 
 def all_pods
     pod 'YYWebImage', '~> 1.0.5'
-    pod 'SDWebImage', '~> 4.0.0'
+    
+    pod 'KSPhotoBrowser', :path => '../'
 end
 
 target "KSPhotoBrowserDemo" do

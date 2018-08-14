@@ -10,6 +10,7 @@
 #import "KSPhotoItem.h"
 #import "KSProgressLayer.h"
 #import "KSImageManagerProtocol.h"
+#import "KSPhotoBrowser.h"
 
 const CGFloat kKSPhotoViewPadding = 10;
 const CGFloat kKSPhotoViewMaxScale = 3;
@@ -19,13 +20,12 @@ const CGFloat kKSPhotoViewMaxScale = 3;
 @property (nonatomic, strong, readwrite) UIImageView *imageView;
 @property (nonatomic, strong, readwrite) KSProgressLayer *progressLayer;
 @property (nonatomic, strong, readwrite) KSPhotoItem *item;
-@property (nonatomic, strong) id<KSImageManager> imageManager;
 
 @end
 
 @implementation KSPhotoView
 
-- (instancetype)initWithFrame:(CGRect)frame imageManager:(id<KSImageManager>)imageManager {
+- (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
         self.bouncesZoom = YES;
@@ -38,7 +38,7 @@ const CGFloat kKSPhotoViewMaxScale = 3;
             self.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
         }
         
-        _imageView = [[UIImageView alloc] init];
+        _imageView = [[KSPhotoBrowser.imageViewClass  alloc] init];
         _imageView.backgroundColor = [UIColor darkGrayColor];
         _imageView.contentMode = UIViewContentModeScaleAspectFill;
         _imageView.clipsToBounds = YES;
@@ -49,15 +49,13 @@ const CGFloat kKSPhotoViewMaxScale = 3;
         _progressLayer.position = CGPointMake(frame.size.width/2, frame.size.height/2);
         _progressLayer.hidden = YES;
         [self.layer addSublayer:_progressLayer];
-        
-        _imageManager = imageManager;
     }
     return self;
 }
 
 - (void)setItem:(KSPhotoItem *)item determinate:(BOOL)determinate {
     _item = item;
-    [_imageManager cancelImageRequestForImageView:_imageView];
+    [KSPhotoBrowser.imageManagerClass cancelImageRequestForImageView:_imageView];
     if (item) {
         if (item.image) {
             _imageView.image = item.image;
@@ -82,7 +80,7 @@ const CGFloat kKSPhotoViewMaxScale = 3;
         _progressLayer.hidden = NO;
         
         _imageView.image = item.thumbImage;
-        [_imageManager setImageForImageView:_imageView withURL:item.imageUrl placeholder:item.thumbImage progress:progressBlock completion:^(UIImage *image, NSURL *url, BOOL finished, NSError *error) {
+        [KSPhotoBrowser.imageManagerClass setImageForImageView:_imageView withURL:item.imageUrl placeholder:item.thumbImage progress:progressBlock completion:^(UIImage *image, NSURL *url, BOOL finished, NSError *error) {
             __strong typeof(wself) sself = wself;
             if (finished) {
                 [sself resizeImageView];
@@ -106,23 +104,21 @@ const CGFloat kKSPhotoViewMaxScale = 3;
         CGFloat height = width * (imageSize.height / imageSize.width);
         CGRect rect = CGRectMake(0, 0, width, height);
         
-        [UIView animateWithDuration:0.33 animations:^{
-            _imageView.frame = rect;
-            
-            // If image is very high, show top content.
-            if (height <= self.bounds.size.height) {
-                _imageView.center = CGPointMake(self.bounds.size.width/2, self.bounds.size.height/2);
-            } else {
-                _imageView.center = CGPointMake(self.bounds.size.width/2, height/2);
-            }
-        }];
+        _imageView.frame = rect;
+        
+        // If image is very high, show top content.
+        if (height <= self.bounds.size.height) {
+            _imageView.center = CGPointMake(self.bounds.size.width/2, self.bounds.size.height/2);
+        } else {
+            _imageView.center = CGPointMake(self.bounds.size.width/2, height/2);
+        }
         
         // If image is very wide, make sure user can zoom to fullscreen.
         if (width / height > 2) {
             self.maximumZoomScale = self.bounds.size.height / height;
         }
     } else {
-        CGFloat width = (self.frame.size.width - 2 * kKSPhotoViewPadding) / 2;
+        CGFloat width = self.frame.size.width - 2 * kKSPhotoViewPadding;
         _imageView.frame = CGRectMake(0, 0, width, width * 2.0 / 3);
         _imageView.center = CGPointMake(self.bounds.size.width/2, self.bounds.size.height/2);
     }
@@ -130,7 +126,7 @@ const CGFloat kKSPhotoViewMaxScale = 3;
 }
 
 - (void)cancelCurrentImageLoad {
-    [_imageManager cancelImageRequestForImageView:_imageView];
+    [KSPhotoBrowser.imageManagerClass cancelImageRequestForImageView:_imageView];
     [_progressLayer stopSpin];
 }
 

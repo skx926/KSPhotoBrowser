@@ -1,0 +1,1 @@
+../../../../../KSPhotoBrowser/KSPhotoItem.h

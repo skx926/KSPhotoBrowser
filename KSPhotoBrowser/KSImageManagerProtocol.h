@@ -14,16 +14,16 @@ typedef void (^KSImageManagerCompletionBlock)(UIImage * _Nullable image, NSURL *
 
 @protocol KSImageManager <NSObject>
 
-- (void)setImageForImageView:(nullable UIImageView *)imageView
++ (void)setImageForImageView:(nullable UIImageView *)imageView
                      withURL:(nullable NSURL *)imageURL
                  placeholder:(nullable UIImage *)placeholder
                     progress:(nullable KSImageManagerProgressBlock)progress
                   completion:(nullable KSImageManagerCompletionBlock)completion;
 
-- (void)cancelImageRequestForImageView:(nullable UIImageView *)imageView;
++ (void)cancelImageRequestForImageView:(nullable UIImageView *)imageView;
 
-- (UIImage *_Nullable)imageFromMemoryForURL:(nullable NSURL *)url;
++ (UIImage *_Nullable)imageFromMemoryForURL:(nullable NSURL *)url;
 
-- (UIImage *_Nullable)imageForURL:(nullable NSURL *)url;
++ (UIImage *_Nullable)imageForURL:(nullable NSURL *)url;
 
 @end

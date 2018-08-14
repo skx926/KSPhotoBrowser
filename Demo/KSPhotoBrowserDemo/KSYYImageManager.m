@@ -16,7 +16,7 @@
 
 @implementation KSYYImageManager
 
-- (void)setImageForImageView:(UIImageView *)imageView
++ (void)setImageForImageView:(UIImageView *)imageView
                      withURL:(NSURL *)imageURL
                  placeholder:(UIImage *)placeholder
                     progress:(KSImageManagerProgressBlock)progress
@@ -36,17 +36,17 @@
     [imageView yy_setImageWithURL:imageURL placeholder:placeholder options:kNilOptions progress:progressBlock transform:nil completion:completionBlock];
 }
 
-- (void)cancelImageRequestForImageView:(UIImageView *)imageView {
++ (void)cancelImageRequestForImageView:(UIImageView *)imageView {
     [imageView yy_cancelCurrentImageRequest];
 }
 
-- (UIImage *)imageFromMemoryForURL:(NSURL *)url {
++ (UIImage *)imageFromMemoryForURL:(NSURL *)url {
     YYWebImageManager *manager = [YYWebImageManager sharedManager];
     NSString *key = [manager cacheKeyForURL:url];
     return [manager.cache getImageForKey:key withType:YYImageCacheTypeMemory];
 }
 
-- (UIImage *)imageForURL:(NSURL *)url {
++ (UIImage *)imageForURL:(NSURL *)url {
     YYWebImageManager *manager = [YYWebImageManager sharedManager];
     NSString *key = [manager cacheKeyForURL:url];
     return [manager.cache getImageForKey:key];

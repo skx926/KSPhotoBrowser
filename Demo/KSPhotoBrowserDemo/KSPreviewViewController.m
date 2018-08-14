@@ -7,10 +7,12 @@
 //
 
 #import "KSPreviewViewController.h"
-#import "YYWebImage.h"
 #import "KSPhotoCell.h"
-#import "UIImageView+WebCache.h"
 #import "KSYYImageManager.h"
+#import <KSPhotoBrowser/KSSDImageManager.h>
+#import <YYWebImage/YYWebImage.h>
+#import <SDWebImage/UIImageView+WebCache.h>
+#import <FLAnimatedImage/FLAnimatedImageView.h>
 
 static NSString * const kAvatarUrl = @"https://tvax2.sinaimg.cn/crop.0.0.750.750.180/a15bd3a5ly8fqkp954lyyj20ku0kugn1.jpg";
 
@@ -18,7 +20,6 @@ static NSString * const kAvatarUrl = @"https://tvax2.sinaimg.cn/crop.0.0.750.750
 
 @property (nonatomic, strong) NSMutableArray *urls;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
-@property (weak, nonatomic) IBOutlet UIImageView *avatarImageView;
 
 @end
 
@@ -27,46 +28,41 @@ static NSString * const kAvatarUrl = @"https://tvax2.sinaimg.cn/crop.0.0.750.750
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
-    NSArray *urls = @[@"http://ww4.sinaimg.cn/bmiddle/a15bd3a5jw1f12r9ku6wjj20u00mhn22.jpg",
-                      @"http://ww2.sinaimg.cn/bmiddle/a15bd3a5jw1f01hkxyjhej20u00jzacj.jpg",
-                      @"http://ww4.sinaimg.cn/bmiddle/a15bd3a5jw1f01hhs2omoj20u00jzwh9.jpg",
-                      @"http://ww2.sinaimg.cn/bmiddle/a15bd3a5jw1ey1oyiyut7j20u00mi0vb.jpg",
-                      @"http://ww2.sinaimg.cn/bmiddle/a15bd3a5jw1exkkw984e3j20u00miacm.jpg",
-                      @"http://ww4.sinaimg.cn/bmiddle/a15bd3a5jw1ezvdc5dt1pj20ku0kujt7.jpg",
-                      @"http://ww3.sinaimg.cn/bmiddle/a15bd3a5jw1ew68tajal7j20u011iacr.jpg",
-                      @"http://ww2.sinaimg.cn/bmiddle/a15bd3a5jw1eupveeuzajj20hs0hs75d.jpg",
-                      @"http://ww2.sinaimg.cn/bmiddle/d8937438gw1fb69b0hf5fj20hu13fjxj.jpg"];
+    NSArray *urls =  @[
+                       @"http://ww2.sinaimg.cn/bmiddle/642beb18gw1ep3629gfm0g206o050b2a.gif",
+                       @"http://ww4.sinaimg.cn/bmiddle/9e9cb0c9jw1ep7nlyu8waj20c80kptae.jpg",
+                       @"http://ww3.sinaimg.cn/bmiddle/8e88b0c1gw1e9lpr1xydcj20gy0o9q6s.jpg",
+                       @"http://ww2.sinaimg.cn/bmiddle/8e88b0c1gw1e9lpr2n1jjj20gy0o9tcc.jpg",
+                       @"http://ww4.sinaimg.cn/bmiddle/8e88b0c1gw1e9lpr4nndfj20gy0o9q6i.jpg",
+                       @"http://ww3.sinaimg.cn/bmiddle/8e88b0c1gw1e9lpr57tn9j20gy0obn0f.jpg",
+                       @"http://ww2.sinaimg.cn/bmiddle/677febf5gw1erma104rhyj20k03dz16y.jpg",
+                       @"http://ww4.sinaimg.cn/bmiddle/677febf5gw1erma1g5xd0j20k0esa7wj.jpg",
+                       @"http://ww4.sinaimg.cn/bmiddle/a15bd3a5jw1f12r9ku6wjj20u00mhn22.jpg",
+                       @"http://ww2.sinaimg.cn/bmiddle/a15bd3a5jw1f01hkxyjhej20u00jzacj.jpg",
+                       @"http://ww4.sinaimg.cn/bmiddle/a15bd3a5jw1f01hhs2omoj20u00jzwh9.jpg",
+                       @"http://ww2.sinaimg.cn/bmiddle/a15bd3a5jw1ey1oyiyut7j20u00mi0vb.jpg",
+                       @"http://ww2.sinaimg.cn/bmiddle/a15bd3a5jw1exkkw984e3j20u00miacm.jpg",
+                       @"http://ww4.sinaimg.cn/bmiddle/a15bd3a5jw1ezvdc5dt1pj20ku0kujt7.jpg",
+                       @"http://ww3.sinaimg.cn/bmiddle/a15bd3a5jw1ew68tajal7j20u011iacr.jpg",
+                       @"http://ww2.sinaimg.cn/bmiddle/a15bd3a5jw1eupveeuzajj20hs0hs75d.jpg",
+                       @"http://ww2.sinaimg.cn/bmiddle/d8937438gw1fb69b0hf5fj20hu13fjxj.jpg"
+                       ];
     _urls = @[].mutableCopy;
     for (int i = 0; i < 10; i++) {
         [_urls addObjectsFromArray:urls];
     }
     if (_imageManagerType == KSImageManagerTypeSDWebImage) {
         [KSPhotoBrowser setImageManagerClass:KSSDImageManager.class];
+        [KSPhotoBrowser setImageViewClass:FLAnimatedImageView.class];
     } else {
         [KSPhotoBrowser setImageManagerClass:KSYYImageManager.class];
+        [KSPhotoBrowser setImageViewClass:YYAnimatedImageView.class];
     }
-    
-    self.avatarImageView.layer.cornerRadius = 40;
-    self.avatarImageView.layer.masksToBounds = true;
-    self.avatarImageView.userInteractionEnabled = true;
-    if (_imageManagerType == KSImageManagerTypeSDWebImage) {
-        [self.avatarImageView sd_setImageWithURL:[NSURL URLWithString:kAvatarUrl]];
-    } else {
-        self.avatarImageView.yy_imageURL = [NSURL URLWithString:kAvatarUrl];
-    }
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(avatarTapped:)];
-    tap.numberOfTapsRequired = 1;
-    [self.avatarImageView addGestureRecognizer:tap];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-
-- (void)avatarTapped:(UITapGestureRecognizer *)tap {
-    KSPhotoItem *item = [KSPhotoItem itemWithSourceView:self.avatarImageView imageUrl:[NSURL URLWithString:kAvatarUrl]];
-    [self showBrowserWithPhotoItems:@[item] selectedIndex:0];
 }
 
 - (void)showBrowserWithPhotoItems:(NSArray *)items selectedIndex:(NSUInteger)selectedIndex {
@@ -99,10 +95,12 @@ static NSString * const kAvatarUrl = @"https://tvax2.sinaimg.cn/crop.0.0.750.750
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     KSPhotoCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"PhotoCell" forIndexPath:indexPath];
+    
+    NSString *url = _urls[indexPath.row];
     if (_imageManagerType == KSImageManagerTypeSDWebImage) {
-        [cell.imageView sd_setImageWithURL:[NSURL URLWithString:_urls[indexPath.row]]];
+        [cell.imageView sd_setImageWithURL:[NSURL URLWithString:url]];
     } else {
-        cell.imageView.yy_imageURL = [NSURL URLWithString:_urls[indexPath.row]];
+        cell.imageView.yy_imageURL = [NSURL URLWithString:url];
     }
     if (indexPath.item % 3 == 0) {
         cell.type = KSPhotoCellTypeRect;

@@ -15,7 +15,7 @@
     if (type == KSPhotoCellTypeRect) {
         self.imageView.layer.cornerRadius = 0;
     } else if (type == KSPhotoCellTypeRoundedRect) {
-        self.imageView.layer.cornerRadius = 50;
+        self.imageView.layer.cornerRadius = 40;
     }
 }
 
