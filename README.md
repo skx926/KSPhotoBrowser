@@ -7,11 +7,12 @@ KSPhotoBrowser
 
 ### A beautiful photo browser with interactive dismissal animation.
 
-![Rotation~](https://raw.github.com/skx926/KSPhotoBrowser/master/Demo/Rotation.gif)
-![Blur~](https://raw.github.com/skx926/KSPhotoBrowser/master/Demo/Blur.gif)
-![Scale~](https://raw.github.com/skx926/KSPhotoBrowser/master/Demo/Scale.gif)
-![Corner~](https://raw.github.com/skx926/KSPhotoBrowser/master/Demo/Corner.gif)
-![Index~](https://raw.github.com/skx926/KSPhotoBrowser/master/Demo/Index.png)
+![Rotation~](https://raw.github.com/skx926/KSPhotoBrowser/master/Images/Rotation.gif)
+![Blur~](https://raw.github.com/skx926/KSPhotoBrowser/master/Images/Blur.gif)
+![Scale~](https://raw.github.com/skx926/KSPhotoBrowser/master/Images/Scale.gif)
+![Corner~](https://raw.github.com/skx926/KSPhotoBrowser/master/Images/Corner.gif)
+![Orientation~](https://raw.github.com/skx926/KSPhotoBrowser/master/Images/Orientation.gif)
+![Index~](https://raw.github.com/skx926/KSPhotoBrowser/master/Images/Index.png)
 
 
 Features
