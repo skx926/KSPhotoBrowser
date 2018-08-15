@@ -25,6 +25,7 @@ Features
 - Can display one or more images by providing either image urls or UIImage objects.
 - Custom image downloader library support.
 - Smooth animation with corner radius.
+- Support both portrait and landcape device orientation.
 
 
 Usage
