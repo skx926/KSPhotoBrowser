@@ -232,9 +232,6 @@ static Class ImageViewClass = nil;
     rect.size.width += 2 * kKSPhotoViewPadding;
     _scrollView.frame = rect;
     
-    CGSize contentSize = CGSizeMake(rect.size.width * _photoItems.count, rect.size.height);
-    _scrollView.contentSize = contentSize;
-    
     CGRect pageRect = CGRectMake(0, self.view.bounds.size.height - kPageControlBottomSpacing, self.view.bounds.size.width, kPageControlHeight);
     _pageControl.frame = pageRect;
     _pageLabel.frame = pageRect;
@@ -247,10 +244,13 @@ static Class ImageViewClass = nil;
     }
     
     CGPoint contentOffset = CGPointMake(_scrollView.frame.size.width * _currentPage, 0);
-    [_scrollView setContentOffset:contentOffset animated:true];
+    [_scrollView setContentOffset:contentOffset animated:false];
     if (contentOffset.x == 0) {
         [self scrollViewDidScroll:_scrollView];
     }
+    
+    CGSize contentSize = CGSizeMake(rect.size.width * _photoItems.count, rect.size.height);
+    _scrollView.contentSize = contentSize;
 }
 
 - (void)setStatusBarHidden:(BOOL)hidden {

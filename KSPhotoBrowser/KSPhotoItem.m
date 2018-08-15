@@ -10,7 +10,6 @@
 
 @interface KSPhotoItem ()
 
-@property (nonatomic, strong, readwrite) UIView *sourceView;
 @property (nonatomic, strong, readwrite) UIImage *thumbImage;
 @property (nonatomic, strong, readwrite) UIImage *image;
 @property (nonatomic, strong, readwrite) NSURL *imageUrl;

@@ -20,6 +20,7 @@ static NSString * const kAvatarUrl = @"https://tvax2.sinaimg.cn/crop.0.0.750.750
 
 @property (nonatomic, strong) NSMutableArray *urls;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
+@property (nonatomic, strong) NSArray *items;
 
 @end
 
@@ -65,7 +66,20 @@ static NSString * const kAvatarUrl = @"https://tvax2.sinaimg.cn/crop.0.0.750.750
     // Dispose of any resources that can be recreated.
 }
 
+- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
+    if (self.presentedViewController) {
+        [coordinator animateAlongsideTransition:nil completion:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {
+            int i = 0;
+            for (KSPhotoItem *item in self.items) {
+                KSPhotoCell *cell = (KSPhotoCell *)[self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForRow:i++ inSection:0]];
+                item.sourceView = cell.imageView;
+            }
+        }];
+    }
+}
+
 - (void)showBrowserWithPhotoItems:(NSArray *)items selectedIndex:(NSUInteger)selectedIndex {
+    self.items = items;
     KSPhotoBrowser *browser = [KSPhotoBrowser browserWithPhotoItems:items selectedIndex:selectedIndex];
     browser.delegate = self;
     browser.dismissalStyle = _dismissalStyle;

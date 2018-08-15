@@ -10,7 +10,7 @@
 
 @interface KSPhotoItem : NSObject
 
-@property (nonatomic, strong, readonly, nullable) UIView *sourceView;
+@property (nonatomic, strong, nullable) UIView *sourceView;
 @property (nonatomic, strong, readonly, nullable) UIImage *thumbImage;
 @property (nonatomic, strong, readonly, nullable) UIImage *image;
 @property (nonatomic, strong, readonly, nullable) NSURL *imageUrl;
