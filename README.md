@@ -16,16 +16,17 @@ KSPhotoBrowser
 
 Features
 ==============
-- 4 different interactive dismissal animations(Rotation, Scale, Slide).
-- 3 different background styles(Blur Photo, Blur, Black).
-- 2 different loading styles(Determinate, Indeterminate).
-- 2 different pager styles(Dot, Text).
-- Support bounce animation.
-- Optimized for image which has a very large height.
-- Can display one or more images by providing either image urls or UIImage objects.
-- Custom image downloader library support.
-- Smooth animation with corner radius.
-- Support both portrait and landcape device orientation.
+- [x] 4 different interactive dismissal animations(Rotation, Scale, Slide).
+- [x] 3 different background styles(Blur Photo, Blur, Black).
+- [x] 2 different loading styles(Determinate, Indeterminate).
+- [x] 2 different pager styles(Dot, Text).
+- [x] Support bounce animation.
+- [x] Optimized for image which has a very large height.
+- [x] Can display one or more images by providing either image urls or UIImage objects.
+- [x] Custom image downloader library support.
+- [x] Smooth animation with corner radius.
+- [x] Support both portrait and landscape device orientation.
+- [ ] Support video browse.
 
 
 Usage
