@@ -128,6 +128,7 @@ const CGFloat kKSPhotoViewMaxScale = 3;
         _imageView.center = CGPointMake(self.bounds.size.width/2, self.bounds.size.height/2);
     }
     self.contentSize = _imageView.frame.size;
+    self.zoomScale = 1.f;
 }
 
 - (void)cancelCurrentImageLoad {
