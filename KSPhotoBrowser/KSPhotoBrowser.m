@@ -620,7 +620,7 @@ static Class ImageViewClass = nil;
             if (self.dismissalStyle == KSPhotoBrowserInteractiveDismissalStyleScale) {
                 photoView.imageView.frame = self.startFrame;
             } else {
-                photoView.transform = CGAffineTransformIdentity;
+                photoView.imageView.transform = CGAffineTransformIdentity;
             }
             self.view.backgroundColor = [UIColor blackColor];
             self.backgroundView.alpha = 1;
