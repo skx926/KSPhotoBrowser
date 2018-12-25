@@ -45,6 +45,7 @@ typedef NS_ENUM(NSUInteger, KSPhotoBrowserImageLoadingStyle) {
 @property (nonatomic, weak) id<KSPhotoBrowserDelegate> delegate;
 @property (class, nonatomic, strong) Class imageManagerClass;
 @property (class, nonatomic, strong) Class imageViewClass;
+@property (class, nonatomic, strong) UIColor *imageViewBackgroundColor;
 
 + (instancetype)browserWithPhotoItems:(NSArray<KSPhotoItem *> *)photoItems selectedIndex:(NSUInteger)selectedIndex;
 - (instancetype)initWithPhotoItems:(NSArray<KSPhotoItem *> *)photoItems selectedIndex:(NSUInteger)selectedIndex;

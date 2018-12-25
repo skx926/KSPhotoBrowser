@@ -59,6 +59,7 @@ static NSString * const kAvatarUrl = @"https://tvax2.sinaimg.cn/crop.0.0.750.750
         [KSPhotoBrowser setImageManagerClass:KSYYImageManager.class];
         [KSPhotoBrowser setImageViewClass:YYAnimatedImageView.class];
     }
+    KSPhotoBrowser.imageViewBackgroundColor = UIColor.redColor;
 }
 
 - (void)didReceiveMemoryWarning {

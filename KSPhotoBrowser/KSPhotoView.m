@@ -15,6 +15,8 @@
 const CGFloat kKSPhotoViewPadding = 10;
 const CGFloat kKSPhotoViewMaxScale = 3;
 
+static UIColor *BackgroundColor = nil;
+
 @interface KSPhotoView ()<UIScrollViewDelegate, UIGestureRecognizerDelegate>
 
 @property (nonatomic, strong, readwrite) UIImageView *imageView;
@@ -39,7 +41,7 @@ const CGFloat kKSPhotoViewMaxScale = 3;
         }
         
         _imageView = [[KSPhotoBrowser.imageViewClass  alloc] init];
-        _imageView.backgroundColor = [UIColor darkGrayColor];
+        _imageView.backgroundColor = KSPhotoView.backgroundColor;
         _imageView.contentMode = UIViewContentModeScaleAspectFill;
         _imageView.clipsToBounds = YES;
         [self addSubview:_imageView];
@@ -176,6 +178,16 @@ const CGFloat kKSPhotoViewMaxScale = 3;
         }
     }
     return YES;
+}
+
+#pragma mark - Setter & Getter
+
++ (void)setBackgroundColor:(UIColor *)backgroundColor {
+    BackgroundColor = backgroundColor;
+}
+
++ (UIColor *)backgroundColor {
+    return BackgroundColor ?: UIColor.darkGrayColor;
 }
 
 

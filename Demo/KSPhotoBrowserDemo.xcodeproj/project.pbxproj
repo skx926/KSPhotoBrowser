@@ -186,7 +186,7 @@
 				TargetAttributes = {
 					27F9771C1E1B933C00AFB315 = {
 						CreatedOnToolsVersion = 8.2;
-						DevelopmentTeam = Z72G49SGPQ;
+						DevelopmentTeam = 7LLFP9K7Y8;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -384,7 +384,7 @@
 			baseConfigurationReference = 87AB18B986ED633B11439023 /* Pods-KSPhotoBrowserDemo.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = Z72G49SGPQ;
+				DEVELOPMENT_TEAM = 7LLFP9K7Y8;
 				INFOPLIST_FILE = KSPhotoBrowserDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -399,7 +399,7 @@
 			baseConfigurationReference = 7DB0997989D2CDB9B974C2FA /* Pods-KSPhotoBrowserDemo.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = Z72G49SGPQ;
+				DEVELOPMENT_TEAM = 7LLFP9K7Y8;
 				INFOPLIST_FILE = KSPhotoBrowserDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

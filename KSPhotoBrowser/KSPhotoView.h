@@ -21,6 +21,7 @@ extern const CGFloat kKSPhotoViewPadding;
 @property (nonatomic, strong, readonly) UIImageView *imageView;
 @property (nonatomic, strong, readonly) KSProgressLayer *progressLayer;
 @property (nonatomic, strong, readonly) KSPhotoItem *item;
+@property (class, nonatomic, strong) UIColor *backgroundColor;
 
 - (instancetype)initWithFrame:(CGRect)frame;
 - (void)setItem:(KSPhotoItem *)item determinate:(BOOL)determinate;

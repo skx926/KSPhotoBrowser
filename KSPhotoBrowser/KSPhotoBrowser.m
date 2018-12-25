@@ -797,6 +797,10 @@ static Class ImageViewClass = nil;
     ImageManagerClass = imageManagerClass;
 }
 
++ (void)setImageViewBackgroundColor:(UIColor *)imageViewBackgroundColor {
+    KSPhotoView.backgroundColor = imageViewBackgroundColor;
+}
+
 // MARK: - Getter
 
 + (Class)imageManagerClass {
@@ -805,6 +809,10 @@ static Class ImageViewClass = nil;
 
 + (Class)imageViewClass {
     return ImageViewClass;
+}
+
++ (UIColor *)imageViewBackgroundColor {
+    return KSPhotoView.backgroundColor;
 }
 
 @end
