@@ -13,6 +13,7 @@
 @property (nonatomic, strong, readwrite) UIImage *thumbImage;
 @property (nonatomic, strong, readwrite) UIImage *image;
 @property (nonatomic, strong, readwrite) NSURL *imageUrl;
+@property (nonatomic, assign, readwrite) KSItemType type;
 
 @end
 
@@ -20,14 +21,22 @@
 
 - (instancetype)initWithSourceView:(UIView *)view
                         thumbImage:(UIImage *)image
-                          imageUrl:(NSURL *)url {
+                          imageUrl:(NSURL *)url
+                              type:(KSItemType)type {
     self = [super init];
     if (self) {
         _sourceView = view;
         _thumbImage = image;
         _imageUrl = url;
+        _type = type;
     }
     return self;
+}
+
+- (instancetype)initWithSourceView:(UIView *)view
+                        thumbImage:(UIImage *)image
+                          imageUrl:(NSURL *)url {
+    return [self initWithSourceView:view thumbImage:image imageUrl:url type:KSItemTypeImage];
 }
 
 - (instancetype)initWithSourceView:(UIImageView *)view
@@ -57,6 +66,10 @@
     return [[KSPhotoItem alloc] initWithSourceView:view
                                     thumbImage:image
                                       imageUrl:url];
+}
+
++ (instancetype)itemWithSourceView:(UIView *)view thumbImage:(UIImage *)image imageUrl:(NSURL *)url type:(KSItemType)type {
+    return [[KSPhotoItem alloc] initWithSourceView:view thumbImage:image imageUrl:url type:type];
 }
 
 + (instancetype)itemWithSourceView:(UIImageView *)view

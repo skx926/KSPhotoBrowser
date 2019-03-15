@@ -97,10 +97,10 @@ static NSString * const kAvatarUrl = @"https://tvax2.sinaimg.cn/crop.0.0.750.750
     NSLog(@"selected index: %ld", index);
 }
 
-- (void)ks_photoBrowser:(KSPhotoBrowser *)browser didLongPressItem:(KSPhotoItem *)item atIndex:(NSUInteger)index {
-    UIImage *image = [browser imageForItem:item];
-    NSLog(@"long pressed image:%@", image);
-}
+//- (void)ks_photoBrowser:(KSPhotoBrowser *)browser didLongPressItem:(KSPhotoItem *)item atIndex:(NSUInteger)index {
+//    UIImage *image = [browser imageForItem:item];
+//    NSLog(@"long pressed image:%@", image);
+//}
 
 // MARK: - CollectionViewDataSource
 
