@@ -31,6 +31,7 @@ static Class ImageViewClass = nil;
 @property (nonatomic, assign) BOOL presented;
 @property (nonatomic, assign) CGPoint startLocation;
 @property (nonatomic, assign) CGRect startFrame;
+@property (nonatomic, assign) BOOL statusBarHidden;
 
 @end
 
@@ -53,6 +54,9 @@ static Class ImageViewClass = nil;
     if (self) {
         self.modalPresentationStyle = UIModalPresentationCustom;
         self.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
+        self.modalPresentationCapturesStatusBarAppearance = YES;
+        
+        self.statusBarHidden = YES;
         
         _photoItems = [NSMutableArray arrayWithArray:photoItems];
         _currentPage = selectedIndex;
@@ -253,12 +257,19 @@ static Class ImageViewClass = nil;
     _scrollView.contentSize = contentSize;
 }
 
+- (BOOL)prefersStatusBarHidden {
+    return self.statusBarHidden;
+}
+
+- (UIStatusBarAnimation)preferredStatusBarUpdateAnimation {
+    return UIStatusBarAnimationNone;
+}
+
 - (void)setStatusBarHidden:(BOOL)hidden {
-    UIWindow *window = [UIApplication sharedApplication].keyWindow;
-    if (hidden) {
-        window.windowLevel = UIWindowLevelStatusBar + 1;
-    } else {
-        window.windowLevel = UIWindowLevelNormal;
+    _statusBarHidden = hidden;
+    if ([self respondsToSelector:@selector(setNeedsStatusBarAppearanceUpdate)]) {
+        [self prefersStatusBarHidden];
+        [self performSelector:@selector(setNeedsStatusBarAppearanceUpdate)];
     }
 }
 
