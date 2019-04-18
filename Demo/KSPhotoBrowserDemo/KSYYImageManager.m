@@ -16,6 +16,10 @@
 
 @implementation KSYYImageManager
 
++ (Class)imageViewClass {
+    return YYAnimatedImageView.class;
+}
+
 + (void)setImageForImageView:(UIImageView *)imageView
                      withURL:(NSURL *)imageURL
                  placeholder:(UIImage *)placeholder

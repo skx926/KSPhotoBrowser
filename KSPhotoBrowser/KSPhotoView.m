@@ -9,7 +9,6 @@
 #import "KSPhotoView.h"
 #import "KSPhotoItem.h"
 #import "KSProgressLayer.h"
-#import "KSImageManagerProtocol.h"
 #import "KSPhotoBrowser.h"
 
 const CGFloat kKSPhotoViewPadding = 10;
@@ -40,7 +39,7 @@ static UIColor *BackgroundColor = nil;
             self.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
         }
         
-        _imageView = [[KSPhotoBrowser.imageViewClass  alloc] init];
+        _imageView = [[[KSPhotoBrowser.imageManagerClass imageViewClass]  alloc] init];
         _imageView.backgroundColor = KSPhotoView.backgroundColor;
         _imageView.contentMode = UIViewContentModeScaleAspectFill;
         _imageView.clipsToBounds = YES;

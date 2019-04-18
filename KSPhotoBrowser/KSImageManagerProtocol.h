@@ -12,7 +12,9 @@ typedef void (^KSImageManagerProgressBlock)(NSInteger receivedSize, NSInteger ex
 
 typedef void (^KSImageManagerCompletionBlock)(UIImage * _Nullable image, NSURL * _Nullable url, BOOL success, NSError * _Nullable error);
 
-@protocol KSImageManager <NSObject>
+@protocol KSImageManager
+
++ (Class _Nonnull)imageViewClass;
 
 + (void)setImageForImageView:(nullable UIImageView *)imageView
                      withURL:(nullable NSURL *)imageURL

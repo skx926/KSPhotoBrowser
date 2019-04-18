@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "KSPhotoItem.h"
+#import "KSImageManagerProtocol.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -43,8 +44,7 @@ typedef NS_ENUM(NSUInteger, KSPhotoBrowserImageLoadingStyle) {
 @property (nonatomic, assign) KSPhotoBrowserImageLoadingStyle loadingStyle;
 @property (nonatomic, assign) BOOL bounces;
 @property (nonatomic, weak) id<KSPhotoBrowserDelegate> delegate;
-@property (class, nonatomic, strong) Class imageManagerClass;
-@property (class, nonatomic, strong) Class imageViewClass;
+@property (class, nonatomic, strong) Class<KSImageManager> imageManagerClass;
 @property (class, nonatomic, strong) UIColor *imageViewBackgroundColor;
 
 + (instancetype)browserWithPhotoItems:(NSArray<KSPhotoItem *> *)photoItems selectedIndex:(NSUInteger)selectedIndex;

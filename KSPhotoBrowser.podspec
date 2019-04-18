@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "KSPhotoBrowser"
-  s.version      = "0.2.5"
+  s.version      = "0.3.0"
   s.summary      = "A beautiful photo browser with interactive dismissal animation."
 
   # This description is used to generate tags and improve search results.
@@ -132,8 +132,6 @@ Pod::Spec.new do |s|
   # s.requires_arc = true
 
   # s.xcconfig = { "HEADER_SEARCH_PATHS" => "$(SDKROOT)/usr/include/libxml2" }
-  s.dependency 'SDWebImage', '~> 4.0'
-  s.dependency 'SDWebImage/GIF'
-  s.dependency 'FLAnimatedImage', '~> 1.0'
+  s.dependency 'SDWebImage', '~> 5.0'
 
 end

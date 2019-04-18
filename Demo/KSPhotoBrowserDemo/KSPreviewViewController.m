@@ -12,7 +12,7 @@
 #import <KSPhotoBrowser/KSSDImageManager.h>
 #import <YYWebImage/YYWebImage.h>
 #import <SDWebImage/UIImageView+WebCache.h>
-#import <FLAnimatedImage/FLAnimatedImageView.h>
+#import <SDWebImage/SDAnimatedImageView.h>
 
 static NSString * const kAvatarUrl = @"https://tvax2.sinaimg.cn/crop.0.0.750.750.180/a15bd3a5ly8fqkp954lyyj20ku0kugn1.jpg";
 
@@ -54,10 +54,8 @@ static NSString * const kAvatarUrl = @"https://tvax2.sinaimg.cn/crop.0.0.750.750
     }
     if (_imageManagerType == KSImageManagerTypeSDWebImage) {
         [KSPhotoBrowser setImageManagerClass:KSSDImageManager.class];
-        [KSPhotoBrowser setImageViewClass:FLAnimatedImageView.class];
     } else {
         [KSPhotoBrowser setImageManagerClass:KSYYImageManager.class];
-        [KSPhotoBrowser setImageViewClass:YYAnimatedImageView.class];
     }
     KSPhotoBrowser.imageViewBackgroundColor = UIColor.redColor;
 }
@@ -97,10 +95,10 @@ static NSString * const kAvatarUrl = @"https://tvax2.sinaimg.cn/crop.0.0.750.750
     NSLog(@"selected index: %ld", index);
 }
 
-- (void)ks_photoBrowser:(KSPhotoBrowser *)browser didLongPressItem:(KSPhotoItem *)item atIndex:(NSUInteger)index {
-    UIImage *image = [browser imageForItem:item];
-    NSLog(@"long pressed image:%@", image);
-}
+//- (void)ks_photoBrowser:(KSPhotoBrowser *)browser didLongPressItem:(KSPhotoItem *)item atIndex:(NSUInteger)index {
+//    UIImage *image = [browser imageForItem:item];
+//    NSLog(@"long pressed image:%@", image);
+//}
 
 // MARK: - CollectionViewDataSource
 

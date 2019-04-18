@@ -8,19 +8,25 @@
 
 #import "KSSDImageManager.h"
 
-#if __has_include(<SDWebImage/SDWebImageManager.h>)
+#if __has_include(<SDWebImage/SDImageCache.h>)
 #import <SDWebImage/UIImageView+WebCache.h>
 #import <SDWebImage/UIView+WebCache.h>
-#import <SDWebImage/SDWebImageManager.h>
-#import <FLAnimatedImage/FLAnimatedImageView.h>
+#import <SDWebImage/SDWebImageDownloader.h>
+#import <SDWebImage/SDImageCache.h>
+#import <SDWebImage/SDAnimatedImageView.h>
 #else
 #import "UIImageView+WebCache.h"
 #import "UIView+WebCache.h"
-#import "SDWebImageManager.h"
-#import "FLAnimatedImageView.h"
+#import "SDWebImageDownloader.h"
+#import "SDImageCache.h"
+#import "SDAnimatedImageView.h"
 #endif
 
 @implementation KSSDImageManager
+
++ (Class)imageViewClass {
+    return SDAnimatedImageView.class;
+}
 
 + (void)setImageForImageView:(UIImageView *)imageView
                      withURL:(NSURL *)imageURL
@@ -46,15 +52,13 @@
 }
 
 + (UIImage *)imageFromMemoryForURL:(NSURL *)url {
-    SDWebImageManager *manager = [SDWebImageManager sharedManager];
-    NSString *key = [manager cacheKeyForURL:url];
-    return [manager.imageCache imageFromMemoryCacheForKey:key];
+    NSString *key = [SDWebImageManager.sharedManager cacheKeyForURL:url];
+    return [SDImageCache.sharedImageCache imageFromMemoryCacheForKey:key];
 }
 
 + (UIImage *)imageForURL:(NSURL *)url {
-    SDWebImageManager *manager = [SDWebImageManager sharedManager];
-    NSString *key = [manager cacheKeyForURL:url];
-    return [manager.imageCache imageFromCacheForKey:key];
+    NSString *key = [SDWebImageManager.sharedManager cacheKeyForURL:url];
+    return [SDImageCache.sharedImageCache imageFromCacheForKey:key];
 }
 
 @end

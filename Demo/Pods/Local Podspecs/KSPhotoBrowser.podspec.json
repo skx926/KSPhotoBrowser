@@ -1,6 +1,6 @@
 {
   "name": "KSPhotoBrowser",
-  "version": "0.2.1",
+  "version": "0.2.5",
   "summary": "A beautiful photo browser with interactive dismissal animation.",
   "homepage": "https://github.com/skx926/KSPhotoBrowser",
   "license": "MIT",
@@ -13,7 +13,7 @@
   },
   "source": {
     "git": "https://github.com/skx926/KSPhotoBrowser.git",
-    "tag": "0.2.1"
+    "tag": "0.2.5"
   },
   "source_files": [
     "KSPhotoBrowser",
@@ -22,13 +22,7 @@
   "frameworks": "UIKit",
   "dependencies": {
     "SDWebImage": [
-      "~> 4.0"
-    ],
-    "SDWebImage/GIF": [
-
-    ],
-    "FLAnimatedImage": [
-      "~> 1.0"
+      "~> 5.0"
     ]
   }
 }
