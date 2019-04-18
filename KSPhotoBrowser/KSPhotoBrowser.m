@@ -11,13 +11,6 @@
 #import "UIImage+KS.h"
 #import "KSSDImageManager.h"
 
-#if __has_include(<SDWebImage/SDAnimatedImageView.h>)
-#import <SDWebImage/SDAnimatedImageView.h>
-#else
-#import "SDAnimatedImageView.h"
-#endif
-
-
 static const NSTimeInterval kAnimationDuration = 0.33;
 static const NSTimeInterval kSpringAnimationDuration = 0.5;
 static const CGFloat kPageControlHeight = 20;
