@@ -11,7 +11,6 @@
 #import "KSProgressLayer.h"
 #import "KSImageManagerProtocol.h"
 #import "KSPhotoBrowser.h"
-#import "KSPlayerView.h"
 #import "KSSlider.h"
 
 #define WeakSelf(type)  __weak typeof(type) weak##type = type;
@@ -75,7 +74,7 @@ const CGFloat kKSPhotoViewMaxScale = 3;
     CGFloat height = CGRectGetHeight(self.frame);
     
     _playerView = [[KSPlayerView alloc] initWithFrame:CGRectMake(0, 0, width, ceilf(width*9/16))];
-    _playerView.backgroundColor = [UIColor redColor];
+    _playerView.backgroundColor = [UIColor clearColor];
     [self addSubview:_playerView];
     
     WeakSelf(self)
@@ -121,12 +120,10 @@ const CGFloat kKSPhotoViewMaxScale = 3;
     
     
     _progressSlider = [[KSSlider alloc] init];
-    // slider开始滑动事件
     [_progressSlider addTarget:self action:@selector(progressSliderTouchBegan:) forControlEvents:UIControlEventTouchDown];
-    // slider滑动中事件
     [_progressSlider addTarget:self action:@selector(progressSliderValueChanged:) forControlEvents:UIControlEventValueChanged];
-    // slider结束滑动事件
     [_progressSlider addTarget:self action:@selector(progressSliderTouchEnded:) forControlEvents:UIControlEventTouchUpInside | UIControlEventTouchCancel | UIControlEventTouchUpOutside];
+    
     [_progressSlider setMinimumTrackTintColor:[UIColor redColor]];
     [_progressSlider setMaximumTrackTintColor:[UIColor whiteColor]];
     [_progressSlider setThumbImage:[UIImage imageNamed:@"icon_progress_slider"] forState:UIControlStateNormal];
@@ -147,6 +144,10 @@ const CGFloat kKSPhotoViewMaxScale = 3;
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap:)];
     [self addGestureRecognizer:tap];
+    
+    // default hidden player controls
+    _playerView.hidden = YES;
+    [self hiddenControls:YES];
 }
 
 - (void)layoutSubviews {
@@ -198,7 +199,12 @@ const CGFloat kKSPhotoViewMaxScale = 3;
     [self resizeImageView];
     
     if ( item.videoUrl ) {
+        _playerView.hidden = NO;
+        [self hiddenControls:NO];
         [_playerView loadVideoPath:item.videoUrl];
+    } else {
+        _playerView.hidden = YES;
+        [self hiddenControls:YES];
     }
 }
 
@@ -314,6 +320,9 @@ const CGFloat kKSPhotoViewMaxScale = 3;
 }
 
 - (void)tap:(UITapGestureRecognizer *)tap {
+    if ( !_item.videoUrl ) {
+        return;
+    }
     CGPoint location = [tap locationInView:self];
     if( CGRectContainsPoint(self.bounds, location) ) {
         [self switchControlShown];

@@ -12,6 +12,8 @@
 #import "KSSDImageManager.h"
 #import <FLAnimatedImage/FLAnimatedImage.h>
 
+#define WeakSelf(type)  __weak typeof(type) weak##type = type;
+
 static const NSTimeInterval kAnimationDuration = 0.33;
 static const NSTimeInterval kSpringAnimationDuration = 0.5;
 static const CGFloat kPageControlHeight = 20;
@@ -19,7 +21,7 @@ static const CGFloat kPageControlBottomSpacing = 40;
 static Class ImageManagerClass = nil;
 static Class ImageViewClass = nil;
 
-@interface KSPhotoBrowser () <UIScrollViewDelegate, UIViewControllerTransitioningDelegate, CAAnimationDelegate>
+@interface KSPhotoBrowser () <UIScrollViewDelegate, UIViewControllerTransitioningDelegate, CAAnimationDelegate, UIGestureRecognizerDelegate>
 @property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic, strong) NSMutableArray *photoItems;
 @property (nonatomic, strong) NSMutableSet *reusableItemViews;
@@ -31,6 +33,13 @@ static Class ImageViewClass = nil;
 @property (nonatomic, assign) BOOL presented;
 @property (nonatomic, assign) CGPoint startLocation;
 @property (nonatomic, assign) CGRect startFrame;
+
+@property (nonatomic, strong) UITapGestureRecognizer *singleTap;
+@property (nonatomic, strong) UITapGestureRecognizer *doubleTap;
+@property (nonatomic, strong) UILongPressGestureRecognizer *longPress;
+@property (nonatomic, strong) UIPanGestureRecognizer *pan;
+
+@property (nonatomic, assign) BOOL canGesture;
 
 @end
 
@@ -156,10 +165,11 @@ static Class ImageViewClass = nil;
         sourceRect = [item.sourceView.superview convertRect:item.sourceView.frame toView:photoView];
     }
     photoView.imageView.frame = sourceRect;
-    
+    photoView.playerFrame = sourceRect;
     if (_bounces) {
         [UIView animateWithDuration:kSpringAnimationDuration delay:0 usingSpringWithDamping:0.6 initialSpringVelocity:0 options:kNilOptions animations:^{
             photoView.imageView.frame = endRect;
+            photoView.playerFrame = endRect;
             self.view.backgroundColor = [UIColor blackColor];
             self.backgroundView.alpha = 1;
         } completion:^(BOOL finished) {
@@ -187,6 +197,7 @@ static Class ImageViewClass = nil;
         
         [UIView animateWithDuration:kAnimationDuration animations:^{
             photoView.imageView.frame = endRect;
+            photoView.playerFrame = endRect;
             self.view.backgroundColor = [UIColor blackColor];
             self.backgroundView.alpha = 1;
         } completion:^(BOOL finished) {
@@ -279,11 +290,20 @@ static Class ImageViewClass = nil;
     KSPhotoView *photoView = [_reusableItemViews anyObject];
     if (photoView == nil) {
         photoView = [[KSPhotoView alloc] initWithFrame:_scrollView.bounds];
+        WeakSelf(self)
+        photoView.sliderDragCallback = ^(BOOL isDraged) {
+            [weakself handleSliderDragCallback:isDraged];
+        };
     } else {
         [_reusableItemViews removeObject:photoView];
     }
     photoView.tag = -1;
     return photoView;
+}
+
+- (void)handleSliderDragCallback:(BOOL)isDraged {
+    _pan.enabled = !isDraged;
+    _canGesture = !isDraged;
 }
 
 - (void)updateReusableItemViews {
@@ -376,6 +396,7 @@ static Class ImageViewClass = nil;
             CGAffineTransform translation = CGAffineTransformMakeTranslation(0, point.y);
             CGAffineTransform transform = CGAffineTransformConcat(rotation, translation);
             photoView.imageView.transform = transform;
+            photoView.playerView.transform = transform;
             
             double percent = 1 - fabs(point.y)/(self.view.frame.size.height/2);
             self.view.backgroundColor = [UIColor colorWithWhite:0 alpha:percent];
@@ -425,7 +446,7 @@ static Class ImageViewClass = nil;
             NSLog(@"%f", rateY);
             
             photoView.imageView.frame = CGRectMake(x, y, width, height);
-            
+            photoView.playerFrame = CGRectMake(x, y, width, height);
             self.view.backgroundColor = [UIColor colorWithWhite:0 alpha:percent];
             self.backgroundView.alpha = percent;
         }
@@ -457,6 +478,7 @@ static Class ImageViewClass = nil;
             break;
         case UIGestureRecognizerStateChanged: {
             photoView.imageView.transform = CGAffineTransformMakeTranslation(0, point.y);
+            photoView.playerView.transform = CGAffineTransformMakeTranslation(0, point.y);
             double percent = 1 - fabs(point.y)/(self.view.frame.size.height/2);
             self.view.backgroundColor = [UIColor colorWithWhite:0 alpha:percent];
             self.backgroundView.alpha = percent;
@@ -526,20 +548,26 @@ static Class ImageViewClass = nil;
 // MARK: - Gesture Recognizer
 
 - (void)addGestureRecognizer {
-    UITapGestureRecognizer *doubleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didDoubleTap:)];
-    doubleTap.numberOfTapsRequired = 2;
-    [self.view addGestureRecognizer:doubleTap];
+    _canGesture = YES;
     
-    UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didSingleTap:)];
-    singleTap.numberOfTapsRequired = 1;
-    [singleTap requireGestureRecognizerToFail:doubleTap];
-    [self.view addGestureRecognizer:singleTap];
+    _doubleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didDoubleTap:)];
+    _doubleTap.numberOfTapsRequired = 2;
+    _doubleTap.delegate = self;
+    [self.view addGestureRecognizer:_doubleTap];
     
-    UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(didLongPress:)];
-    [self.view addGestureRecognizer:longPress];
+    _singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didSingleTap:)];
+    _singleTap.numberOfTapsRequired = 1;
+    _singleTap.delegate = self;
+    [_singleTap requireGestureRecognizerToFail:_doubleTap];
+    [self.view addGestureRecognizer:_singleTap];
     
-    UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(didPan:)];
-    [self.view addGestureRecognizer:pan];
+    _longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(didLongPress:)];
+    _longPress.delegate = self;
+    [self.view addGestureRecognizer:_longPress];
+    
+    _pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(didPan:)];
+    _pan.delegate = self;
+    [self.view addGestureRecognizer:_pan];
 }
 
 - (void)didSingleTap:(UITapGestureRecognizer *)tap {
@@ -619,6 +647,7 @@ static Class ImageViewClass = nil;
         [UIView animateWithDuration:kSpringAnimationDuration delay:0 usingSpringWithDamping:0.6 initialSpringVelocity:0 options:kNilOptions animations:^{
             if (self.dismissalStyle == KSPhotoBrowserInteractiveDismissalStyleScale) {
                 photoView.imageView.frame = self.startFrame;
+                photoView.playerFrame = self.startFrame;
             } else {
                 photoView.transform = CGAffineTransformIdentity;
             }
@@ -632,8 +661,10 @@ static Class ImageViewClass = nil;
         [UIView animateWithDuration:kAnimationDuration animations:^{
             if (self.dismissalStyle == KSPhotoBrowserInteractiveDismissalStyleScale) {
                 photoView.imageView.frame = self.startFrame;
+                photoView.playerFrame = self.startFrame;
             } else {
                 photoView.imageView.transform = CGAffineTransformIdentity;
+                photoView.playerView.transform = CGAffineTransformIdentity;
             }
             self.view.backgroundColor = [UIColor blackColor];
             self.backgroundView.alpha = 1;
@@ -686,6 +717,7 @@ static Class ImageViewClass = nil;
     CGAffineTransform translation = CGAffineTransformMakeTranslation(0, toTranslationY);
     CGAffineTransform transform = CGAffineTransformConcat(rotation, translation);
     photoView.imageView.transform = transform;
+    photoView.playerView.transform = transform;
     
     [UIView animateWithDuration:duration animations:^{
         self.view.backgroundColor = [UIColor clearColor];
@@ -720,6 +752,7 @@ static Class ImageViewClass = nil;
     if (_bounces) {
         [UIView animateWithDuration:kSpringAnimationDuration delay:0 usingSpringWithDamping:0.6 initialSpringVelocity:0 options:kNilOptions animations:^{
             photoView.imageView.frame = sourceRect;
+            photoView.playerFrame = sourceRect;
             self.view.backgroundColor = [UIColor clearColor];
             self.backgroundView.alpha = 0;
         } completion:^(BOOL finished) {
@@ -745,6 +778,7 @@ static Class ImageViewClass = nil;
         
         [UIView animateWithDuration:kAnimationDuration animations:^{
             photoView.imageView.frame = sourceRect;
+            photoView.playerFrame = sourceRect;
             self.view.backgroundColor = [UIColor clearColor];
             self.backgroundView.alpha = 0;
         } completion:^(BOOL finished) {
@@ -765,6 +799,7 @@ static Class ImageViewClass = nil;
     NSTimeInterval duration = MIN(500 / fabs(velocity.y), kAnimationDuration);
     [UIView animateWithDuration:duration animations:^{
         photoView.imageView.transform = CGAffineTransformMakeTranslation(0, toTranslationY);
+        photoView.playerView.transform = CGAffineTransformMakeTranslation(0, toTranslationY);
         self.view.backgroundColor = [UIColor clearColor];
         self.backgroundView.alpha = 0;
     } completion:^(BOOL finished) {
@@ -785,6 +820,37 @@ static Class ImageViewClass = nil;
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     [self updateReusableItemViews];
     [self configItemViews];
+}
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    for (KSPhotoView *photoView in _visibleItemViews) {
+        if ( photoView.tag != _currentPage ) {
+            photoView.zoomScale = 1.0f;
+            // if gif image && photoView.tag != _currentPage --> stopAnimating;
+            [(FLAnimatedImageView *)photoView.imageView stopAnimating];
+            // if video && photoView.tag != _currentPage --> seekToTimeAndStop:;
+            if ( photoView.item.videoUrl ) {
+                [photoView.playerView seekToTimeAndStop:0];
+            }
+        } else {
+            [(FLAnimatedImageView *)photoView.imageView startAnimating];
+        }
+    }
+}
+
+#pragma mark - gestureRecognizer
+- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
+    KSPhotoItem *item = [_photoItems objectAtIndex:_currentPage];
+    if ( [gestureRecognizer isEqual:_singleTap] ||
+        [gestureRecognizer isEqual:_doubleTap] ) {
+        if ( item.videoUrl ) {
+            return NO;
+        }
+    }
+    if ( !_canGesture ) {
+        return NO;
+    }
+    return YES;
 }
 
 // MARK: - Setter

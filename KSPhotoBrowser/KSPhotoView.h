@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "KSProgressLayer.h"
+#import "KSPlayerView.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -15,7 +16,6 @@ extern const CGFloat kKSPhotoViewPadding;
 
 @protocol KSImageManager;
 @class KSPhotoItem;
-@class KSPlayerView;
 
 typedef void(^DragSliderCallback)(BOOL isDraged);
 
@@ -31,6 +31,7 @@ typedef void(^DragSliderCallback)(BOOL isDraged);
 - (void)cancelCurrentImageLoad;
 
 // video player
+@property (nonatomic, strong, readonly) KSPlayerView *playerView;
 @property (nonatomic, assign) CGRect playerFrame;
 @property (nonatomic, copy) DragSliderCallback sliderDragCallback;
 
