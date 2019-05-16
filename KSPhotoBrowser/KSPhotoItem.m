@@ -20,32 +20,38 @@
 
 - (instancetype)initWithSourceView:(UIView *)view
                         thumbImage:(UIImage *)image
-                          imageUrl:(NSURL *)url {
+                          imageUrl:(NSURL *)url
+                          videoUrl:(nullable NSURL *)videoUrl {
     self = [super init];
     if (self) {
         _sourceView = view;
-        _thumbImage = image;
+        _thumbImage = image ? :[UIImage imageNamed:@"edit_personal_placeholder"];
         _imageUrl = url;
+        _videoUrl = videoUrl;
     }
     return self;
 }
 
-- (instancetype)initWithSourceView:(UIImageView *)view
+- (instancetype)initWithSourceView:(UIView *)view
                           imageUrl:(NSURL *)url
-{
+                          videoUrl:(nullable NSURL *)videoUrl {
     return [self initWithSourceView:view
-                         thumbImage:view.image
-                           imageUrl:url];
+                         thumbImage:[view isKindOfClass:[UIImageView class]] ? [(UIImageView *)view image] ? : [UIImage imageNamed:@"edit_personal_placeholder"] : [UIImage imageNamed:@"edit_personal_placeholder"]
+                           imageUrl:url
+                           videoUrl:videoUrl];
+    
 }
 
-- (instancetype)initWithSourceView:(UIImageView *)view
-                             image:(UIImage *)image {
+- (instancetype)initWithSourceView:(UIView *)view
+                             image:(UIImage *)image
+                          videoUrl:(nullable NSURL *)videoUrl {
     self = [super init];
     if (self) {
         _sourceView = view;
         _thumbImage = image;
         _imageUrl = nil;
         _image = image;
+        _videoUrl = videoUrl;
     }
     return self;
 }
@@ -53,24 +59,28 @@
 + (instancetype)itemWithSourceView:(UIView *)view
                         thumbImage:(UIImage *)image
                           imageUrl:(NSURL *)url
-{
+                          videoUrl:(nullable NSURL *)videoUrl {
     return [[KSPhotoItem alloc] initWithSourceView:view
-                                    thumbImage:image
-                                      imageUrl:url];
+                                        thumbImage:image
+                                          imageUrl:url
+                                          videoUrl:videoUrl];
 }
 
-+ (instancetype)itemWithSourceView:(UIImageView *)view
++ (instancetype)itemWithSourceView:(UIView *)view
                           imageUrl:(NSURL *)url
-{
+                          videoUrl:(nullable NSURL *)videoUrl {
     return [[KSPhotoItem alloc] initWithSourceView:view
-                                          imageUrl:url];
+                                          imageUrl:url
+                                          videoUrl:videoUrl];
+    
 }
 
-+ (instancetype)itemWithSourceView:(UIImageView *)view
++ (instancetype)itemWithSourceView:(UIView *)view
                              image:(UIImage *)image
-{
+                          videoUrl:(nullable NSURL *)videoUrl {
     return [[KSPhotoItem alloc] initWithSourceView:view
-                                             image:image];
+                                             image:image
+                                          videoUrl:videoUrl];
 }
 
 @end
