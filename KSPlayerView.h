@@ -12,6 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 typedef void(^PlayProgressCallback)(CGFloat progress);
 typedef void(^PlayToEndCallback)(BOOL playEnd);
+typedef void(^PlalButtonClickCallback)(BOOL isPlaying);
 
 // isTotalTime:YES  times: totalTime
 // isTotalTime:NO  times: currentTime
@@ -23,6 +24,7 @@ typedef void(^PlayerTimeCallback)(BOOL isTotalTime, CGFloat times);
 @property (nonatomic, copy) PlayToEndCallback playToEndCallback;
 
 @property (nonatomic, copy) PlayerTimeCallback playerTimeCallback;
+@property (nonatomic, copy) PlalButtonClickCallback playCallback;
 
 @property (nonatomic, assign) BOOL isDragSlider;
 @property (nonatomic, assign, readonly) CGFloat duration; //视频总时间

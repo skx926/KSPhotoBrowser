@@ -15,11 +15,11 @@
 		27F9772D1E1B933C00AFB315 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 27F9772C1E1B933C00AFB315 /* Assets.xcassets */; };
 		27F977301E1B933C00AFB315 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 27F9772E1E1B933C00AFB315 /* LaunchScreen.storyboard */; };
 		4DF3A413939562BF8A40603C /* libPods-KSPhotoBrowserDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 600B0C255336BD7C62D18A2E /* libPods-KSPhotoBrowserDemo.a */; };
-		6D7F5B44228D6908005B10D3 /* icon_progress_slider@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6D7F5B3F228D6907005B10D3 /* icon_progress_slider@3x.png */; };
 		6D7F5B45228D6908005B10D3 /* btn_video_play@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6D7F5B40228D6908005B10D3 /* btn_video_play@2x.png */; };
-		6D7F5B46228D6908005B10D3 /* icon_progress_slider@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6D7F5B41228D6908005B10D3 /* icon_progress_slider@2x.png */; };
 		6D7F5B47228D6908005B10D3 /* btn_video_pause@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6D7F5B42228D6908005B10D3 /* btn_video_pause@3x.png */; };
 		6D7F5B48228D6908005B10D3 /* btn_video_pause@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6D7F5B43228D6908005B10D3 /* btn_video_pause@2x.png */; };
+		6D7F5B4B228D72CE005B10D3 /* icon_progress_slider@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 6D7F5B49228D72CD005B10D3 /* icon_progress_slider@2x.jpg */; };
+		6D7F5B4C228D72CE005B10D3 /* icon_progress_slider@3x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 6D7F5B4A228D72CE005B10D3 /* icon_progress_slider@3x.jpg */; };
 		F2AD73BC21131A3B0065171B /* KSYYImageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F2AD73BB21131A3A0065171B /* KSYYImageManager.m */; };
 		F7F281321EB45F8E000C5561 /* KSPhotoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F7F281311EB45F8E000C5561 /* KSPhotoCell.m */; };
 		F7F2818A1EB6E3F5000C5561 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7F281891EB6E3F5000C5561 /* UIKit.framework */; };
@@ -47,11 +47,11 @@
 		27F9772F1E1B933C00AFB315 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		27F977311E1B933C00AFB315 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		600B0C255336BD7C62D18A2E /* libPods-KSPhotoBrowserDemo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-KSPhotoBrowserDemo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		6D7F5B3F228D6907005B10D3 /* icon_progress_slider@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_progress_slider@3x.png"; sourceTree = "<group>"; };
 		6D7F5B40228D6908005B10D3 /* btn_video_play@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_video_play@2x.png"; sourceTree = "<group>"; };
-		6D7F5B41228D6908005B10D3 /* icon_progress_slider@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_progress_slider@2x.png"; sourceTree = "<group>"; };
 		6D7F5B42228D6908005B10D3 /* btn_video_pause@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_video_pause@3x.png"; sourceTree = "<group>"; };
 		6D7F5B43228D6908005B10D3 /* btn_video_pause@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_video_pause@2x.png"; sourceTree = "<group>"; };
+		6D7F5B49228D72CD005B10D3 /* icon_progress_slider@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "icon_progress_slider@2x.jpg"; sourceTree = "<group>"; };
+		6D7F5B4A228D72CE005B10D3 /* icon_progress_slider@3x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "icon_progress_slider@3x.jpg"; sourceTree = "<group>"; };
 		7DB0997989D2CDB9B974C2FA /* Pods-KSPhotoBrowserDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KSPhotoBrowserDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-KSPhotoBrowserDemo/Pods-KSPhotoBrowserDemo.release.xcconfig"; sourceTree = "<group>"; };
 		87AB18B986ED633B11439023 /* Pods-KSPhotoBrowserDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KSPhotoBrowserDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-KSPhotoBrowserDemo/Pods-KSPhotoBrowserDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		F2AD73BA21131A3A0065171B /* KSYYImageManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSYYImageManager.h; sourceTree = "<group>"; };
@@ -111,11 +111,11 @@
 		27F9771F1E1B933C00AFB315 /* KSPhotoBrowserDemo */ = {
 			isa = PBXGroup;
 			children = (
+				6D7F5B49228D72CD005B10D3 /* icon_progress_slider@2x.jpg */,
+				6D7F5B4A228D72CE005B10D3 /* icon_progress_slider@3x.jpg */,
 				6D7F5B43228D6908005B10D3 /* btn_video_pause@2x.png */,
 				6D7F5B42228D6908005B10D3 /* btn_video_pause@3x.png */,
 				6D7F5B40228D6908005B10D3 /* btn_video_play@2x.png */,
-				6D7F5B41228D6908005B10D3 /* icon_progress_slider@2x.png */,
-				6D7F5B3F228D6907005B10D3 /* icon_progress_slider@3x.png */,
 				27F977231E1B933C00AFB315 /* AppDelegate.h */,
 				27F977241E1B933C00AFB315 /* AppDelegate.m */,
 				F2AD73BA21131A3A0065171B /* KSYYImageManager.h */,
@@ -229,12 +229,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6D7F5B44228D6908005B10D3 /* icon_progress_slider@3x.png in Resources */,
-				6D7F5B46228D6908005B10D3 /* icon_progress_slider@2x.png in Resources */,
 				6D7F5B48228D6908005B10D3 /* btn_video_pause@2x.png in Resources */,
 				27F977301E1B933C00AFB315 /* LaunchScreen.storyboard in Resources */,
 				6D7F5B47228D6908005B10D3 /* btn_video_pause@3x.png in Resources */,
 				27F9772D1E1B933C00AFB315 /* Assets.xcassets in Resources */,
+				6D7F5B4C228D72CE005B10D3 /* icon_progress_slider@3x.jpg in Resources */,
+				6D7F5B4B228D72CE005B10D3 /* icon_progress_slider@2x.jpg in Resources */,
 				6D7F5B45228D6908005B10D3 /* btn_video_play@2x.png in Resources */,
 				27F9772B1E1B933C00AFB315 /* Main.storyboard in Resources */,
 			);

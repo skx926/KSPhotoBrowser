@@ -73,11 +73,14 @@ const CGFloat kKSPhotoViewMaxScale = 3;
     CGFloat width = CGRectGetWidth(self.frame);
     CGFloat height = CGRectGetHeight(self.frame);
     
+    WeakSelf(self)
     _playerView = [[KSPlayerView alloc] initWithFrame:CGRectMake(0, 0, width, ceilf(width*9/16))];
+    _playerView.playCallback = ^(BOOL isPlaying) {
+        [weakself changePlayButtonStatus:isPlaying];
+    };
     _playerView.backgroundColor = [UIColor clearColor];
     [self addSubview:_playerView];
     
-    WeakSelf(self)
     _playerView.playerTimeCallback = ^(BOOL isTotalTime, CGFloat times) {
         [weakself updatePlayerTimes:times isTotalTime:isTotalTime];
     };
@@ -126,7 +129,7 @@ const CGFloat kKSPhotoViewMaxScale = 3;
     
     [_progressSlider setMinimumTrackTintColor:[UIColor redColor]];
     [_progressSlider setMaximumTrackTintColor:[UIColor whiteColor]];
-    [_progressSlider setThumbImage:[UIImage imageNamed:@"icon_progress_slider"] forState:UIControlStateNormal];
+    [_progressSlider setThumbImage:[UIImage imageNamed:@"icon_progress_slider@2x.jpg"] forState:UIControlStateNormal];
     [_progressSlider setMinimumValue:0];
     [_progressSlider setMaximumValue:1];
     _progressSlider.autoresizingMask = UIViewAutoresizingFlexibleWidth;
@@ -300,11 +303,15 @@ const CGFloat kKSPhotoViewMaxScale = 3;
 - (void)playOrPause:(id)sender {
     if( _playerView.videoPlayer.rate == 0 ) {
         [_playerView startPlayAnimate:YES];
-        _playButton.selected = YES;
+        [self changePlayButtonStatus:YES];
     } else {
         [_playerView stopPlayAnimate:YES];
-        _playButton.selected = NO;
+        [self changePlayButtonStatus:NO];
     }
+}
+
+- (void)changePlayButtonStatus:(BOOL)toPlaying {
+    _playButton.selected = toPlaying;
     [self addHidePlayControlsTimer];
 }
 

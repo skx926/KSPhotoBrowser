@@ -146,10 +146,14 @@
     
     if ( self.playToEndCallback ) {
         self.playToEndCallback(YES);
-        self.playButton.hidden = NO;
-        self.playButton.selected = NO;
     }
-    //    [self.videoPlayer.currentItem seekToTime:kCMTimeZero];
+    if ( _playCallback ) {
+        _playCallback(NO);
+    }
+    self.playButton.hidden = NO;
+    self.playButton.selected = NO;
+    
+//    [self.videoPlayer.currentItem seekToTime:kCMTimeZero];
 }
 
 - (void)applicationDidBecomeActive:(NSNotification *)notification {
@@ -269,6 +273,9 @@
         [self playAnimate:YES];
     } else {
         [self pauseAnimate:YES];
+    }
+    if ( _playCallback ) {
+        _playCallback(self.videoPlayer.rate != 0);
     }
 }
 
