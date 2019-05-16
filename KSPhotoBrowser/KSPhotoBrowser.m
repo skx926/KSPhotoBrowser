@@ -105,10 +105,10 @@ static Class ImageViewClass = nil;
     
     if (_pageindicatorStyle == KSPhotoBrowserPageIndicatorStyleDot) {
         if (_photoItems.count > 1) {
-            _pageControl = [[UIPageControl alloc] init];
-            _pageControl.numberOfPages = _photoItems.count;
-            _pageControl.currentPage = _currentPage;
-            [self.view addSubview:_pageControl];
+//            _pageControl = [[UIPageControl alloc] init];
+//            _pageControl.numberOfPages = _photoItems.count;
+//            _pageControl.currentPage = _currentPage;
+//            [self.view addSubview:_pageControl];
         }
     } else {
         _pageLabel = [[UILabel alloc] init];
