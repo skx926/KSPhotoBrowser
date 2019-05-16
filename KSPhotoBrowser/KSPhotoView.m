@@ -11,6 +11,10 @@
 #import "KSProgressLayer.h"
 #import "KSImageManagerProtocol.h"
 #import "KSPhotoBrowser.h"
+#import "KSPlayerView.h"
+#import "KSSlider.h"
+
+#define WeakSelf(type)  __weak typeof(type) weak##type = type;
 
 const CGFloat kKSPhotoViewPadding = 10;
 const CGFloat kKSPhotoViewMaxScale = 3;
@@ -20,6 +24,17 @@ const CGFloat kKSPhotoViewMaxScale = 3;
 @property (nonatomic, strong, readwrite) UIImageView *imageView;
 @property (nonatomic, strong, readwrite) KSProgressLayer *progressLayer;
 @property (nonatomic, strong, readwrite) KSPhotoItem *item;
+
+// player
+@property (nonatomic, strong, readwrite) KSPlayerView *playerView;
+
+@property (strong, nonatomic) UIButton *playButton;
+@property (strong, nonatomic) KSSlider *progressSlider;
+@property (strong, nonatomic) UILabel *totalTimeLabel;
+@property (strong, nonatomic) UILabel *currentTimeLabel;
+
+@property (assign, nonatomic) BOOL isDragSlider;
+@property (strong, nonatomic) NSTimer *hideControlsTimer;
 
 @end
 
@@ -49,8 +64,89 @@ const CGFloat kKSPhotoViewMaxScale = 3;
         
         _progressLayer.hidden = YES;
         [self.layer addSublayer:_progressLayer];
+        
+        [self initPlayerToolsView];
     }
     return self;
+}
+
+- (void)initPlayerToolsView {
+    CGFloat width = CGRectGetWidth(self.frame);
+    CGFloat height = CGRectGetHeight(self.frame);
+    
+    _playerView = [[KSPlayerView alloc] initWithFrame:CGRectMake(0, 0, width, ceilf(width*9/16))];
+    _playerView.backgroundColor = [UIColor redColor];
+    [self addSubview:_playerView];
+    
+    WeakSelf(self)
+    _playerView.playerTimeCallback = ^(BOOL isTotalTime, CGFloat times) {
+        [weakself updatePlayerTimes:times isTotalTime:isTotalTime];
+    };
+    
+    UIFont *timeFont = [UIFont systemFontOfSize:12];
+    CGFloat timeLabelHeight = timeFont.lineHeight +2;
+    CGFloat timeLabelWidth = 38;
+    
+    CGFloat bottomMargin = 20;
+    
+    
+    CGFloat playButtonWidth = 38;
+    _playButton = [[UIButton alloc] init];
+    [_playButton setImage:[UIImage imageNamed:@"btn_video_play"] forState:UIControlStateNormal];
+    [_playButton setImage:[UIImage imageNamed:@"btn_video_pause"] forState:UIControlStateSelected];
+    [_playButton addTarget:self action:@selector(playOrPause:) forControlEvents:UIControlEventTouchUpInside];
+    _playButton.selected = NO;
+    [self addSubview:_playButton];
+    _playButton.frame = CGRectMake(12, height -playButtonWidth -bottomMargin, playButtonWidth, playButtonWidth);
+    
+    //时间
+    _currentTimeLabel = [[UILabel alloc] init];
+    _currentTimeLabel.font = timeFont;
+    _currentTimeLabel.textColor = [UIColor whiteColor];
+    _currentTimeLabel.textAlignment = NSTextAlignmentCenter;
+    _currentTimeLabel.preferredMaxLayoutWidth = 200;
+    [self addSubview:_currentTimeLabel];
+    [self bringSubviewToFront:_currentTimeLabel];
+    _currentTimeLabel.frame = CGRectMake(CGRectGetMaxX(_playButton.frame) +2, height -timeLabelHeight -bottomMargin, timeLabelWidth, timeLabelHeight);
+    _playButton.center = CGPointMake(_playButton.center.x, _currentTimeLabel.center.y);
+    
+    _totalTimeLabel = [[UILabel alloc]init];
+    _totalTimeLabel.font = _currentTimeLabel.font;
+    _totalTimeLabel.textColor = [UIColor whiteColor];
+    _totalTimeLabel.textAlignment = NSTextAlignmentCenter;
+    _totalTimeLabel.preferredMaxLayoutWidth = 200;
+    [self addSubview:_totalTimeLabel];
+    [self bringSubviewToFront:_totalTimeLabel];
+    _totalTimeLabel.frame = CGRectMake(width -timeLabelWidth -12, CGRectGetMinY(_currentTimeLabel.frame), timeLabelWidth, timeLabelHeight);
+    
+    
+    _progressSlider = [[KSSlider alloc] init];
+    // slider开始滑动事件
+    [_progressSlider addTarget:self action:@selector(progressSliderTouchBegan:) forControlEvents:UIControlEventTouchDown];
+    // slider滑动中事件
+    [_progressSlider addTarget:self action:@selector(progressSliderValueChanged:) forControlEvents:UIControlEventValueChanged];
+    // slider结束滑动事件
+    [_progressSlider addTarget:self action:@selector(progressSliderTouchEnded:) forControlEvents:UIControlEventTouchUpInside | UIControlEventTouchCancel | UIControlEventTouchUpOutside];
+    [_progressSlider setMinimumTrackTintColor:[UIColor redColor]];
+    [_progressSlider setMaximumTrackTintColor:[UIColor whiteColor]];
+    [_progressSlider setThumbImage:[UIImage imageNamed:@"icon_progress_slider"] forState:UIControlStateNormal];
+    [_progressSlider setMinimumValue:0];
+    [_progressSlider setMaximumValue:1];
+    _progressSlider.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    [self addSubview:_progressSlider];
+    [self bringSubviewToFront:_progressSlider];
+    CGFloat sliderWidth = CGRectGetMinX(_totalTimeLabel.frame) -8 -CGRectGetMaxX(_currentTimeLabel.frame) -8;
+    _progressSlider.frame = CGRectMake(CGRectGetMaxX(_currentTimeLabel.frame) +8, 0, sliderWidth, 12);
+    _progressSlider.center = CGPointMake(_progressSlider.center.x, _currentTimeLabel.center.y);
+    UITapGestureRecognizer *sliderTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapSliderAction:)];
+    [_progressSlider addGestureRecognizer:sliderTap];
+    
+    _progressSlider.sliderHitCallback = ^(BOOL isHitSlider) {
+        weakself.isDragSlider = isHitSlider;
+    };
+    
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap:)];
+    [self addGestureRecognizer:tap];
 }
 
 - (void)layoutSubviews {
@@ -100,6 +196,22 @@ const CGFloat kKSPhotoViewMaxScale = 3;
         _imageView.image = nil;
     }
     [self resizeImageView];
+    
+    if ( item.videoUrl ) {
+        [_playerView loadVideoPath:item.videoUrl];
+    }
+}
+
+- (void)setPlayerFrame:(CGRect)playerFrame {
+    _playerFrame = playerFrame;
+    CGFloat yOffset = 0;
+    if ( playerFrame.size.height > ceilf(playerFrame.size.width*9/16) ) {
+        yOffset = playerFrame.size.height/2 -ceilf(playerFrame.size.width*9/16)/2;
+    }
+    // center player view
+    _playerView.frame = CGRectMake(playerFrame.origin.x, playerFrame.origin.y +yOffset, playerFrame.size.width, ceilf(playerFrame.size.width*9/16));
+    [_playerView setNeedsLayout];
+    [self setNeedsLayout];
 }
 
 - (void)resizeImageView {
@@ -177,5 +289,143 @@ const CGFloat kKSPhotoViewMaxScale = 3;
     return YES;
 }
 
+
+#pragma mark - Player
+- (void)playOrPause:(id)sender {
+    if( _playerView.videoPlayer.rate == 0 ) {
+        [_playerView startPlayAnimate:YES];
+        _playButton.selected = YES;
+    } else {
+        [_playerView stopPlayAnimate:YES];
+        _playButton.selected = NO;
+    }
+    [self addHidePlayControlsTimer];
+}
+
+- (void)updatePlayerTimes:(CGFloat)times isTotalTime:(BOOL)isTotalTime {
+    if ( isTotalTime ) {
+        [self updateTotolTime:times];
+    } else {
+        [self updateCurrentTime:times];
+        
+        CGFloat sliderProgress = _playerView.current/_playerView.duration;
+        [_progressSlider setValue:sliderProgress animated:YES];
+    }
+}
+
+- (void)tap:(UITapGestureRecognizer *)tap {
+    CGPoint location = [tap locationInView:self];
+    if( CGRectContainsPoint(self.bounds, location) ) {
+        [self switchControlShown];
+    }
+}
+
+- (void)switchControlShown {
+    [self stopTimer];
+    [self hiddenControls:!_progressSlider.hidden];
+    [self addHidePlayControlsTimer];
+}
+
+
+- (void)stopTimer {
+    if( _hideControlsTimer ) {
+        [_hideControlsTimer invalidate];
+        _hideControlsTimer = nil;
+    }
+}
+
+- (void)addHidePlayControlsTimer {
+    [self stopTimer];
+    _hideControlsTimer = [NSTimer scheduledTimerWithTimeInterval:2.0f
+                                                          target:self
+                                                        selector:@selector(startHideControlsAnimation:)
+                                                        userInfo:nil
+                                                         repeats:NO];
+    [[NSRunLoop currentRunLoop] addTimer:_hideControlsTimer forMode:NSRunLoopCommonModes];
+}
+
+- (void)startHideControlsAnimation:(id)sender {
+    [UIView animateWithDuration:0.3f
+                     animations:^{
+                         [self hiddenControls:YES];
+                     }];
+}
+
+- (void)hiddenControls:(BOOL)hidden {
+    _progressSlider.hidden = hidden;
+    _currentTimeLabel.hidden = hidden;
+    _totalTimeLabel.hidden = hidden;
+    _playButton.hidden = hidden;
+}
+
+// slider
+- (void)setIsDragSlider:(BOOL)isDragSlider {
+    _isDragSlider = isDragSlider;
+    _playerView.isDragSlider = isDragSlider;
+    
+    self.scrollEnabled = !isDragSlider;
+    if ( [self.superview isKindOfClass:[UIScrollView class]] ) {
+        UIScrollView *superScroll = (UIScrollView *)self.superview;
+        superScroll.scrollEnabled = !isDragSlider;
+    }
+    if ( _sliderDragCallback ) {
+        _sliderDragCallback(isDragSlider);
+    }
+}
+
+
+- (void)tapSliderAction:(UITapGestureRecognizer *)tap {
+    if ([tap.view isKindOfClass:[UISlider class]]) {
+        UISlider *slider = (UISlider *)tap.view;
+        CGPoint point = [tap locationInView:slider];
+        CGFloat length = slider.frame.size.width;
+        // 视频跳转的value
+        CGFloat tapValue = point.x / length;
+        
+        CGFloat total = _playerView.duration;
+        CMTime dragedCMTime  = CMTimeMake(tapValue *total, 1);
+        [self endSlideTheVideo:dragedCMTime];
+    }
+}
+
+- (void)progressSliderTouchBegan:(UISlider *)slider {
+    self.isDragSlider = YES;
+}
+
+- (void)progressSliderValueChanged:(UISlider *)sender {
+    CGFloat changetime = sender.value *_playerView.duration;
+    [self updateCurrentTime:changetime];
+}
+
+- (void)progressSliderTouchEnded:(UISlider *)slider {
+    //计算出拖动的当前秒数
+    CGFloat total = _playerView.duration;
+    
+    NSInteger dragedSeconds = floorf(total * slider.value);
+    CMTime dragedCMTime  = CMTimeMake(dragedSeconds, 1);
+    
+    [self endSlideTheVideo:dragedCMTime];
+}
+
+- (void)endSlideTheVideo:(CMTime)dragedCMTime {
+    WeakSelf(self)
+    [_playerView.videoPlayer seekToTime:dragedCMTime toleranceBefore:CMTimeMake(1, 1000) toleranceAfter:CMTimeMake(1, 1000) completionHandler:^(BOOL finish){
+        weakself.isDragSlider = NO;
+    }];
+}
+
+
+- (void)updateCurrentTime:(CGFloat)time {
+    long videocurrent = ceil(time);
+    
+    NSString *str =  [NSString stringWithFormat:@"%02li:%02li",lround(floor(videocurrent/60.f)),lround(floor(videocurrent/1.f))%60];
+    _currentTimeLabel.text = str;
+}
+
+- (void)updateTotolTime:(CGFloat)time {
+    long videoLenth = ceil(time);
+    NSString *strtotal = [NSString stringWithFormat:@"%02li:%02li",lround(floor(videoLenth/60.f)),lround(floor(videoLenth/1.f))%60];
+    _totalTimeLabel.text = strtotal;
+}
 
 @end

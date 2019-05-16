@@ -15,6 +15,9 @@ extern const CGFloat kKSPhotoViewPadding;
 
 @protocol KSImageManager;
 @class KSPhotoItem;
+@class KSPlayerView;
+
+typedef void(^DragSliderCallback)(BOOL isDraged);
 
 @interface KSPhotoView : UIScrollView
 
@@ -26,6 +29,10 @@ extern const CGFloat kKSPhotoViewPadding;
 - (void)setItem:(KSPhotoItem *)item determinate:(BOOL)determinate;
 - (void)resizeImageView;
 - (void)cancelCurrentImageLoad;
+
+// video player
+@property (nonatomic, assign) CGRect playerFrame;
+@property (nonatomic, copy) DragSliderCallback sliderDragCallback;
 
 @end
 
