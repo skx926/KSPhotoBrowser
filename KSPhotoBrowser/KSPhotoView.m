@@ -101,7 +101,7 @@ const CGFloat kKSPhotoViewMaxScale = 3;
     //时间
     _currentTimeLabel = [[UILabel alloc] init];
     _currentTimeLabel.font = timeFont;
-    _currentTimeLabel.textColor = [UIColor whiteColor];
+    _currentTimeLabel.textColor = [UIColor blackColor];
     _currentTimeLabel.textAlignment = NSTextAlignmentCenter;
     _currentTimeLabel.preferredMaxLayoutWidth = 200;
     [self addSubview:_currentTimeLabel];
@@ -111,7 +111,7 @@ const CGFloat kKSPhotoViewMaxScale = 3;
     
     _totalTimeLabel = [[UILabel alloc]init];
     _totalTimeLabel.font = _currentTimeLabel.font;
-    _totalTimeLabel.textColor = [UIColor whiteColor];
+    _totalTimeLabel.textColor = [UIColor blackColor];
     _totalTimeLabel.textAlignment = NSTextAlignmentCenter;
     _totalTimeLabel.preferredMaxLayoutWidth = 200;
     [self addSubview:_totalTimeLabel];
@@ -365,6 +365,13 @@ const CGFloat kKSPhotoViewMaxScale = 3;
     _currentTimeLabel.hidden = hidden;
     _totalTimeLabel.hidden = hidden;
     _playButton.hidden = hidden;
+    if ( !hidden ) {
+        [self bringSubviewToFront:_playerView];
+        [self bringSubviewToFront:_progressSlider];
+        [self bringSubviewToFront:_currentTimeLabel];
+        [self bringSubviewToFront:_totalTimeLabel];
+        [self bringSubviewToFront:_playButton];
+    }
 }
 
 // slider
