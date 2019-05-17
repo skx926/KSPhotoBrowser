@@ -567,6 +567,7 @@ static Class ImageViewClass = nil;
     
     _pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(didPan:)];
     _pan.delegate = self;
+    _pan.maximumNumberOfTouches = 1;
     [self.view addGestureRecognizer:_pan];
 }
 
