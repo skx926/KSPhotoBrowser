@@ -15,7 +15,6 @@
 		27F9772D1E1B933C00AFB315 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 27F9772C1E1B933C00AFB315 /* Assets.xcassets */; };
 		27F977301E1B933C00AFB315 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 27F9772E1E1B933C00AFB315 /* LaunchScreen.storyboard */; };
 		4DF3A413939562BF8A40603C /* libPods-KSPhotoBrowserDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 600B0C255336BD7C62D18A2E /* libPods-KSPhotoBrowserDemo.a */; };
-		F2AD73BC21131A3B0065171B /* KSYYImageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F2AD73BB21131A3A0065171B /* KSYYImageManager.m */; };
 		F7F281321EB45F8E000C5561 /* KSPhotoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F7F281311EB45F8E000C5561 /* KSPhotoCell.m */; };
 		F7F2818A1EB6E3F5000C5561 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7F281891EB6E3F5000C5561 /* UIKit.framework */; };
 		F7F2818C1EB6E3FE000C5561 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7F2818B1EB6E3FE000C5561 /* CoreFoundation.framework */; };
@@ -44,8 +43,6 @@
 		600B0C255336BD7C62D18A2E /* libPods-KSPhotoBrowserDemo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-KSPhotoBrowserDemo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7DB0997989D2CDB9B974C2FA /* Pods-KSPhotoBrowserDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KSPhotoBrowserDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-KSPhotoBrowserDemo/Pods-KSPhotoBrowserDemo.release.xcconfig"; sourceTree = "<group>"; };
 		87AB18B986ED633B11439023 /* Pods-KSPhotoBrowserDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KSPhotoBrowserDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-KSPhotoBrowserDemo/Pods-KSPhotoBrowserDemo.debug.xcconfig"; sourceTree = "<group>"; };
-		F2AD73BA21131A3A0065171B /* KSYYImageManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSYYImageManager.h; sourceTree = "<group>"; };
-		F2AD73BB21131A3A0065171B /* KSYYImageManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSYYImageManager.m; sourceTree = "<group>"; };
 		F7F281301EB45F8E000C5561 /* KSPhotoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSPhotoCell.h; sourceTree = "<group>"; };
 		F7F281311EB45F8E000C5561 /* KSPhotoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSPhotoCell.m; sourceTree = "<group>"; };
 		F7F281891EB6E3F5000C5561 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -103,8 +100,6 @@
 			children = (
 				27F977231E1B933C00AFB315 /* AppDelegate.h */,
 				27F977241E1B933C00AFB315 /* AppDelegate.m */,
-				F2AD73BA21131A3A0065171B /* KSYYImageManager.h */,
-				F2AD73BB21131A3A0065171B /* KSYYImageManager.m */,
 				27B963931E1BACE600F32BAE /* KSDemoViewController.h */,
 				27B963941E1BACE600F32BAE /* KSDemoViewController.m */,
 				27B963951E1BACE600F32BAE /* KSPreviewViewController.h */,
@@ -186,7 +181,7 @@
 				TargetAttributes = {
 					27F9771C1E1B933C00AFB315 = {
 						CreatedOnToolsVersion = 8.2;
-						DevelopmentTeam = 7LLFP9K7Y8;
+						DevelopmentTeam = N2EGGRKXKW;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -196,6 +191,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -249,7 +245,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				27B963971E1BACE600F32BAE /* KSDemoViewController.m in Sources */,
-				F2AD73BC21131A3B0065171B /* KSYYImageManager.m in Sources */,
 				27F977251E1B933C00AFB315 /* AppDelegate.m in Sources */,
 				27F977221E1B933C00AFB315 /* main.m in Sources */,
 				27B963981E1BACE600F32BAE /* KSPreviewViewController.m in Sources */,
@@ -384,11 +379,11 @@
 			baseConfigurationReference = 87AB18B986ED633B11439023 /* Pods-KSPhotoBrowserDemo.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 7LLFP9K7Y8;
+				DEVELOPMENT_TEAM = N2EGGRKXKW;
 				INFOPLIST_FILE = KSPhotoBrowserDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.skx926.KSPhotoBrowserDemo;
+				PRODUCT_BUNDLE_IDENTIFIER = com.skx926.KSPhotoBrowserDemo1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -399,11 +394,11 @@
 			baseConfigurationReference = 7DB0997989D2CDB9B974C2FA /* Pods-KSPhotoBrowserDemo.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 7LLFP9K7Y8;
+				DEVELOPMENT_TEAM = N2EGGRKXKW;
 				INFOPLIST_FILE = KSPhotoBrowserDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.skx926.KSPhotoBrowserDemo;
+				PRODUCT_BUNDLE_IDENTIFIER = com.skx926.KSPhotoBrowserDemo1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

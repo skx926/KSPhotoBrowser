@@ -8,9 +8,7 @@
 
 #import "KSPreviewViewController.h"
 #import "KSPhotoCell.h"
-#import "KSYYImageManager.h"
 #import <KSPhotoBrowser/KSSDImageManager.h>
-#import <YYWebImage/YYWebImage.h>
 #import <SDWebImage/UIImageView+WebCache.h>
 #import <SDWebImage/SDAnimatedImageView.h>
 
@@ -52,12 +50,7 @@ static NSString * const kAvatarUrl = @"https://tvax2.sinaimg.cn/crop.0.0.750.750
     for (int i = 0; i < 10; i++) {
         [_urls addObjectsFromArray:urls];
     }
-    if (_imageManagerType == KSImageManagerTypeSDWebImage) {
-        [KSPhotoBrowser setImageManagerClass:KSSDImageManager.class];
-    } else {
-        [KSPhotoBrowser setImageManagerClass:KSYYImageManager.class];
-    }
-    KSPhotoBrowser.imageViewBackgroundColor = UIColor.redColor;
+    KSPhotoBrowser.imageViewBackgroundColor = UIColor.cyanColor;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -110,11 +103,7 @@ static NSString * const kAvatarUrl = @"https://tvax2.sinaimg.cn/crop.0.0.750.750
     KSPhotoCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"PhotoCell" forIndexPath:indexPath];
     
     NSString *url = _urls[indexPath.row];
-    if (_imageManagerType == KSImageManagerTypeSDWebImage) {
-        [cell.imageView sd_setImageWithURL:[NSURL URLWithString:url]];
-    } else {
-        cell.imageView.yy_imageURL = [NSURL URLWithString:url];
-    }
+    [cell.imageView sd_setImageWithURL:[NSURL URLWithString:url]];
     if (indexPath.item % 3 == 0) {
         cell.type = KSPhotoCellTypeRect;
     } else if (indexPath.item % 3 == 1) {

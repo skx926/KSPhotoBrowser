@@ -1,1 +1,0 @@
-../../../YYWebImage/YYWebImage/YYWebImageManager.h

@@ -21,7 +21,6 @@ typedef NS_ENUM(NSInteger, KSImageManagerType) {
 @property (nonatomic, assign) KSPhotoBrowserPageIndicatorStyle pageindicatorStyle;
 @property (nonatomic, assign) KSPhotoBrowserImageLoadingStyle loadingStyle;
 @property (nonatomic, assign) BOOL bounces;
-@property (nonatomic, assign) KSImageManagerType imageManagerType;
 
 @end
 
